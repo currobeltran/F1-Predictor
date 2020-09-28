@@ -3,7 +3,7 @@ Proyecto para la asignatura de Infraestructura Virtual de 4º curso de Ingenier�
 
 ## Descripción de funcionalidad
 
-Esta aplicación nos permitirá, comparando datos de varias carreras en un mismo circuito, ver que sucesos son más o menos probables que ocurran.
+Esta aplicación nos permitirá, comparando datos de varios grandes premios en un mismo circuito, ver que sucesos (como pueden ser accidentes, adelantamientos, posibles ganadores...) son más o menos probables que ocurran durante una carrera.
 
 ## Herramientas utilizadas
 
