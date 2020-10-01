@@ -12,7 +12,7 @@ Esta aplicación nos permitirá, comparando datos de varios grandes premios en u
 ## Documentación adicional
 
 - [¿Por qué he usado estas herramientas?](./docs/herramientas.md)
-- [¿Cómo he configurado git?](./docs/configuraciongit.md)
+- [¿Cómo he configurado git?](./docs/configuracion.md)
 
 ## Autor
 
