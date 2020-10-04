@@ -8,6 +8,8 @@ Esta aplicación nos permitirá, comparando datos de varios grandes premios en u
 ## Herramientas utilizadas
 
 - Lenguaje utilizado: [Go](https://golang.org/)
+- Base de datos: [MySQL-phpMyAdmin](https://www.phpmyadmin.net/)
+- Servicio de logs: [LogRocket](https://logrocket.com/)
 
 ## Documentación adicional
 
