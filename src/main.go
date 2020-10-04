@@ -1,7 +1,7 @@
 package main
 
 import (
-	f1predictor "f1predictor"
+	f1predictor "./f1predictor"
 )
 
 func main() {
