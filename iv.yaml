@@ -1,9 +1,9 @@
 entidad: 
-  - /src/main.go
-  - /src/f1predictor/circuito.go
-  - /src/f1predictor/escuderia.go
-  - /src/f1predictor/estadisticas.go
-  - /src/f1predictor/piloto.go
-  - /src/f1predictor/resultado.go
-  - /src/f1predictor/sesion.go
-  - /src/f1predictor/tiempo.go
+  - src/main.go
+  - src/f1predictor/circuito.go
+  - src/f1predictor/escuderia.go
+  - src/f1predictor/estadisticas.go
+  - src/f1predictor/piloto.go
+  - src/f1predictor/resultado.go
+  - src/f1predictor/sesion.go
+  - src/f1predictor/tiempo.go
