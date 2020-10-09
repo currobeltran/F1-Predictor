@@ -1,20 +1,25 @@
 # F1-Predictor
 Proyecto para la asignatura de Infraestructura Virtual de 4º curso de Ingeniería Informática
 
-## Descripción de funcionalidad
+## ¿Por qué F1 Predictor? Motivación del proyecto
 
-Esta aplicación nos permitirá, comparando datos de varios grandes premios en un mismo circuito, ver que sucesos (como pueden ser accidentes, adelantamientos, posibles ganadores...) son más o menos probables que ocurran durante una carrera.
+En Fórmula 1, como en cualquier otra modalidad deportiva, las estadísticas juegan un papel fundamental. Todos los equipos están calculando probabilidades sobre que suceso puede o no ocurrir a cada momento, para anticiparse a los rivales y sacar el mejor resultado posible. Por ejemplo, en una situación de bandera amarilla o de Safety Car, si el equipo está preparado para ello con la estrategia más adecuada, puede hacerle conseguir un resultado que en condiciones normales no podría ser posible. También sería útil para dichos equipos deducir como enfocar un Gran Premio dependiendo de estadísticas relacionadas con el circuito, como pueden ser los adelantamientos, ya que no será igual correr en un circuito donde históricamente se adelanta muy poco que en otro donde se producen muchos eventos de este tipo.
 
-## Herramientas utilizadas
+Además, los más aficionados suelen buscar estadísticas antes de cada Gran Premio, para ver datos históricos de dicho circuito, records marcados, los ganadores de los grandes premios anteriores, entre otros muchos datos con el objetivo de aumentar sus conocimientos sobre la categoría.
 
-- Lenguaje utilizado: [Go](https://golang.org/)
-- Base de datos: [MySQL-phpMyAdmin](https://www.phpmyadmin.net/)
-- Servicio de logs: [LogRocket](https://logrocket.com/)
+Nuestra aplicación tratará información de manera básica, pero intentando cumplir los objetivos mencionados aquí arriba sentando una base que en un futuro podría mejorar a un servicio más especializado; con métodos para el cálculo de probabilidades de eventos más precisos.
+
+## ¿Qué pasos se han seguido para realizar el proyecto?
+
+Durante este proyecto se han ido cumpliendo distintos hitos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
 
 ## Documentación adicional
 
+En cuanto a otra información de interés, tenemos los siguientes puntos:
+
 - [¿Por qué he usado estas herramientas?](./docs/herramientas.md)
 - [¿Cómo he configurado git?](./docs/configuracion.md)
+- [¿Qué historias de usuario se están siguiendo?](./docs/hu.md)
 
 ## Autor
 
