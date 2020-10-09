@@ -13,6 +13,18 @@ Nuestra aplicación tratará información de manera básica, pero intentando cum
 
 Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
 
+## Código fuente e instalación
+
+Puede ver el código de la aplicación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src)
+
+A la hora de realizar la instalación de la aplicación, primero debemos generar el binario que se ejecutará. Para ello, se tiene que introducir el siguiente comando:
+
+`go build ruta-hasta-main.go`
+
+Después de esto y para ejecutar el programa, tendríamos que escribir:
+
+`go run ruta-hasta-binario`
+
 ## Documentación adicional
 
 En cuanto a otra información de interés, tenemos los siguientes puntos:
