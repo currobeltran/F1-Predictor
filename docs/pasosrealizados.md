@@ -1,4 +1,4 @@
-# Pasos realizados para realizar el proyecto
+# Pasos realizados para el proyecto
 
 ## Hito 0: Comienzo del proyecto
 
