@@ -11,7 +11,7 @@ Nuestra aplicación tratará información de manera básica, pero intentando cum
 
 ## ¿Qué pasos se han seguido para realizar el proyecto?
 
-Durante este proyecto se han ido cumpliendo distintos hitos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
+Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
 
 ## Documentación adicional
 
