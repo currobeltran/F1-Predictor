@@ -16,7 +16,7 @@ type Circuito struct {
 	resultados     []ResultadoGP
 }
 
-type MétodosCircuito interface {
+type MetodosCircuito interface {
 	Constructor(nombre string, pais string)
 
 	GetNombre() string
