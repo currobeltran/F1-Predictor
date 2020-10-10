@@ -92,22 +92,22 @@ func (c *Circuito) Media(estadistica string) float32 {
 	for i := 0; i < len(c.resultados); i++ {
 		switch estadistica {
 		case "accidentes":
-			acumulado += c.resultados[i].Estadisticas.Accidentes
+			acumulado += c.resultados[i].Estadisticas.GetAccidentes()
 			break
 		case "banderasAmarillas":
-			acumulado += c.resultados[i].Estadisticas.BanderasAmarillas
+			acumulado += c.resultados[i].Estadisticas.GetBanderasAmarillas()
 			break
 		case "banderasRojas":
-			acumulado += c.resultados[i].Estadisticas.BanderasRojas
+			acumulado += c.resultados[i].Estadisticas.GetBanderasRojas()
 			break
 		case "adelantamientos":
-			acumulado += c.resultados[i].Estadisticas.Adelantamientos
+			acumulado += c.resultados[i].Estadisticas.GetAdelantamientos()
 			break
 		case "sanciones":
-			acumulado += c.resultados[i].Estadisticas.Sanciones
+			acumulado += c.resultados[i].Estadisticas.GetSanciones()
 			break
 		case "numeroSafetyCar":
-			acumulado += c.resultados[i].Estadisticas.NumeroSafetyCar
+			acumulado += c.resultados[i].Estadisticas.GetNumeroSafetyCar()
 			break
 		case "default":
 			break
