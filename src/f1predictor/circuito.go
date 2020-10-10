@@ -90,24 +90,26 @@ func (c *Circuito) Media(estadistica string) float32 {
 	var x float32 = 0
 
 	for i := 0; i < len(c.resultados); i++ {
+		var est EstadisticasGP = c.resultados[i].GetEstadisticas()
+
 		switch estadistica {
 		case "accidentes":
-			acumulado += c.resultados[i].Estadisticas.GetAccidentes()
+			acumulado += est.GetAccidentes()
 			break
 		case "banderasAmarillas":
-			acumulado += c.resultados[i].Estadisticas.GetBanderasAmarillas()
+			acumulado += est.GetBanderasAmarillas()
 			break
 		case "banderasRojas":
-			acumulado += c.resultados[i].Estadisticas.GetBanderasRojas()
+			acumulado += est.GetBanderasRojas()
 			break
 		case "adelantamientos":
-			acumulado += c.resultados[i].Estadisticas.GetAdelantamientos()
+			acumulado += est.GetAdelantamientos()
 			break
 		case "sanciones":
-			acumulado += c.resultados[i].Estadisticas.GetSanciones()
+			acumulado += est.GetSanciones()
 			break
 		case "numeroSafetyCar":
-			acumulado += c.resultados[i].Estadisticas.GetNumeroSafetyCar()
+			acumulado += est.GetNumeroSafetyCar()
 			break
 		case "default":
 			break
