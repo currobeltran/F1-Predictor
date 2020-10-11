@@ -1,5 +1,7 @@
 package f1predictor
 
+import "strconv"
+
 /*
  * Clase que recoge las estadísticas de un GP concreto. Entre sus atributos están:
  *
@@ -45,6 +47,8 @@ type MetodosEstadistica interface {
 
 	GetMejorVuelta() TiempoVuelta
 	SetMejorVuelta(mejorVuelta TiempoVuelta)
+
+	VerEstadisticasGP(ac bool, nsc bool, ad bool, ba bool, br bool, san bool, mv bool) string
 }
 
 func (e *EstadisticasGP) Constructor(ac int, nsc int, ad int, ba int,
@@ -113,4 +117,55 @@ func (e *EstadisticasGP) GetMejorVuelta() TiempoVuelta {
 
 func (e *EstadisticasGP) SetMejorVuelta(mejorVuelta TiempoVuelta) {
 	e.mejorVuelta = mejorVuelta
+}
+
+/* Método para visualizar las estadísticas de un Gran Premio de manera ordenada
+ *
+ */
+
+func (e EstadisticasGP) VerEstadisticasGP(ac bool, nsc bool, ad bool,
+	ba bool, br bool, san bool, mv bool) string {
+
+	var ret string
+
+	if ad {
+		var adelantamientos string = ("Número de adelantamientos: " + strconv.Itoa(e.adelantamientos) + "\n")
+		ret += adelantamientos
+	}
+
+	if ac {
+		var accidentes string = ("Número de accidentes: " + strconv.Itoa(e.accidentes) + "\n")
+		ret += accidentes
+	}
+
+	if nsc {
+		var safetycars string = ("Número de coches de seguridad: " + strconv.Itoa(e.numeroSafetyCar) + "\n")
+		ret += safetycars
+	}
+
+	if ba {
+		var banderasAmarillas string = ("Número de banderas amarillas: " + strconv.Itoa(e.banderasAmarillas) + "\n")
+		ret += banderasAmarillas
+	}
+
+	if br {
+		var banderasRojas string = ("Número de banderas rojas: " + strconv.Itoa(e.banderasRojas) + "\n")
+		ret += banderasRojas
+	}
+
+	if san {
+		var sanciones string = ("Número de sanciones: " + strconv.Itoa(e.sanciones) + "\n")
+		ret += sanciones
+	}
+
+	if mv {
+		var mejor string = (strconv.Itoa(e.mejorVuelta.GetMinuto()) + ":" +
+			strconv.Itoa(e.mejorVuelta.GetSegundo()) + "." + strconv.Itoa(e.mejorVuelta.GetMilesima()))
+
+		var mejorVuelta string = ("Tiempo de la mejor vuelta: " + mejor + "\n")
+
+		ret += mejorVuelta
+	}
+
+	return ret
 }
