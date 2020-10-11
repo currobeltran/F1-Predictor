@@ -1,5 +1,7 @@
 package f1predictor
 
+import "strconv"
+
 /* Clase donde se define una escudería (o equipo) de Fórmula 1. En el se encuentran
  * los siguientes atributos:
  *
@@ -40,6 +42,8 @@ type MetodosEscuderia interface {
 
 	GetVueltasRapidas() int
 	SetVueltasRapidas(vr int)
+
+	VerDatosEscuderia(n bool, p bool, m bool, v bool, pol bool, vr bool) string
 }
 
 func (e *Escuderia) Constructor(nombre string, pilotos [2]Piloto, titulos int,
@@ -54,7 +58,7 @@ func (e *Escuderia) Constructor(nombre string, pilotos [2]Piloto, titulos int,
 
 }
 
-func (e *Escuderia) GetNombre() string {
+func (e Escuderia) GetNombre() string {
 	return e.nombre
 }
 
@@ -62,7 +66,7 @@ func (e *Escuderia) SetNombre(nombre string) {
 	e.nombre = nombre
 }
 
-func (e *Escuderia) GetPilotos() [2]Piloto {
+func (e Escuderia) GetPilotos() [2]Piloto {
 	return e.pilotos
 }
 
@@ -70,7 +74,7 @@ func (e *Escuderia) SetPilotos(pilotos [2]Piloto) {
 	e.pilotos = pilotos
 }
 
-func (e *Escuderia) GetTitulosMundiales() int {
+func (e Escuderia) GetTitulosMundiales() int {
 	return e.titulosMundiales
 }
 
@@ -78,7 +82,7 @@ func (e *Escuderia) SetTitulosMundiales(titulosMundiales int) {
 	e.titulosMundiales = titulosMundiales
 }
 
-func (e *Escuderia) GetVictorias() int {
+func (e Escuderia) GetVictorias() int {
 	return e.victorias
 }
 
@@ -86,7 +90,7 @@ func (e *Escuderia) SetVictorias(victorias int) {
 	e.victorias = victorias
 }
 
-func (e *Escuderia) GetPoles() int {
+func (e Escuderia) GetPoles() int {
 	return e.poles
 }
 
@@ -94,10 +98,53 @@ func (e *Escuderia) SetPoles(poles int) {
 	e.poles = poles
 }
 
-func (e *Escuderia) GetVueltasRapidas() int {
+func (e Escuderia) GetVueltasRapidas() int {
 	return e.vueltasRapidas
 }
 
 func (e *Escuderia) SetVueltasRapidas(vr int) {
 	e.vueltasRapidas = vr
+}
+
+/* Método para visualizar ordenadamente la información sobre una escuderia. Se pueden seleccionar
+ * los campos que se desean visualizar y los que no.
+ *
+ */
+
+func (e Escuderia) VerDatosEscuderia(n bool, p bool, m bool, v bool, pol bool, vr bool) string {
+	var ret string
+
+	if n {
+		var nombre string = ("Nombre de la escuderia: " + e.nombre + "\n")
+		ret += nombre
+	}
+
+	if p {
+		var pilotos string = ("Pilotos de la escuderia: " + e.pilotos[0].GetNombre() +
+			" y " + e.pilotos[1].GetNombre() + "\n")
+
+		ret += pilotos
+	}
+
+	if m {
+		var mundiales string = ("Mundiales obtenidos: " + strconv.Itoa(e.titulosMundiales))
+		ret += mundiales
+	}
+
+	if v {
+		var victorias string = ("Victorias conseguidas: " + strconv.Itoa(e.victorias))
+		ret += victorias
+	}
+
+	if pol {
+		var poles string = ("Pole positions conseguidas: " + strconv.Itoa(e.poles))
+		ret += poles
+	}
+
+	if vr {
+		var vueltasRapidas string = ("Vueltas rápidas conseguidas: " + strconv.Itoa(e.vueltasRapidas))
+		ret += vueltasRapidas
+	}
+
+	return ret
 }
