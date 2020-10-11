@@ -1,5 +1,7 @@
 package f1predictor
 
+import "strconv"
+
 /*
  * Clase circuito con la podremos acceder a distintos datos correspondientes
  * a un circuito del campeonato de Formula 1. Los atributos son:
@@ -33,6 +35,8 @@ type MetodosCircuito interface {
 	SetResultadoByIndex(i int, resultado ResultadoGP)
 
 	Media(estadistica string) float32
+
+	VerDatosCircuito(n bool, p bool, t bool) string
 }
 
 func (c *Circuito) Constructor(nombre string, pais string) {
@@ -44,7 +48,7 @@ func (c *Circuito) Constructor(nombre string, pais string) {
 	c.recordCircuito = tmp
 }
 
-func (c *Circuito) GetNombre() string {
+func (c Circuito) GetNombre() string {
 	return c.nombre
 }
 
@@ -52,7 +56,7 @@ func (c *Circuito) SetNombre(nombre string) {
 	c.nombre = nombre
 }
 
-func (c *Circuito) GetPais() string {
+func (c Circuito) GetPais() string {
 	return c.pais
 }
 
@@ -60,7 +64,7 @@ func (c *Circuito) SetPais(pais string) {
 	c.pais = pais
 }
 
-func (c *Circuito) GetRecordCircuito() TiempoVuelta {
+func (c Circuito) GetRecordCircuito() TiempoVuelta {
 	return c.recordCircuito
 }
 
@@ -68,7 +72,7 @@ func (c *Circuito) SetRecordCircuito(nuevoRecord TiempoVuelta) {
 	c.recordCircuito = nuevoRecord
 }
 
-func (c *Circuito) GetResultados() []ResultadoGP {
+func (c Circuito) GetResultados() []ResultadoGP {
 	return c.resultados
 }
 
@@ -85,7 +89,7 @@ func (c *Circuito) SetResultadosByIndex(i int, resultado ResultadoGP) {
  * concreto
  */
 
-func (c *Circuito) Media(estadistica string) float32 {
+func (c Circuito) Media(estadistica string) float32 {
 	var acumulado int = 0
 	var x float32 = 0
 
@@ -120,4 +124,35 @@ func (c *Circuito) Media(estadistica string) float32 {
 	x = float32(acumulado) / float32(len(c.resultados))
 
 	return x
+}
+
+/*
+ * Método para ver de manera ordenada la información correspondiente a un
+ * circuito. Se puede seleccionar que datos se quieren ver y cuales no.
+ */
+
+func (c Circuito) VerDatosCircuito(n bool, p bool, t bool) string {
+	var ret string
+
+	if n {
+		var nombre string = ("Nombre del circuito: " + c.nombre + "\n")
+		ret += nombre
+	}
+
+	if p {
+		var pais string = ("País: " + c.pais + "\n")
+		ret += pais
+	}
+
+	if t {
+		var record string = (strconv.Itoa(c.recordCircuito.GetMinuto()) + ":" +
+			strconv.Itoa(c.recordCircuito.GetSegundo()) + "." +
+			strconv.Itoa(c.recordCircuito.GetMilesima()) + "\n")
+
+		var tiempo string = ("Record de la pista: " + record)
+
+		ret += tiempo
+	}
+
+	return ret
 }
