@@ -167,7 +167,7 @@ func (r ResultadoGP) SetEstadisticas(est EstadisticasGP) {
 /* Método con el que se podrá visualizar de manera ordenada la clasificación de una
  * sesión del Gran Premio
  */
-func (r ResultadoGP) VerClasificacionSesion(pilotos []SesionPiloto) string {
+func (r ResultadoGP) VerClasificacionSesion(pilotos [20]SesionPiloto) string {
 	var ret string
 
 	for i := 0; i < len(pilotos); i++ {
@@ -180,6 +180,83 @@ func (r ResultadoGP) VerClasificacionSesion(pilotos []SesionPiloto) string {
 			" Mejor Tiempo: " + mejor + "\n")
 
 		ret += linea
+	}
+
+	return ret
+}
+
+/* Método para visualizar los resultados de un Gran Premio de manera ordenada. Se puede seleccionar
+ * que información se desea que aparezca.
+ */
+func (r ResultadoGP) VerDatosGranPremio(fp1 bool, fp2 bool, fp3 bool, q bool, c bool, g bool,
+	pol bool, p bool, t bool, e bool) string {
+
+	var ret string
+
+	if fp1 {
+		var clas string = r.VerClasificacionSesion(r.resultadoFP1)
+		var libres1 string = ("Resultado Libres 1: \n" + clas)
+
+		ret += libres1
+	}
+
+	if fp2 {
+		var clas string = r.VerClasificacionSesion(r.resultadoFP2)
+		var libres2 string = ("Resultado Libres 2: \n" + clas)
+
+		ret += libres2
+	}
+
+	if fp3 {
+		var clas string = r.VerClasificacionSesion(r.resultadoFP3)
+		var libres3 string = ("Resultado Libres 1: \n" + clas)
+
+		ret += libres3
+	}
+
+	if q {
+		var clas string = r.VerClasificacionSesion(r.resultadoClasificacion)
+		var qualy string = ("Resultado Clasificación: \n" + clas)
+
+		ret += qualy
+	}
+
+	if c {
+		var clas string = r.VerClasificacionSesion(r.resultadoCarrera)
+		var carrera string = ("Resultado Clasificación: \n" + clas)
+
+		ret += carrera
+	}
+
+	if g {
+		var ganador string = ("Ganador del Gran Premio: " + r.ganador.GetNombre() + "\n")
+
+		ret += ganador
+	}
+
+	if pol {
+		var poleman string = ("Poleman del Gran Premio: " + r.poleman.GetNombre() + "\n")
+
+		ret += poleman
+	}
+
+	if p {
+		var podio string = ("Podio del Gran Premio: \n1º posición: " + r.podio[0].GetNombre() +
+			"\n2º posición: " + r.podio[1].GetNombre() + "\n3º posición: " + r.podio[2].GetNombre() + "\n")
+
+		ret += podio
+	}
+
+	if t {
+		var temporada string = ("Gran Premio correspondiente a la temporada: " + strconv.Itoa(r.temporada) + "\n")
+
+		ret += temporada
+	}
+
+	if e {
+		var estadisticas string = r.estadisticas.VerEstadisticasGP(true, true, true, true, true, true, true)
+
+		ret += estadisticas
 	}
 
 	return ret
