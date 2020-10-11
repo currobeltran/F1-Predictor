@@ -1,5 +1,7 @@
 package f1predictor
 
+import "strconv"
+
 /* Clase donde se almacenan los resultados correspondientes a un Gran Premio. Los atributos son:
  *
  *		- Resultado de los Entrenamientos Libres 1
@@ -60,6 +62,11 @@ type MetodosResultado interface {
 
 	GetEstadisticas() EstadisticasGP
 	SetEstadisticas(est EstadisticasGP)
+
+	VerClasificacionSesion(pilotos []SesionPiloto) string
+
+	VerDatosGranPremio(fp1 bool, fp2 bool, fp3 bool, q bool, c bool, g bool,
+		pol bool, p bool, t bool, e bool) string
 }
 
 func (r *ResultadoGP) Constructor(fp1 [20]SesionPiloto, fp2 [20]SesionPiloto, fp3 [20]SesionPiloto,
@@ -155,4 +162,25 @@ func (r ResultadoGP) GetEstadisticas() EstadisticasGP {
 
 func (r ResultadoGP) SetEstadisticas(est EstadisticasGP) {
 	r.estadisticas = est
+}
+
+/* Método con el que se podrá visualizar de manera ordenada la clasificación de una
+ * sesión del Gran Premio
+ */
+func (r ResultadoGP) VerClasificacionSesion(pilotos []SesionPiloto) string {
+	var ret string
+
+	for i := 0; i < len(pilotos); i++ {
+		var pil SesionPiloto = pilotos[i]
+
+		var mejor string = (strconv.Itoa(pil.GetMejorTiempo().GetMinuto()) + ":" +
+			strconv.Itoa(pil.GetMejorTiempo().GetSegundo()) + "." + strconv.Itoa(pil.GetMejorTiempo().GetMilesima()))
+
+		var linea string = (strconv.Itoa(i+1) + "º posición: " + pil.GetPiloto().GetNombre() +
+			" Mejor Tiempo: " + mejor + "\n")
+
+		ret += linea
+	}
+
+	return ret
 }
