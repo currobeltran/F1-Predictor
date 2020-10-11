@@ -38,7 +38,7 @@ type MetodosPiloto interface {
 	GetMundiales() int
 	SetMundiales(mundiales int)
 
-	VerDatosPiloto() string
+	VerDatosPiloto(n bool, v bool, pol bool, vr bool, m bool) string
 }
 
 func (p *Piloto) Constructor(nombre string, victorias int,
