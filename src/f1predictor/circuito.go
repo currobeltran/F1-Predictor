@@ -46,6 +46,8 @@ func (c *Circuito) Constructor(nombre string, pais string) {
 	var tmp TiempoVuelta
 	tmp.Constructor(0, 0, 0)
 	c.recordCircuito = tmp
+
+	c.resultados = make([]ResultadoGP, 1)
 }
 
 func (c Circuito) GetNombre() string {
