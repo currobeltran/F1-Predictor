@@ -3,6 +3,7 @@ package f1predictor
 import (
 	"os"
 	"reflect"
+	"regexp"
 	"testing"
 )
 
@@ -149,5 +150,37 @@ func TestMedia(t *testing.T) {
 
 	if melbourne.Media("sanciones") != 0 {
 		t.Errorf("Media sanciones incorrecta, resultado obtenido %f, esperado %f", melbourne.Media("sanciones"), 0.0)
+	}
+}
+
+func TestVerDatosCircuito(t *testing.T) {
+	t.Log("Test VerDatosCircuito")
+
+	var str string = melbourne.VerDatosCircuito(true, true, true)
+	var matched, matched2, matched3 bool
+
+	matched, _ = regexp.MatchString("Nombre", str)
+	matched2, _ = regexp.MatchString("País", str)
+	matched3, _ = regexp.MatchString("Record", str)
+
+	if !(matched && matched2 && matched3) {
+		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", str)
+	}
+
+	str = melbourne.VerDatosCircuito(true, true, false)
+
+	matched, _ = regexp.MatchString("Nombre", str)
+	matched2, _ = regexp.MatchString("País", str)
+
+	if !(matched && matched2) {
+		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", str)
+	}
+
+	str = melbourne.VerDatosCircuito(false, true, false)
+
+	matched2, _ = regexp.MatchString("País", str)
+
+	if !matched2 {
+		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", str)
 	}
 }
