@@ -118,3 +118,36 @@ func TestSetResultadoByIndex(t *testing.T) {
 		t.Errorf("El indice no se modifica correctamente")
 	}
 }
+
+func TestMedia(t *testing.T) {
+	t.Log("Test Media")
+
+	melbourne.SetResultados(melbourne.GetResultados()[:0]) //Limpiamos datos anteriores del vector
+
+	melbourne.SetResultados(append(melbourne.GetResultados(), resultado))
+	melbourne.SetResultados(append(melbourne.GetResultados(), resultado2))
+
+	if melbourne.Media("accidentes") != 3 {
+		t.Errorf("Media accidentes incorrecta, resultado obtenido %f, esperado %f", melbourne.Media("accidentes"), 3.0)
+	}
+
+	if melbourne.Media("numeroSafetyCar") != 2 {
+		t.Errorf("Media Safety Car incorrecta, resultado obtenido %f, esperado %f", melbourne.Media("numeroSafetyCar"), 2.0)
+	}
+
+	if melbourne.Media("adelantamientos") != 8 {
+		t.Errorf("Media adelantamientos incorrecta, resultado obtenido %f, esperado %f", melbourne.Media("adelantamientos"), 8.0)
+	}
+
+	if melbourne.Media("banderasAmarillas") != 7.5 {
+		t.Errorf("Media banderas amarillas incorrecta, resultado obtenido %f, esperado %f", melbourne.Media("banderasAmarillas"), 7.5)
+	}
+
+	if melbourne.Media("banderasRojas") != 4.5 {
+		t.Errorf("Media banderas rojas incorrecta, resultado obtenido %f, esperado %f", melbourne.Media("banderasRojas"), 4.5)
+	}
+
+	if melbourne.Media("sanciones") != 0 {
+		t.Errorf("Media sanciones incorrecta, resultado obtenido %f, esperado %f", melbourne.Media("sanciones"), 0.0)
+	}
+}
