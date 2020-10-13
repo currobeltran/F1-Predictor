@@ -15,7 +15,7 @@ Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la
 
 ## Código fuente e instalación
 
-Puede ver el código de la aplicación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src)
+Puede ver el código de la aplicación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src/f1predictor)
 
 A la hora de realizar la instalación de la aplicación, primero debemos generar el binario que se ejecutará. Para ello, se tiene que introducir el siguiente comando:
 
