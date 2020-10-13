@@ -15,7 +15,7 @@ import "strconv"
 
 type Escuderia struct {
 	nombre           string
-	pilotos          [2]Piloto
+	pilotos          []Piloto
 	titulosMundiales int
 	victorias        int
 	poles            int
@@ -28,8 +28,8 @@ type MetodosEscuderia interface {
 	GetNombre() string
 	SetNombre(nombre string)
 
-	GetPilotos() [2]Piloto
-	SetPilotos(pilotos [2]Piloto)
+	GetPilotos() []Piloto
+	SetPilotos(pilotos []Piloto)
 
 	GetTitulosMundiales() int
 	SetTitulosMundiales(titulos int)
@@ -46,7 +46,7 @@ type MetodosEscuderia interface {
 	VerDatosEscuderia(n bool, p bool, m bool, v bool, pol bool, vr bool) string
 }
 
-func (e *Escuderia) Constructor(nombre string, pilotos [2]Piloto, titulos int,
+func (e *Escuderia) Constructor(nombre string, pilotos []Piloto, titulos int,
 	victorias int, poles int, vr int) {
 
 	e.nombre = nombre
@@ -66,11 +66,11 @@ func (e *Escuderia) SetNombre(nombre string) {
 	e.nombre = nombre
 }
 
-func (e Escuderia) GetPilotos() [2]Piloto {
+func (e Escuderia) GetPilotos() []Piloto {
 	return e.pilotos
 }
 
-func (e *Escuderia) SetPilotos(pilotos [2]Piloto) {
+func (e *Escuderia) SetPilotos(pilotos []Piloto) {
 	e.pilotos = pilotos
 }
 

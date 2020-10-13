@@ -8,28 +8,61 @@ import (
 )
 
 var (
-	melbourne  Circuito
-	cero       TiempoVuelta
-	record     TiempoVuelta
-	hamilton   Piloto
+	melbourne Circuito
+
+	cero   TiempoVuelta
+	record TiempoVuelta
+
+	vettel   Piloto
+	leclerc  Piloto
+	hamilton Piloto
+	bottas   Piloto
+
+	pilotos  []Piloto
+	pilotos2 []Piloto
+
+	ferrari Escuderia
+
 	resultado  ResultadoGP
 	resultado2 ResultadoGP
 	resultados []ResultadoGP
-	lista      [20]SesionPiloto
-	podio      [3]Piloto
-	est        EstadisticasGP
-	est2       EstadisticasGP
+
+	lista [20]SesionPiloto
+
+	podio [3]Piloto
+
+	est  EstadisticasGP
+	est2 EstadisticasGP
 )
 
 func TestMain(m *testing.M) {
 	melbourne.Constructor("Albert Park", "Australia")
+
 	cero.Constructor(0, 0, 0)
 	record.Constructor(1, 23, 456)
+
 	est.Constructor(2, 1, 7, 10, 6, 0, record)
 	est2.Constructor(4, 3, 9, 5, 3, 0, record)
 
-	resultado.Constructor(lista, lista, lista, lista, lista, hamilton, hamilton, podio, 2020, est)
-	resultado2.Constructor(lista, lista, lista, lista, lista, hamilton, hamilton, podio, 2020, est2)
+	vettel.Constructor("Sebastian Vettel", 55, 40, 30, 4)
+	leclerc.Constructor("Charles Leclerc", 3, 5, 2, 0)
+	hamilton.Constructor("Lewis Hamilton", 91, 96, 55, 6)
+	bottas.Constructor("Valtteri Bottas", 9, 11, 10, 0)
+
+	pilotos = append(pilotos, vettel)
+	pilotos = append(pilotos, leclerc)
+
+	pilotos2 = append(pilotos2, hamilton)
+	pilotos2 = append(pilotos2, bottas)
+
+	ferrari.Constructor("Ferrari", pilotos, 20, 150, 120, 110)
+
+	podio[0] = vettel
+	podio[1] = leclerc
+	podio[2] = hamilton
+
+	resultado.Constructor(lista, lista, lista, lista, lista, vettel, vettel, podio, 2020, est)
+	resultado2.Constructor(lista, lista, lista, lista, lista, vettel, vettel, podio, 2020, est2)
 
 	resultados = make([]ResultadoGP, 1)
 
