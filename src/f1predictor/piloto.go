@@ -54,7 +54,7 @@ func (p Piloto) GetNombre() string {
 	return p.nombre
 }
 
-func (p Piloto) SetNombre(nombre string) {
+func (p *Piloto) SetNombre(nombre string) {
 	p.nombre = nombre
 }
 
@@ -62,7 +62,7 @@ func (p Piloto) GetVictorias() int {
 	return p.victorias
 }
 
-func (p Piloto) SetVictorias(victorias int) {
+func (p *Piloto) SetVictorias(victorias int) {
 	p.victorias = victorias
 }
 
@@ -70,7 +70,7 @@ func (p Piloto) GetPoles() int {
 	return p.poles
 }
 
-func (p Piloto) SetPoles(poles int) {
+func (p *Piloto) SetPoles(poles int) {
 	p.poles = poles
 }
 
@@ -78,7 +78,7 @@ func (p Piloto) GetVueltasRapidas() int {
 	return p.vueltasRapidas
 }
 
-func (p Piloto) SetVueltasRapidas(vueltasRapidas int) {
+func (p *Piloto) SetVueltasRapidas(vueltasRapidas int) {
 	p.vueltasRapidas = vueltasRapidas
 }
 
@@ -86,7 +86,7 @@ func (p Piloto) GetMundiales() int {
 	return p.mundiales
 }
 
-func (p Piloto) SetMundiales(mundiales int) {
+func (p *Piloto) SetMundiales(mundiales int) {
 	p.mundiales = mundiales
 }
 
