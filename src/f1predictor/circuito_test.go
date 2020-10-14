@@ -10,9 +10,10 @@ import (
 var (
 	melbourne Circuito
 
-	cero    TiempoVuelta
-	record  TiempoVuelta
-	tiempos []TiempoVuelta
+	cero     TiempoVuelta
+	record   TiempoVuelta
+	tiempos  []TiempoVuelta
+	tiempos2 []TiempoVuelta
 
 	vettel   Piloto
 	leclerc  Piloto
@@ -72,6 +73,10 @@ func TestMain(m *testing.M) {
 
 	tiempos = append(tiempos, cero)
 	tiempos = append(tiempos, record)
+
+	tiempos2 = append(tiempos2, record)
+	tiempos2 = append(tiempos2, record)
+	tiempos2 = append(tiempos2, cero)
 
 	hamiltonTiempos.Constructor(tiempos, hamilton, record)
 	lista2[0] = hamiltonTiempos

@@ -38,7 +38,7 @@ func (sp SesionPiloto) GetTiempos() []TiempoVuelta {
 	return sp.tiempos
 }
 
-func (sp SesionPiloto) SetTiempos(tiempos []TiempoVuelta) {
+func (sp *SesionPiloto) SetTiempos(tiempos []TiempoVuelta) {
 	sp.tiempos = tiempos
 }
 
@@ -46,7 +46,7 @@ func (sp SesionPiloto) GetPiloto() Piloto {
 	return sp.piloto
 }
 
-func (sp SesionPiloto) SetPiloto(piloto Piloto) {
+func (sp *SesionPiloto) SetPiloto(piloto Piloto) {
 	sp.piloto = piloto
 }
 
@@ -54,6 +54,6 @@ func (sp SesionPiloto) GetMejorTiempo() TiempoVuelta {
 	return sp.mejorTiempo
 }
 
-func (sp SesionPiloto) SetMejorTiempo(mejorTiempo TiempoVuelta) {
+func (sp *SesionPiloto) SetMejorTiempo(mejorTiempo TiempoVuelta) {
 	sp.mejorTiempo = mejorTiempo
 }
