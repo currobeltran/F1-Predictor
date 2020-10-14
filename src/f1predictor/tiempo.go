@@ -1,5 +1,7 @@
 package f1predictor
 
+import "strconv"
+
 type GetSetTiempoVuelta interface {
 	Constructor(m int, s int, ms int) TiempoVuelta
 
@@ -11,6 +13,8 @@ type GetSetTiempoVuelta interface {
 
 	GetMilesima() int
 	SetMilesima(ms int)
+
+	ImprimirTiempo() string
 }
 
 type TiempoVuelta struct {
@@ -47,4 +51,12 @@ func (t TiempoVuelta) GetMilesima() int {
 
 func (t TiempoVuelta) SetMilesima(ms int) {
 	t.milesima = ms
+}
+
+func (t TiempoVuelta) ImprimirTiempo() string {
+	var ret string
+
+	ret = (strconv.Itoa(t.minuto) + ":" + strconv.Itoa(t.segundo) + "." + strconv.Itoa(t.milesima))
+
+	return ret
 }

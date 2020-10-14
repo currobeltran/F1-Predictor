@@ -10,8 +10,9 @@ import (
 var (
 	melbourne Circuito
 
-	cero   TiempoVuelta
-	record TiempoVuelta
+	cero    TiempoVuelta
+	record  TiempoVuelta
+	tiempos []TiempoVuelta
 
 	vettel   Piloto
 	leclerc  Piloto
@@ -27,9 +28,13 @@ var (
 	resultado2 ResultadoGP
 	resultados []ResultadoGP
 
-	lista [20]SesionPiloto
+	lista  [20]SesionPiloto
+	lista2 [20]SesionPiloto
 
-	podio [3]Piloto
+	hamiltonTiempos SesionPiloto
+
+	podio  [3]Piloto
+	podio2 [3]Piloto
 
 	est  EstadisticasGP
 	est2 EstadisticasGP
@@ -60,6 +65,16 @@ func TestMain(m *testing.M) {
 	podio[0] = vettel
 	podio[1] = leclerc
 	podio[2] = hamilton
+
+	podio2[0] = bottas
+	podio2[1] = hamilton
+	podio2[2] = leclerc
+
+	tiempos = append(tiempos, cero)
+	tiempos = append(tiempos, record)
+
+	hamiltonTiempos.Constructor(tiempos, hamilton, record)
+	lista2[0] = hamiltonTiempos
 
 	resultado.Constructor(lista, lista, lista, lista, lista, vettel, vettel, podio, 2020, est)
 	resultado2.Constructor(lista, lista, lista, lista, lista, vettel, vettel, podio, 2020, est2)

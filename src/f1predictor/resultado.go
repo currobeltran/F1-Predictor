@@ -160,7 +160,7 @@ func (r ResultadoGP) GetEstadisticas() EstadisticasGP {
 	return r.estadisticas
 }
 
-func (r ResultadoGP) SetEstadisticas(est EstadisticasGP) {
+func (r *ResultadoGP) SetEstadisticas(est EstadisticasGP) {
 	r.estadisticas = est
 }
 
