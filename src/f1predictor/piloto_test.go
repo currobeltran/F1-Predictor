@@ -1,6 +1,9 @@
 package f1predictor
 
-import "testing"
+import (
+	"regexp"
+	"testing"
+)
 
 func TestGetNombrePiloto(t *testing.T) {
 	t.Log("Test GetNombrePiloto")
@@ -110,4 +113,19 @@ func TestSetMundialesPiloto(t *testing.T) {
 	}
 
 	vettel.SetMundiales(4)
+}
+
+func TestVerDatosPiloto(t *testing.T) {
+	t.Log("Test VerDatosPiloto")
+
+	var datos string = hamilton.VerDatosPiloto(true, true, false, false, true)
+	var match, match2, match3 bool
+
+	match, _ = regexp.MatchString("Nombre", datos)
+	match2, _ = regexp.MatchString("Victorias", datos)
+	match3, _ = regexp.MatchString("Mundiales", datos)
+
+	if !(match && match2 && match3) {
+		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", datos)
+	}
 }
