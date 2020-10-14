@@ -2,6 +2,7 @@ package f1predictor
 
 import (
 	"reflect"
+	"regexp"
 	"testing"
 )
 
@@ -126,5 +127,20 @@ func TestSetVueltasRapidasEscuderia(t *testing.T) {
 
 	if ferrari.GetVueltasRapidas() != 190 {
 		t.Errorf("Resultado obtenido incorrecto, esperado %d, obtenido %d", 190, ferrari.GetVueltasRapidas())
+	}
+}
+
+func TestVerDatosEscuderia(t *testing.T) {
+	t.Log("Test VerDatosEscuderia")
+
+	var datos string = ferrari.VerDatosEscuderia(true, false, false, true, true, false)
+	var match, match2, match3 bool
+
+	match, _ = regexp.MatchString("Nombre", datos)
+	match2, _ = regexp.MatchString("Victorias", datos)
+	match3, _ = regexp.MatchString("Pole", datos)
+
+	if !(match && match2 && match3) {
+		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", datos)
 	}
 }

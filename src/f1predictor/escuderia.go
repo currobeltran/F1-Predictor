@@ -127,22 +127,22 @@ func (e Escuderia) VerDatosEscuderia(n bool, p bool, m bool, v bool, pol bool, v
 	}
 
 	if m {
-		var mundiales string = ("Mundiales obtenidos: " + strconv.Itoa(e.titulosMundiales))
+		var mundiales string = ("Mundiales obtenidos: " + strconv.Itoa(e.titulosMundiales) + "\n")
 		ret += mundiales
 	}
 
 	if v {
-		var victorias string = ("Victorias conseguidas: " + strconv.Itoa(e.victorias))
+		var victorias string = ("Victorias conseguidas: " + strconv.Itoa(e.victorias) + "\n")
 		ret += victorias
 	}
 
 	if pol {
-		var poles string = ("Pole positions conseguidas: " + strconv.Itoa(e.poles))
+		var poles string = ("Pole positions conseguidas: " + strconv.Itoa(e.poles) + "\n")
 		ret += poles
 	}
 
 	if vr {
-		var vueltasRapidas string = ("Vueltas rápidas conseguidas: " + strconv.Itoa(e.vueltasRapidas))
+		var vueltasRapidas string = ("Vueltas rápidas conseguidas: " + strconv.Itoa(e.vueltasRapidas) + "\n")
 		ret += vueltasRapidas
 	}
 
