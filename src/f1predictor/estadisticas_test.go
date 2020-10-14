@@ -1,6 +1,7 @@
 package f1predictor
 
 import (
+	"regexp"
 	"strconv"
 	"testing"
 )
@@ -133,4 +134,20 @@ func TestSetMejorVueltaEstadisticas(t *testing.T) {
 	}
 
 	est.SetMejorVuelta(record)
+}
+
+func TestVerEstadisticasGP(t *testing.T) {
+	t.Log("Test VerEstadisticasGP")
+
+	var datos string = est.VerEstadisticasGP(true, false, false, true, true, false, true)
+	var match, match2, match3, match4 bool
+
+	match, _ = regexp.MatchString("accidentes", datos)
+	match2, _ = regexp.MatchString("banderas amarillas", datos)
+	match3, _ = regexp.MatchString("banderas rojas", datos)
+	match4, _ = regexp.MatchString("Tiempo", datos)
+
+	if !(match && match2 && match3 && match4) {
+		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", datos)
+	}
 }
