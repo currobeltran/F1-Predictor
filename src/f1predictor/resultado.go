@@ -164,27 +164,6 @@ func (r *ResultadoGP) SetEstadisticas(est EstadisticasGP) {
 	r.estadisticas = est
 }
 
-/* Método con el que se podrá visualizar de manera ordenada la clasificación de una
- * sesión del Gran Premio
- */
-func (r ResultadoGP) VerClasificacionSesion(pilotos [20]SesionPiloto) string {
-	var ret string
-
-	for i := 0; i < len(pilotos); i++ {
-		var pil SesionPiloto = pilotos[i]
-
-		var mejor string = (strconv.Itoa(pil.GetMejorTiempo().GetMinuto()) + ":" +
-			strconv.Itoa(pil.GetMejorTiempo().GetSegundo()) + "." + strconv.Itoa(pil.GetMejorTiempo().GetMilesima()))
-
-		var linea string = (strconv.Itoa(i+1) + "º posición: " + pil.GetPiloto().GetNombre() +
-			" Mejor Tiempo: " + mejor + "\n")
-
-		ret += linea
-	}
-
-	return ret
-}
-
 /* Método para visualizar los resultados de un Gran Premio de manera ordenada. Se puede seleccionar
  * que información se desea que aparezca.
  */
@@ -194,35 +173,35 @@ func (r ResultadoGP) VerDatosGranPremio(fp1 bool, fp2 bool, fp3 bool, q bool, c 
 	var ret string
 
 	if fp1 {
-		var clas string = r.VerClasificacionSesion(r.resultadoFP1)
+		var clas string = VerClasificacionSesion(r.resultadoFP1)
 		var libres1 string = ("Resultado Libres 1: \n" + clas)
 
 		ret += libres1
 	}
 
 	if fp2 {
-		var clas string = r.VerClasificacionSesion(r.resultadoFP2)
+		var clas string = VerClasificacionSesion(r.resultadoFP2)
 		var libres2 string = ("Resultado Libres 2: \n" + clas)
 
 		ret += libres2
 	}
 
 	if fp3 {
-		var clas string = r.VerClasificacionSesion(r.resultadoFP3)
+		var clas string = VerClasificacionSesion(r.resultadoFP3)
 		var libres3 string = ("Resultado Libres 1: \n" + clas)
 
 		ret += libres3
 	}
 
 	if q {
-		var clas string = r.VerClasificacionSesion(r.resultadoClasificacion)
+		var clas string = VerClasificacionSesion(r.resultadoClasificacion)
 		var qualy string = ("Resultado Clasificación: \n" + clas)
 
 		ret += qualy
 	}
 
 	if c {
-		var clas string = r.VerClasificacionSesion(r.resultadoCarrera)
+		var clas string = VerClasificacionSesion(r.resultadoCarrera)
 		var carrera string = ("Resultado Clasificación: \n" + clas)
 
 		ret += carrera

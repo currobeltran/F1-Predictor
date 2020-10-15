@@ -2,6 +2,7 @@ package f1predictor
 
 import (
 	"reflect"
+	"regexp"
 	"testing"
 )
 
@@ -71,4 +72,20 @@ func TestSetMejorTiempo(t *testing.T) {
 	}
 
 	hamiltonTiempos.SetMejorTiempo(record)
+}
+
+func TestVerClasificacionSesion(t *testing.T) {
+	t.Log("Test VerClasificacionSesion")
+
+	var clas string = VerClasificacionSesion(lista2)
+
+	var match string = ("1º posición: Lewis Hamilton Mejor Tiempo: 1:23.456\n")
+
+	var matched bool
+
+	matched, _ = regexp.MatchString(match, clas)
+
+	if !matched {
+		t.Errorf("Resultado obtenido incorrecto, esperado %s, obtenido %s", match, clas)
+	}
 }
