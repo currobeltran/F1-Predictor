@@ -17,13 +17,13 @@ Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la
 
 Puede ver el código de la aplicación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src/f1predictor)
 
-A la hora de realizar la instalación de la aplicación, primero debemos generar el binario que se ejecutará. Para ello, se tiene que introducir el siguiente comando:
+Para ejecutar los test y comprobar que el código funciona correctamente, solo tendremos que ejecutar el siguiente comando desde la carpeta raíz de nuestro proyecto:
 
-`go build ruta-hasta-main.go`
+`make test`
 
-Después de esto y para ejecutar el programa, tendríamos que escribir:
+Si en cambio, solo queremos comprobar que el proyecto compila, tendremos que realizar el mismo proceso pero ejecutando el siguiente comando:
 
-`go run ruta-hasta-binario`
+`make build`
 
 ## Documentación adicional
 
