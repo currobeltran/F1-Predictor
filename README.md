@@ -15,7 +15,7 @@ Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la
 
 ## Código fuente e instalación
 
-Puede ver el código de la aplicación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src/f1predictor)
+Puede ver el código de la aplicación y los test de comprobación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src/f1predictor)
 
 Para ejecutar los test y comprobar que el código funciona correctamente, solo tendremos que ejecutar el siguiente comando desde la carpeta raíz de nuestro proyecto:
 
