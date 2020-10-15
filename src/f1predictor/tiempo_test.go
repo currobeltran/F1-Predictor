@@ -67,3 +67,14 @@ func TestSetMilesima(t *testing.T) {
 
 	record.SetMilesima(456)
 }
+
+func TestImprimirTiempo(t *testing.T) {
+	t.Log("Test ImprimirTiempo")
+
+	var ti string = record.ImprimirTiempo()
+	var prueba string = "1:23.456"
+
+	if ti != prueba {
+		t.Errorf("Resultado obtenido incorrecto, esperado %s, obtenido %s", prueba, ti)
+	}
+}
