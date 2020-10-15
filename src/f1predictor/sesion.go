@@ -27,6 +27,8 @@ type MetodosSesionPiloto interface {
 
 	GetMejorTiempo() TiempoVuelta
 	SetMejorTiempo(mejorTiempo TiempoVuelta)
+
+	VerClasificacionSesion(pilotos [20]SesionPiloto) string
 }
 
 func (sp *SesionPiloto) Constructor(tiempos []TiempoVuelta, piloto Piloto,

@@ -2,6 +2,7 @@ package f1predictor
 
 import (
 	"reflect"
+	"regexp"
 	"testing"
 )
 
@@ -253,4 +254,21 @@ func TestSetEstadisticas(t *testing.T) {
 	}
 
 	resultado.SetEstadisticas(est)
+}
+
+func TestVerDatosGranPremio(t *testing.T) {
+	t.Log("Test VerDatosGranPremio")
+
+	var datos string = resultado.VerDatosGranPremio(true, false, true, false, true, true, false, false, true, false)
+	var match, match2, match3, match4, match5 bool
+
+	match, _ = regexp.MatchString("Resultado Libres 1", datos)
+	match2, _ = regexp.MatchString("Resultado Libres 3", datos)
+	match3, _ = regexp.MatchString("Resultado Carrera", datos)
+	match4, _ = regexp.MatchString("Ganador", datos)
+	match5, _ = regexp.MatchString("temporada", datos)
+
+	if !(match && match2 && match3 && match4 && match5) {
+		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", datos)
+	}
 }

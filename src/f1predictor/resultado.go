@@ -188,7 +188,7 @@ func (r ResultadoGP) VerDatosGranPremio(fp1 bool, fp2 bool, fp3 bool, q bool, c 
 
 	if fp3 {
 		var clas string = VerClasificacionSesion(r.resultadoFP3)
-		var libres3 string = ("Resultado Libres 1: \n" + clas)
+		var libres3 string = ("Resultado Libres 3: \n" + clas)
 
 		ret += libres3
 	}
@@ -202,7 +202,7 @@ func (r ResultadoGP) VerDatosGranPremio(fp1 bool, fp2 bool, fp3 bool, q bool, c 
 
 	if c {
 		var clas string = VerClasificacionSesion(r.resultadoCarrera)
-		var carrera string = ("Resultado Clasificación: \n" + clas)
+		var carrera string = ("Resultado Carrera: \n" + clas)
 
 		ret += carrera
 	}
