@@ -13,17 +13,15 @@ Nuestra aplicación tratará información de manera básica, pero intentando cum
 
 Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
 
-## Código fuente e instalación
+## Código fuente y test del código
 
 Puede ver el código de la aplicación y los test de comprobación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src/f1predictor)
 
-Para ejecutar los test y comprobar que el código funciona correctamente, solo tendremos que ejecutar el siguiente comando desde la carpeta raíz de nuestro proyecto:
+Para ejecutar los test tendremos disponible un contenedor, cuyo repositorio se encuentra en este [enlace](https://hub.docker.com/r/currobeltran/f1-predictor). Para iniciar dicho contenedor, se puede ejecutar el siguiente comando:
 
-`make test`
+`docker run -t -v pwd:/test currobeltran/f1predictor`
 
-Si en cambio, solo queremos comprobar que el proyecto compila, tendremos que realizar el mismo proceso pero ejecutando el siguiente comando:
-
-`make build`
+Para una información más detallada sobre este contenedor (contenedor base escogido, especificación de los pasos que sigue dockerfile...), puede pulsar [aquí](./docs/docker.md)
 
 ## Documentación adicional
 
