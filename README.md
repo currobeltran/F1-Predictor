@@ -23,6 +23,8 @@ Para ejecutar los test tendremos disponible un contenedor, cuyo repositorio se e
 
 Para una información más detallada sobre este contenedor (contenedor base escogido, especificación de los pasos que sigue dockerfile...), puede pulsar [aquí](./docs/docker.md)
 
+También se ha añadido un GitHub Action para subir nuestro contenedor a GitHub Container Registry de manera automática cada vez que se realice una actualización en el repositorio. El código del script que se ejecuta se encuentra disponible [aquí](./.github/workflows/docker-publish.yml)
+
 ## Documentación adicional
 
 En cuanto a otra información de interés, tenemos los siguientes puntos:
