@@ -8,7 +8,7 @@ Otras alternativas existentes son:
 
 - Golang:1.15. Esta tiene un peso bastante mayor(unos 800MB) y el rendimiento a la hora de ejecutar las comprobaciones es prácticamente el mismo; por tanto la acusada diferencia de tiempo a la hora de descargar es lo que provoca que, para este caso específico, esta versión quede descartada.
 
-- Golang:1.15-buster. Básicamente tenemos el mismo análisis que con la versión anterior, ya que el peso es el mismo que el anterior y no se aprecian mejoras en el rendimiento respecto a la versión alpine.
+- Golang:1.15-buster. Básicamente tenemos el mismo análisis que con la versión comentada anteriormente, ya que el peso es el mismo y no se aprecian mejoras en el rendimiento respecto a la versión alpine.
 
 ## ¿Qué proceso sigue el archivo dockerfile?
 
