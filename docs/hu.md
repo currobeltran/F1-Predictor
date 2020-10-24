@@ -2,7 +2,7 @@
 
 En este apartado incluiremos las historias de usuario de nuestro proyecto, especificando más aún cual será la funcionalidad del mismo.
 
-- [H1](https://github.com/currobeltran/F1-Predictor/issues/3): Como cliente, quiero calcular la media de distintos sucesos ocurridos en un circuito concreto para tener más conocimiento sobre el posible transcurso de un Gran Premio.
+- [x] [H1](https://github.com/currobeltran/F1-Predictor/issues/3): Como cliente, quiero calcular la media de distintos sucesos ocurridos en un circuito concreto para tener más conocimiento sobre el posible transcurso de un Gran Premio.
 
 - [H2](https://github.com/currobeltran/F1-Predictor/issues/4): Como cliente, quiero ver los datos de la competición para tener más conocimientos acerca del campeonato.
 
