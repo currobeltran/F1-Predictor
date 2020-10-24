@@ -8,4 +8,4 @@ En este apartado incluiremos las historias de usuario de nuestro proyecto, espec
 
 - [] [H3](https://github.com/currobeltran/F1-Predictor/issues/5): Como cliente, quiero calcular probabilidades a partir de los datos disponibles en la aplicación para predecir qué puede ocurrir en un Gran Premio determinado.
 
-- [] [H4](https://github.com/currobeltran/F1-Predictor/issues/55): Como desarrollador, quiero ejecutar los test de la aplicación en un contenedor para garantizar su correcto funcionamiento en cualquier máquina
+- [x] [H4](https://github.com/currobeltran/F1-Predictor/issues/55): Como desarrollador, quiero ejecutar los test de la aplicación en un contenedor para garantizar su correcto funcionamiento en cualquier máquina
