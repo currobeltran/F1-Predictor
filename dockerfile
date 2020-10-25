@@ -10,7 +10,6 @@ COPY makefile ./
 RUN mkdir ./src/f1predictor/ \
 && apk update && apk upgrade \
 && apk add make
-COPY ./src/f1predictor/* ./src/f1predictor/
 
 #Establecemos un usuario para realizar la ejecucion sin privilegios
 RUN adduser --disabled-password currobeltran
