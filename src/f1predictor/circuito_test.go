@@ -1,6 +1,7 @@
 package f1predictor
 
 import (
+	"math"
 	"os"
 	"reflect"
 	"regexp"
@@ -251,11 +252,23 @@ func TestPosibilidadSafetyCar(t *testing.T) {
 
 	melbourne.SetResultados(resultados)
 
-	var result float32 = melbourne.PosibilidadSafetyCar()
+	var result float64 = melbourne.PosibilidadSafetyCar()
 
 	/*Fórmula posibilidad -> Media ponderada de estadística correspondiente*/
 	/*Cada año de antiguedad resta 0,05 a la ponderación*/
-	if result-1.974359 > 0.000001 {
+	if math.Abs(result-1.974359) > 0.000001 {
 		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 1.974359, result)
+	}
+}
+
+func TestPosibilidadAdelantamiento(t *testing.T) {
+	t.Log("Test PosibilidadAdelantamiento")
+
+	var result float64 = melbourne.PosibilidadAdelantamiento()
+
+	/*Fórmula posibilidad -> Media ponderada de estadística correspondiente*/
+	/*Cada año de antiguedad resta 0,05 a la ponderación*/
+	if math.Abs(result-7.974359) > 0.000001 {
+		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 7.974359, result)
 	}
 }

@@ -162,17 +162,16 @@ func (c Circuito) VerDatosCircuito(n bool, p bool, t bool) string {
 /* Método para calcular un las posibilidades de que salga un SafetyCar en una carrera disputada
  * en el circuito.
  */
-func (c Circuito) PosibilidadSafetyCar() float32 {
-	var ret float32 = 0.0
-	var suma float32 = 0.0
-	var div float32 = 0.0
-	var ponderacion float32 = 1.0
+func (c Circuito) PosibilidadSafetyCar() float64 {
+	var ret float64 = 0.0
+	var suma float64 = 0.0
+	var div float64 = 0.0
+	var ponderacion float64 = 1.0
 
 	for i := len(c.resultados) - 1; i >= 0; i-- {
 		if ponderacion > 0 {
 			var est EstadisticasGP = c.resultados[i].GetEstadisticas()
-			println(float32(est.GetNumeroSafetyCar()))
-			suma += (float32(est.GetNumeroSafetyCar()) * ponderacion)
+			suma += (float64(est.GetNumeroSafetyCar()) * ponderacion)
 
 			div += ponderacion
 			ponderacion -= 0.05
@@ -180,6 +179,13 @@ func (c Circuito) PosibilidadSafetyCar() float32 {
 	}
 
 	ret = suma / div
+
+	return ret
+}
+
+/* Método para calcular cuantos adelantamientos habrá en una carrera disputada en el circuito*/
+func (c Circuito) PosibilidadAdelantamiento() float64 {
+	var ret float64 = 0.0
 
 	return ret
 }
