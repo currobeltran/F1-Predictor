@@ -243,11 +243,19 @@ func TestVerDatosCircuito(t *testing.T) {
 func TestPosibilidadSafetyCar(t *testing.T) {
 	t.Log("Test PosibilidadSafetyCar")
 
+	melbourne.SetResultados(melbourne.GetResultados()[:0]) //Limpiamos datos anteriores del vector
+	resultados = make([]ResultadoGP, 2)
+
+	resultados[0] = resultado2
+	resultados[1] = resultado
+
+	melbourne.SetResultados(resultados)
+
 	var result float32 = melbourne.PosibilidadSafetyCar()
 
 	/*Fórmula posibilidad -> Media ponderada de estadística correspondiente*/
 	/*Cada año de antiguedad resta 0,05 a la ponderación*/
-	if result != 1.974359 {
-		t.Errorf("Resultado obtenido incorrecto, esperado %f, esperado %f", 1.974395, result)
+	if result-1.974359 > 0.000001 {
+		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 1.974359, result)
 	}
 }

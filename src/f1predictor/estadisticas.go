@@ -63,7 +63,7 @@ func (e *EstadisticasGP) Constructor(ac int, nsc int, ad int, ba int,
 	e.sanciones = san
 }
 
-func (e *EstadisticasGP) GetAccidentes() int {
+func (e EstadisticasGP) GetAccidentes() int {
 	return e.accidentes
 }
 
@@ -71,7 +71,7 @@ func (e *EstadisticasGP) SetAccidentes(accidentes int) {
 	e.accidentes = accidentes
 }
 
-func (e *EstadisticasGP) GetNumeroSafetyCar() int {
+func (e EstadisticasGP) GetNumeroSafetyCar() int {
 	return e.numeroSafetyCar
 }
 
@@ -79,7 +79,7 @@ func (e *EstadisticasGP) SetNumeroSafetyCar(nsc int) {
 	e.numeroSafetyCar = nsc
 }
 
-func (e *EstadisticasGP) GetAdelantamientos() int {
+func (e EstadisticasGP) GetAdelantamientos() int {
 	return e.adelantamientos
 }
 
@@ -87,7 +87,7 @@ func (e *EstadisticasGP) SetAdelantamientos(adelantamientos int) {
 	e.adelantamientos = adelantamientos
 }
 
-func (e *EstadisticasGP) GetBanderasAmarillas() int {
+func (e EstadisticasGP) GetBanderasAmarillas() int {
 	return e.banderasAmarillas
 }
 
@@ -95,7 +95,7 @@ func (e *EstadisticasGP) SetBanderasAmarillas(banderasAmarillas int) {
 	e.banderasAmarillas = banderasAmarillas
 }
 
-func (e *EstadisticasGP) GetBanderasRojas() int {
+func (e EstadisticasGP) GetBanderasRojas() int {
 	return e.banderasRojas
 }
 
@@ -103,7 +103,7 @@ func (e *EstadisticasGP) SetBanderasRojas(banderasRojas int) {
 	e.banderasRojas = banderasRojas
 }
 
-func (e *EstadisticasGP) GetSanciones() int {
+func (e EstadisticasGP) GetSanciones() int {
 	return e.sanciones
 }
 
@@ -111,7 +111,7 @@ func (e *EstadisticasGP) SetSanciones(sanciones int) {
 	e.sanciones = sanciones
 }
 
-func (e *EstadisticasGP) GetMejorVuelta() TiempoVuelta {
+func (e EstadisticasGP) GetMejorVuelta() TiempoVuelta {
 	return e.mejorVuelta
 }
 
