@@ -272,3 +272,15 @@ func TestPosibilidadAdelantamiento(t *testing.T) {
 		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 7.974359, result)
 	}
 }
+
+func TestPosibilidadBanderaAmarilla(t *testing.T) {
+	t.Log("Test PosibilidadBanderaAmarilla")
+
+	var result float64 = melbourne.PosibilidadBanderaAmarilla()
+
+	/*Fórmula posibilidad -> Media ponderada de estadística correspondiente*/
+	/*Cada año de antiguedad resta 0,05 a la ponderación*/
+	if math.Abs(result-7.564102) > 0.000001 {
+		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 7.564102, result)
+	}
+}

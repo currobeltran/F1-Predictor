@@ -203,3 +203,12 @@ func (c Circuito) PosibilidadAdelantamiento() float64 {
 
 	return ret
 }
+
+/* Método para calcular la probable cantidad de banderas amarillas que habrá en un circuito durante
+ * un Gran Premio
+ */
+func (c Circuito) PosibilidadBanderaAmarilla() float64 {
+	var ret float64 = 0.0
+
+	return ret
+}
