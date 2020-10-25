@@ -158,3 +158,12 @@ func (c Circuito) VerDatosCircuito(n bool, p bool, t bool) string {
 
 	return ret
 }
+
+/* Método para calcular un las posibilidades de que salga un SafetyCar en una carrera disputada
+ * en el circuito.
+ */
+func (c Circuito) PosibilidadSafetyCar() float32 {
+	var ret float32 = 0.0
+
+	return ret
+}

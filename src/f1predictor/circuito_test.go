@@ -82,9 +82,11 @@ func TestMain(m *testing.M) {
 	lista2[0] = hamiltonTiempos
 
 	resultado.Constructor(lista, lista, lista, lista, lista, vettel, vettel, podio, 2020, est)
-	resultado2.Constructor(lista, lista, lista, lista, lista, vettel, vettel, podio, 2020, est2)
+	resultado2.Constructor(lista, lista, lista, lista, lista, vettel, vettel, podio, 2019, est2)
 
 	resultados = make([]ResultadoGP, 1)
+
+	melbourne.SetResultados(resultados)
 
 	os.Exit(m.Run())
 }
@@ -235,5 +237,17 @@ func TestVerDatosCircuito(t *testing.T) {
 
 	if !matched2 {
 		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", str)
+	}
+}
+
+func TestPosibilidadSafetyCar(t *testing.T) {
+	t.Log("Test PosibilidadSafetyCar")
+
+	var result float32 = melbourne.PosibilidadSafetyCar()
+
+	/*Fórmula posibilidad -> Media ponderada de estadística correspondiente*/
+	/*Cada año de antiguedad resta 0,05 a la ponderación*/
+	if result != 1.974359 {
+		t.Errorf("Resultado obtenido incorrecto, esperado %f, esperado %f", 1.974395, result)
 	}
 }
