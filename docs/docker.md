@@ -18,6 +18,6 @@ Si observamos el código de este fichero, vemos que sigue unos sencillos pasos, 
 
 - Después, establecemos el directorio de trabajo, que será el que haya en el sistema para go; y copiamos aquí dentro el makefile que hemos creado para realizar la tarea de test.
 
-- Se ejecutan varios comandos, entre los que podemos ver como se crea dentro de src el directorio f1predictor (que tendrá el código fuente del proyecto y que se copiará posteriormente), se actualiza el sistema y los repositorios; y por último se instala make (ya que en la imagen base no está instalado).
+- Se ejecutan los comandos correspondientes para poder tener la herramienta make disponible en nuestro contenedor.
 
 - Creamos un nuevo usuario y establecemos el mismo como el que ejecutará los siguientes comandos, que en este caso únicamente será make test. Este paso donde se crea un nuevo usuario es opcional, pero se realiza por seguridad ya que no será necesario privilegios de superusuario para ejecutar el comando necesario.

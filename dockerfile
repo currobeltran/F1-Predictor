@@ -5,10 +5,8 @@ FROM golang:1.15-alpine
 WORKDIR /go
 COPY makefile ./
 
-#Se instala make ya que nos hará falta para ejecutar los tests automáticamente 
-#Se crea el directorio del proyecto
-RUN mkdir ./src/f1predictor/ \
-&& apk update && apk upgrade \
+#Se instala make ya que nos hará falta para ejecutar los tests automáticamente
+RUN apk update && apk upgrade \
 && apk add make
 
 #Establecemos un usuario para realizar la ejecucion sin privilegios
