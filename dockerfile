@@ -6,7 +6,8 @@ WORKDIR /go
 COPY makefile ./
 
 #Se instala make ya que nos hará falta para ejecutar los tests automáticamente
-RUN apk update && apk upgrade \
+RUN mkdir ./src/f1predictor \
+apk update && apk upgrade \
 && apk add make
 
 #Establecemos un usuario para realizar la ejecucion sin privilegios
