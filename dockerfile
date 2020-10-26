@@ -3,7 +3,7 @@ FROM golang:1.15-alpine
 
 #Establecemos el directorio de trabajo y copiamos el makefile en el mismo
 WORKDIR /test
-COPY makefile ./
+COPY makefile .
 
 #Se instala make ya que nos hará falta para ejecutar los tests automáticamente
 RUN apk update && apk upgrade \
