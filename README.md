@@ -20,7 +20,7 @@ Puede ver el código de la aplicación y los test de comprobación [pulsando aqu
 Para ejecutar los test tendremos disponible un contenedor, cuyo repositorio se encuentra en este [enlace](https://hub.docker.com/r/currobeltran/f1-predictor). Para iniciar dicho contenedor, se puede ejecutar el siguiente comando desde el directorio raíz del proyecto:
 
 ```shell
-`docker run -t -v `pwd`:/test currobeltran/f1-predictor`
+docker run -t -v `pwd`:/test currobeltran/f1-predictor
 ```
 
 Para una información más detallada sobre este contenedor (contenedor base escogido, especificación de los pasos que sigue dockerfile y como se enlaza este repositorio y el de DockerHub para la construcción automática), puede pulsar [aquí](./docs/docker.md)
