@@ -3,3 +3,6 @@ test:
 
 build: 
 	go build ./src/f1predictor
+
+travis:
+	docker run -t -v `pwd`:/test currobeltran/f1predictor
