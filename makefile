@@ -5,4 +5,5 @@ build:
 	go build ./src/f1predictor
 
 travis:
-	docker run -t -v `pwd`:/test currobeltran/f1-predictor
+	docker build -t f1-predictor-test .
+	docker run -t -v `pwd`:/test f1-predictor-test
