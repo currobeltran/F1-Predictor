@@ -4,8 +4,6 @@ services:
     - docker
 
 build:
-    pre_ci: 
-        - docker build -t f1-predictor-test .
-    
     ci:
+        - docker build -t f1-predictor-test .
         - docker run -t -v `pwd`:/test f1-predictor-test
