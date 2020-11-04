@@ -1,9 +1,0 @@
-language: none
-
-services:
-    - docker
-
-build:
-    ci:
-        - docker build -t f1-predictor-test .
-        - docker run -t -v `pwd`:/test f1-predictor-test
