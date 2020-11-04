@@ -278,6 +278,20 @@ func (c Circuito) PosibilidadBanderaRoja() float64 {
 //disputado en un circuito determinado
 func (c Circuito) PosibilidadSancion() float64 {
 	var ret float64 = 0.0
+	var suma float64 = 0.0
+	var div float64 = 0.0
+	var ponderacion float64 = 1.0
+
+	for i := len(c.resultados) - 1; i >= 0; i-- {
+		if ponderacion > 0 {
+			var est EstadisticasGP = c.resultados[i].GetEstadisticas()
+			suma += (float64(est.GetSanciones()) * ponderacion)
+			div += ponderacion
+			ponderacion -= 0.05
+		}
+	}
+
+	ret = suma / div
 
 	return ret
 }
