@@ -7,11 +7,5 @@ build:
     pre_ci:
         - docker build -t currobeltran/f1-predictor:latest .
 
-    pre_ci_boot:
-        image_name: currobeltran/f1-predictor
-        image_tag: latest
-        pull: true
-        options: "-v `pwd`:/test"
-
     ci: 
-        - make test
+        - docker run -t -v `pwd`:/test currobeltran/f1-predictor:latest
