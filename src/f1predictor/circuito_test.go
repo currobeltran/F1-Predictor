@@ -300,7 +300,7 @@ func TestPosibilidadAccidentes(t *testing.T) {
 func TestPosibilidadBanderaRoja(t *testing.T) {
 	t.Log("Test PosibilidadBanderaRoja")
 
-	var result float64 = melbourne.PosibilidadAccidentes()
+	var result float64 = melbourne.PosibilidadBanderaRoja()
 
 	/*Fórmula posibilidad -> Media ponderada de estadística correspondiente*/
 	/*Cada año de antiguedad resta 0,05 a la ponderación*/
