@@ -5,8 +5,10 @@ services:
 
 build:
     pre_ci: 
-        - docker build -t f1-predictor-test .
+        - docker build -t currobeltran/f1-predictor:lastest .
 
     pre_ci_boot:
-        - image_name: f1-predictor-test
+        - image_name: currobeltran/f1-predictor
+        - image_tag: lastest
+        - pull: true
         - options: "-v `pwd`:/test"
