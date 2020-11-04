@@ -1,0 +1,14 @@
+language: none
+
+services:
+    - docker
+
+build:
+    pre_ci: 
+        - docker build -t f1-predictor-test .
+
+    pre_ci_boot:
+        - image_tag: f1-predictor-test
+    
+    ci:
+        - docker run -t -v `pwd`:/test f1-predictor-test
