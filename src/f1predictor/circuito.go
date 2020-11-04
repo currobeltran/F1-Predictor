@@ -272,3 +272,12 @@ func (c Circuito) PosibilidadBanderaRoja() float64 {
 
 	return ret
 }
+
+//PosibilidadSanciones
+//Método para calcular la posible cantidad de sanciones que pueden acontecer en un Gran Premio
+//disputado en un circuito determinado
+func (c Circuito) PosibilidadSancion() float64 {
+	var ret float64 = 0.0
+
+	return ret
+}

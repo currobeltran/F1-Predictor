@@ -308,3 +308,15 @@ func TestPosibilidadBanderaRoja(t *testing.T) {
 		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 4.538461, result)
 	}
 }
+
+func TestPosibilidadSancion(t *testing.T) {
+	t.Log("Test PosibilidadSancion")
+
+	var result float64 = melbourne.PosibilidadSancion()
+
+	/*Fórmula posibilidad -> Media ponderada de estadística correspondiente*/
+	/*Cada año de antiguedad resta 0,05 a la ponderación*/
+	if math.Abs(result-0.0) > 0.000001 {
+		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 0.0, result)
+	}
+}
