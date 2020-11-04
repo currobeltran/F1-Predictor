@@ -9,5 +9,5 @@ build:
 
     pre_ci_boot:
         image_name: currobeltran/f1-predictor
-        pull: true
+        pull: false
         options: "-v `pwd`:/test"
