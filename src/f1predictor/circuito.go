@@ -226,3 +226,12 @@ func (c Circuito) PosibilidadBanderaAmarilla() float64 {
 
 	return ret
 }
+
+//PosibilidadAccidentes
+//Método para calcular la posible cantidad de accidentes que puedan acontecer en un Gran Premio
+//disputado en un determinado circuito
+func (c Circuito) PosibilidadAccidentes() float64 {
+	var ret float64 = 0.0
+
+	return ret
+}
