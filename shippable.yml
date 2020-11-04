@@ -12,3 +12,6 @@ build:
         image_tag: latest
         pull: true
         options: "-v `pwd`:/test"
+
+    ci: 
+        - make test
