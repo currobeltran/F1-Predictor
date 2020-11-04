@@ -9,6 +9,4 @@ build:
 
     pre_ci_boot:
         - image_name: f1-predictor-test
-    
-    ci:
-        - docker run -t -v `pwd`:/test f1-predictor-test
+        - options: -t -v `pwd`:/test f1-predictor-test
