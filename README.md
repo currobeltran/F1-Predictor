@@ -13,6 +13,10 @@ Nuestra aplicación tratará información de manera básica, pero intentando cum
 
 Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
 
+## Integración continua
+
+Este proyecto utiliza 2 servicios (Travis y Shippable) para realizar el proceso de integración continua. Para la información correspondiente a la justificación de dichos servicios, pulse en el siguiente [enlace](./docs/CI.md)
+
 ## Código fuente y test del código
 
 Puede ver el código de la aplicación y los test de comprobación [pulsando aquí](https://github.com/currobeltran/F1-Predictor/tree/master/src/f1predictor)
@@ -23,10 +27,6 @@ Para ejecutar los test tendremos disponible un contenedor, cuyo repositorio se e
 docker run -t -v `pwd`:/test currobeltran/f1-predictor
 ```
 
-Para una información más detallada sobre este contenedor (contenedor base escogido, especificación de los pasos que sigue dockerfile y como se enlaza este repositorio y el de DockerHub para la construcción automática), puede pulsar [aquí](./docs/docker.md)
-
-También se ha añadido un GitHub Action para subir nuestro contenedor a GitHub Container Registry de manera automática cada vez que se realice una actualización en el repositorio. El código del script que se ejecuta se encuentra disponible [aquí](./.github/workflows/docker-publish.yml)
-
 ## Documentación adicional
 
 En cuanto a otra información de interés, tenemos los siguientes puntos:
@@ -34,6 +34,7 @@ En cuanto a otra información de interés, tenemos los siguientes puntos:
 - [¿Por qué he usado estas herramientas?](./docs/herramientas.md)
 - [¿Cómo he configurado git?](./docs/configuracion.md)
 - [¿Qué historias de usuario se están siguiendo?](./docs/hu.md)
+- [Información sobre contenedor de pruebas](./docs/docker.md)
 
 ## Autor
 
