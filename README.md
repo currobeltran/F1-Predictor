@@ -27,7 +27,7 @@ Para ejecutar los test tendremos disponible un contenedor, cuyo repositorio se e
 docker run -t -v `pwd`:/test currobeltran/f1-predictor
 ```
 
-## Documentación hitos anteriores
+## Documentación anterior
 
 En cuanto a otra información de interés, tenemos los siguientes puntos:
 
