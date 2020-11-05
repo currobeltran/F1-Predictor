@@ -10,6 +10,8 @@ Cuando ya esté creada, tenemos que activar la GitHub App que nos permitirá eje
 
 El siguiente paso será crear un archivo .yml (que será el ejecutado por Travis) en la raíz de nuestro proyecto, llamado .travis.yml. En nuestro caso es muy simple, ya que como vemos tenemos 2 líneas; una que define el lenguaje como `minimal` y otra que llama a la regla travis de nuestro makefile, que construye el contenedor y lo ejecuta. Se escoge la opción minimal ya que, al ejecutarse un contenedor no será necesario instalar una versión específica para un lenguaje o la genérica; además de ser una versión que da mejores datos en cuanto a velocidad de ejecución se refiere (unos 10s de diferencia entre los tests realizados con la opción de lenguaje go y minimal).
 
+Un punto a comentar es porque no hacemos pull de la imagen del repositorio de DockerHub, y se debe a que si realizamos un cambio sobre el contenedor (por ejemplo, añadimos una nueva dependencia), no es seguro que en la ejecución de Travis la versión descargada de DockerHub contenga los últimos cambios, por tanto, podrían existir problemas o errores que nos ahorramos construyendo directamente el contenedor en la ejecución de las pruebas (además de que la diferencia de tiempo de ejecución no es remarcable)
+
 ## Otros sistemas de integración continua
 
 A parte de Travis, también existen otros sistemas que nos permiten realizar las mismas tareas, como es el caso de Shippable, Jenkins, Circle CI, Bitrise...
