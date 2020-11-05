@@ -16,7 +16,7 @@ En este hito comenzamos a ver algo de código, ya que se incluye una primera ver
 
 Se especifica aún más en la documentación, donde se incluyen las historias de usuario (que definirán las funcionalidades que tendrá nuestro proyecto), se modifica la descripción adquiriendo un caracter más motivacional y se incluyen algunas herramientas nuevas a la justificación (que no tienen porque ser las que se usen finalmente, esos puntos tienen un caracter informativo de cara a saber que necesita nuestro proyecto para ser desplegado correctamente en una primera instancia). Por último, se añade también este documento que funcionará como un "cuaderno de bitácora", donde se contará que pasos se han seguido para llegar a la consecución de los objetivos de la asignatura, demostrando de la misma manera el conocimiento de los mismos.
 
-## Hito 2: Integración continua
+## Hito 2: Tests
 
 En este hito aprendemos a desarrollar un servicio para la nube aplicando el desarrollo basado en pruebas. Esta modalidad de desarrollo básicamente se basa en que todo el código que se incorpore al proyecto debe estar previamente testeado, de manera que cumpla con las especificaciones definidas previamente para dicha función (en las historias de usuario). Para ello, se deben realizar test unitarios, que introducirán valores en el método y comprobarán que la salida a esos valores es el resultado esperado, es decir, que cumple con el objetivo que queremos conseguir.
 
@@ -35,3 +35,11 @@ Para esta tarea se ha utilizado Docker, por tanto en nuestro proyecto incluiremo
 Este contenedor, además, se ha subido a un repositorio público (tanto en Docker Hub como en GitHub Container Registry) lo que nos permitirá, por ejemplo, que cualquier persona pueda acceder al mismo ya construido y que además, puedan ejecutarlo de manera sencilla con un simple comando desde el directorio raíz de nuestro proyecto. Para esto se ha tenido que crear un repositorio en Docker Hub y enlazarlo con el de GitHub; ya que se obtendrá el dockerfile directamente desde este último, además de actualizarse nuestro repo de Docker Hub cada vez que se realiza una actualización en el proyecto. Para configurar GitHub Container Registry se ha creado una GitHub Action (teniendo como base un template llamado Publish Docker Container) que automáticamente cada vez que se actualiza el repositorio en GitHub construye el contenedor y lo almacena en GitHub Container Registry.
 
 En cuanto al avance sobre las funcionalidades del código, se ha comenzado a realizar los métodos correspondientes a las predicciones sobre los eventos que pueden ocurrir en un Gran Premio.
+
+## Hito 4: Integración continua
+
+En este hito el principal objetivo que se quería conseguir es la implementación de un par de servicios de integración continua. Dicho concepto consiste, basicamente, en ejecutar cada vez que se actualice el repositorio (o cada vez que se quiera modificar) las pruebas correspondientes al código del proyecto. El principal objetivo sería asegurarnos de que todos los cambios introducidos funcionan correctamente, y que por tanto el contenido del repositorio sea completamente funcional.
+
+Para ello hemos utilizado 2 herramientas de integracion continua, como son Travis y Shippable. Básicamente estos dos servicios tienen la misma funcionalidad, por lo que se podría usar uno u otro indistintamente, aunque si se nota una diferencia de velocidad de Shippable respecto a Travis; debido principalmente a que la ejecución del primero se basa en contenedores mientras que el segundo se basa en máquinas virtuales, lo que permite que alguna información de ejecuciones anteriores permanezca en el contenedor y no tenga que volver a descargar e instalar todos los elementos; al contrario de lo que ocurre en Travis. La información completa sobre integración continua se encuentra [aquí](CI.md)
+
+Por último, en cuanto a funcionalidades del código, se ha avanzado respecto a los métodos correspondientes de las predicciones de eventos que pueden suceder en un Gran Premio.
