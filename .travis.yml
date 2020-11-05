@@ -1,4 +1,8 @@
+# No necesitamos ningun lenguaje en especial, por tanto usamos la imagen minimal que es más eficiente
 language: minimal
 
+# No será necesario incluir services: docker, ya que viene por defecto en la imagen minimal
+
+# Ejecuta docker build y docker run del contenedor de pruebas descrito en el archivo Dockerfile
 script:
     - make travis
