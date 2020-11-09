@@ -3,6 +3,7 @@ language: minimal
 
 # No será necesario incluir services: docker, ya que viene por defecto en la imagen minimal
 
-# Ejecuta docker build y docker run del contenedor de pruebas descrito en el archivo Dockerfile
+# Ejecuta docker run del contenedor almacenado en el repositorio de 
+# Docker Hub currobeltran/f1-predictor
 script:
     - make travis

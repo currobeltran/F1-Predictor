@@ -9,13 +9,31 @@ Además, los más aficionados suelen buscar estadísticas antes de cada Gran Pre
 
 Nuestra aplicación tratará información de manera básica, pero intentando cumplir los objetivos mencionados aquí arriba sentando una base que en un futuro podría mejorar a un servicio más especializado; con métodos para el cálculo de probabilidades de eventos más precisos.
 
-## ¿Qué pasos se han seguido para realizar el proyecto?
-
-Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
-
 ## Integración continua
 
-Este proyecto utiliza 2 servicios (Travis y Shippable) para realizar el proceso de integración continua. Para la información correspondiente a la justificación de dichos servicios, pulse en el siguiente [enlace](./docs/CI.md)
+Para añadir integración continua en nuestro proyecto nos hemos registrado en Travis, un sistema que nos permitirá ejecutar los test de nuestro código de manera automática cada vez que actualicemos el repositorio.
+
+### ¿Cómo hemos configurado Travis?
+
+Antes de nada, si es la primera vez que usamos este servicio; debemos crear una cuenta en la página de [Travis](https://travis-ci.com/), donde nos podemos registrar con nuestra cuenta de GitHub para más comodidad; y posteriormente activar la GitHub App de Travis, para tener la capacidad de ejecutar el proceso en nuestros repositorios.
+
+El siguiente paso será crear un archivo .yml (que será el ejecutado por Travis) en la raíz de nuestro proyecto, llamado [.travis.yml](./.travis.yml). En nuestro caso es muy simple, ya que como vemos tenemos 2 líneas que ejecutarán todo el proceso necesario:
+
+- `language: minimal`: Este parámetro se establece con este valor y no como `go`, ya que no vamos a necesitar ningún lenguaje de programación en concreto en la máquina virtual que ejecutará el proceso de prueba del código. Esto se debe a que dichas pruebas se ejecutarán en un contenedor que tendrá todo el entorno configurado para ello en el archivo [Dockerfile](./Dockerfile). Añadir que, además, esta versión tiene una ejecución más rápida que las asociadas a un lenguaje o la genérica, ya que es más liviana que las demás (con la ventaja de que una de las pocas herramientas que incluye la imagen es Docker).
+
+- `script: make travis`: Como vemos, llama a la regla travis de nuestro [makefile](./makefile), que tendrá la correspondiente orden para ejecutar el contenedor de tests almacenado en el repositorio de Docker Hub.
+
+### ¿Cómo hemos configurado Shippable?
+
+Los primeros para iniciar este servicio en nuestro repositorio son iguales a los seguidos en Travis, es decir, registrarnos en su [página web](https://shippable.com) y activar sobre que repositorios queremos que se ejecute Shippable.
+
+En cuanto a la ejecución del proceso sobre este repositorio, se ha creado un archivo llamado [shippable.yml](./shippable.yml) (se podría usar .travis.yml, pero Shippable no reconoce `minimal` como una opción de lenguaje). Las órdenes dadas son las siguientes:
+
+- `language: go`: Definimos el párametro del lenguaje como go, ya que en este caso no se ejecutará el contenedor y sí será necesario instalarlo.
+
+- `go: - 1.4 - 1.15`: Definimos para que versiones queremos ejecutar las pruebas. Hemos elegido las versiones del lenguaje 1.4 y 1.15 porque son la primera y la última en las que funciona nuestro código (además la versión 1.15 es en la cual se ha desarrollado). No se ponen versiones intermedias entre estas dos ya que si fallasen versiones posteriores a la 1.4, nos avisarían del error en la ejecución de la versión 1.15; y al revés con las versiones anteriores a esta última.
+
+- `build: ci: make test`: Ejecutamos la regla test de nuestro makefile, la cual se encargará de ejecutar las pruebas sobre nuestro proyecto.
 
 ## Código fuente y test del código
 
@@ -26,6 +44,10 @@ Para ejecutar los test tendremos disponible un contenedor, cuyo repositorio se e
 ```shell
 docker run -t -v `pwd`:/test currobeltran/f1-predictor
 ```
+
+## ¿Qué pasos se han seguido para realizar el proyecto?
+
+Durante este proyecto se han ido cumpliendo distintos objetivos para llegar a la finalización del mismo, que se encontrarán en [este documento](./docs/pasosrealizados.md) en constante actualización.
 
 ## Documentación anterior
 
