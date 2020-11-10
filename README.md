@@ -25,13 +25,13 @@ El siguiente paso será crear un archivo .yml (que será el ejecutado por Travis
 
 ### ¿Cómo hemos configurado Shippable?
 
-Los primeros para iniciar este servicio en nuestro repositorio son iguales a los seguidos en Travis, es decir, registrarnos en su [página web](https://shippable.com) y activar sobre que repositorios queremos que se ejecute Shippable.
+Los primeros pasos para iniciar este servicio en nuestro repositorio son iguales a los seguidos en Travis, es decir, registrarnos en su [página web](https://shippable.com) y activar sobre que repositorios queremos que se ejecute Shippable.
 
 En cuanto a la ejecución del proceso sobre este repositorio, se ha creado un archivo llamado [shippable.yml](./shippable.yml) (se podría usar .travis.yml, pero Shippable no reconoce `minimal` como una opción de lenguaje). Las órdenes dadas son las siguientes:
 
 - `language: go`: Definimos el párametro del lenguaje como go, ya que en este caso no se ejecutará el contenedor y sí será necesario instalarlo.
 
-- `go: - 1.4 - 1.15`: Definimos para que versiones queremos ejecutar las pruebas. Hemos elegido las versiones del lenguaje 1.4 y 1.15 porque son la primera y la última en las que funciona nuestro código (además la versión 1.15 es en la cual se ha desarrollado). No se ponen versiones intermedias entre estas dos ya que si fallasen versiones posteriores a la 1.4, nos avisarían del error en la ejecución de la versión 1.15; y al revés con las versiones anteriores a esta última.
+- `go: - 1.4 ... - 1.15`: Definimos para que versiones queremos ejecutar las pruebas. Hemos elegido las versiones del lenguaje 1.4 y 1.15 porque son la primera y la última en las que funciona nuestro código (además la versión 1.15 es en la cual se ha desarrollado). Se establecen además versiones intermedias de 2 en 2 ya que, según la [documentación de Go](https://golang.org/doc/devel/release.html#policy), una versión major se mantiene durante la salida de dos versiones del lenguaje nuevas.
 
 - `build: ci: make test`: Ejecutamos la regla test de nuestro makefile, la cual se encargará de ejecutar las pruebas sobre nuestro proyecto.
 

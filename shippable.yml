@@ -6,6 +6,11 @@ language: go
 # versión (que también es la versión de desarrollo, la 1.15).
 go:
     - 1.4
+    - 1.6
+    - 1.8
+    - "1.10"
+    - 1.12
+    - 1.14
     - 1.15
 
 # Ejecutamos la regla test de nuestro makefile, que realizará las pruebas sobre el proyecto
