@@ -3,16 +3,18 @@ language: go
 
 # Definimos las versiones que se ejecutarán. Se realizarán pruebas sobre la 
 # primera version en la que funcione nuestro proyecto (1.4) y en la última
-# versión (que también es la versión de desarrollo, la 1.15).
+# versión (que también es la versión de desarrollo, la 1.15). Probamos
+# también versiones major de 2 en 2 ya que una versión pierde soporte
+# cuando salen 2 nuevas versiones major.
 go:
-    - 1.4
-    - 1.6
-    - 1.8
-    - "1.10"
-    - 1.12
-    - 1.14
     - 1.15
-
+    - 1.13
+    - 1.11
+    - 1.9
+    - 1.7
+    - 1.5
+    - 1.4
+    
 # Ejecutamos la regla test de nuestro makefile, que realizará las pruebas sobre el proyecto
 build:
     ci: 
