@@ -31,6 +31,8 @@ type MetodosCircuito interface {
 	SetRecordCircuito(nuevoRecord TiempoVuelta)
 
 	GetResultados() []ResultadoGP
+	GetResultadoByTemporada(temp int) ResultadoGP
+
 	SetResultados(resultados []ResultadoGP)
 	SetResultadoByIndex(i int, resultado ResultadoGP)
 
@@ -76,6 +78,18 @@ func (c *Circuito) SetRecordCircuito(nuevoRecord TiempoVuelta) {
 
 func (c Circuito) GetResultados() []ResultadoGP {
 	return c.resultados
+}
+
+func (c Circuito) GetResultadoByTemporada(temp int) ResultadoGP {
+	var deft ResultadoGP
+
+	for i := 0; i < len(c.resultados); i++ {
+		if c.resultados[i].GetTemporada() == temp {
+			return c.resultados[i]
+		}
+	}
+
+	return deft
 }
 
 func (c *Circuito) SetResultados(resultados []ResultadoGP) {

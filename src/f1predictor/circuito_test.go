@@ -320,3 +320,14 @@ func TestPosibilidadSancion(t *testing.T) {
 		t.Errorf("Resultado obtenido incorrecto, esperado %f, obtenido %f", 0.0, result)
 	}
 }
+
+func TestGetResultadoByTemporada(t *testing.T) {
+	t.Log("Test GetResultadoByTemporada")
+
+	var result ResultadoGP = melbourne.GetResultadoByTemporada(2020)
+
+	if result.GetTemporada() != 2020 {
+		t.Errorf("Resultado obtenido incorrecto, esperado temporada %d, obtenido temporada %d",
+			2020, result.GetTemporada())
+	}
+}
