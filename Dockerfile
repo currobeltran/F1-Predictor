@@ -6,8 +6,10 @@ WORKDIR /test
 COPY makefile .
 
 #Se instala make ya que nos hará falta para ejecutar los tests automáticamente
+#Incluimos también gcc ya que será necesario a la hora de ejecutar nuestro código
 RUN apk update && apk upgrade \
-&& apk add make
+&& apk add make \
+&& apk add build-base
 
 #Establecemos un usuario para realizar la ejecucion sin privilegios
 RUN adduser --disabled-password currobeltran
