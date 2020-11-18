@@ -11,3 +11,5 @@ En este apartado incluiremos las historias de usuario de nuestro proyecto, espec
 - [x] [H4](https://github.com/currobeltran/F1-Predictor/issues/55): Como desarrollador, quiero ejecutar los test de la aplicación en un contenedor para garantizar su correcto funcionamiento en cualquier máquina
 
 - [x] [H5](https://github.com/currobeltran/F1-Predictor/issues/62): Como desarrollador, quiero ejecutar los test cada vez que se desee añadir código al repositorio para garantizar el correcto funcionamiento del mismo.
+
+- [ ] [H6](https://github.com/currobeltran/F1-Predictor/issues/65): Como desarrollador, quiero configurar uno o varios servicios serverless con el objetivo de desplegar una o varias funciones del proyecto
