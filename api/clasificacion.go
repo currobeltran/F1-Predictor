@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	f1predictor "m/src/f1predictor" /*Import para traer paquete f1predictor*/
+	f1predictor "m/src/f1predictor"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -55,34 +55,38 @@ func Init() {
 /*Handler : Controla la llegada de una petición HTTP y la creación de una respuesta*/
 func Handler(w http.ResponseWriter, r *http.Request) {
 	Init()
-
 	defer r.Body.Close()
-	body, _ := ioutil.ReadAll(r.Body)
 
-	stringBody := strings.Split(string(body), "&")
-	match, _ := regexp.MatchString("year", stringBody[0])
+	if r.Method == "POST" {
+		body, _ := ioutil.ReadAll(r.Body)
 
-	if !match {
-		w.Header().Add("Content-Type", "text/plain")
-		fmt.Fprint(w, "Error al realizar la petición")
-	} else {
-		temporada := strings.Split(stringBody[0], "=")
-		ntemp, _ := strconv.Atoi(temporada[1])
+		stringBody := strings.Split(string(body), "&")
+		match, _ := regexp.MatchString("year", stringBody[0])
 
-		result := melbourne.GetResultadoByTemporada(ntemp)
-		if result.GetTemporada() == 0 {
+		if !match {
 			w.Header().Add("Content-Type", "text/plain")
-			fmt.Fprint(w, "No existe la temporada solicitada")
+			fmt.Fprint(w, "Error al realizar la petición")
 		} else {
-			pole := result.GetPoleman().GetNombre()
-			class := f1predictor.ObtenerClasificacion(melbourne, ntemp)
+			temporada := strings.Split(stringBody[0], "=")
+			ntemp, _ := strconv.Atoi(temporada[1])
 
-			data := Response{Pole: pole, Clasificacion: class}
+			result := melbourne.GetResultadoByTemporada(ntemp)
+			if result.GetTemporada() == 0 {
+				w.Header().Add("Content-Type", "text/plain")
+				fmt.Fprint(w, "No existe la temporada solicitada")
+			} else {
+				pole := result.GetPoleman().GetNombre()
+				class := f1predictor.ObtenerClasificacion(melbourne, ntemp)
 
-			msg, _ := json.Marshal(data)
-			w.Header().Add("Content-Type", "application/json")
-			fmt.Fprintf(w, string(msg))
+				data := Response{Pole: pole, Clasificacion: class}
+
+				msg, _ := json.Marshal(data)
+				w.Header().Add("Content-Type", "application/json")
+				fmt.Fprintf(w, string(msg))
+			}
 		}
+	} else {
+		//TODO Front end web
 	}
 
 }
