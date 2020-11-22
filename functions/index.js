@@ -73,23 +73,33 @@ exports.piloto = functions.https.onRequest((request, response) => {
 
     if (x[0].includes("number")){
         var piloto = c[x[1]]
-
-        if(piloto == ""){
-            response.send("El dorsal introducido no corresponde con ningún piloto")
+        console.log(piloto)
+        if(!piloto){
+            response.status(200).sendFile('/static/notexist.html', { root : __dirname })
         }
-    
-        response.send(piloto)
-        return{
-            statusCode: 200
+        else{
+            response.status(200).type('html').send(
+                `<!DOCTYPE html>
+                <html lang="es">
+                    <head>
+                        <title>Consulta Pilotos</title>
+                        <meta charset="utf-8">
+                    </head>
+                
+                    <body>
+                        <h1>Datos del piloto</h1>
+                        <ul>
+                            <li>Nombre: ${piloto.Name}</li>
+                        </ul>
+                    </body>
+                </html>`
+            )
         }
     }
 
     else if (x[0] != "/"){
-        response.send("Petición incorrecta, debe introducir como parámetro GET number=x")
+        response.status(400).sendFile('/static/incorrecto.html', { root : __dirname })
     }
 
-    response.send("Bienvenido, introduzca el dorsal del piloto del cual desea ver la información")
-    return{
-        statusCode: 200
-    }
+    response.status(200).sendFile('/static/index.html', { root : __dirname })
 });
