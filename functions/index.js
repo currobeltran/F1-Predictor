@@ -73,7 +73,7 @@ exports.piloto = functions.https.onRequest((request, response) => {
 
     if (x[0].includes("number")){
         var piloto = c[x[1]]
-        console.log(piloto)
+        
         if(!piloto){
             response.status(200).sendFile('/static/notexist.html', { root : __dirname })
         }
@@ -97,7 +97,7 @@ exports.piloto = functions.https.onRequest((request, response) => {
         }
     }
 
-    else if (x[0] != "/"){
+    else if (x[0] !== "/"){
         response.status(400).sendFile('/static/incorrecto.html', { root : __dirname })
     }
 

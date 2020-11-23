@@ -1,5 +1,5 @@
 test:
-	go test ./src/f1predictor
+	go test ./src/f1predictor ./api/
 
 build:
 	mkdir -p functions

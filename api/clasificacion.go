@@ -3,7 +3,6 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	f1predictor "m/src/f1predictor"
 	"net/http"
 	"regexp"
@@ -58,10 +57,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var err string
 
-	if r.Method == "POST" {
-		body, _ := ioutil.ReadAll(r.Body)
+	if r.URL.String() != "/api/clasificacion" {
 
-		stringBody := strings.Split(string(body), "&")
+		stringBody := strings.Split(r.URL.String(), "&")
 		match, _ := regexp.MatchString("year", stringBody[0])
 
 		if !match {
@@ -119,7 +117,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			
 			<body>
 				<h1>Clasificaciones históricas del GP de Australia</h1>
-				<form method="POST">
+				<form method="GET">
 					<label>
 						Introduzca la temporada
 						<input type="number" name="year" />
