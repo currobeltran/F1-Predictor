@@ -75,7 +75,19 @@ exports.piloto = functions.https.onRequest((request, response) => {
         var piloto = c[x[1]]
         
         if(!piloto){
-            response.status(200).sendFile('/static/notexist.html', { root : __dirname })
+            response.status(200).type('html').send(
+                `<!DOCTYPE html>
+                <html lang="es">
+                    <head>
+                        <title>Consulta Pilotos</title>
+                        <meta charset="utf-8">
+                    </head>
+                
+                    <body>
+                        <h1>No existe ningún piloto con este número</h1>
+                    </body>
+                </html>`
+            )
         }
         else{
             response.status(200).type('html').send(
@@ -98,8 +110,38 @@ exports.piloto = functions.https.onRequest((request, response) => {
     }
 
     else if (x[0] !== "/"){
-        response.status(400).sendFile('/static/incorrecto.html', { root : __dirname })
+        response.status(400).type('html').send(
+            `<!DOCTYPE html>
+            <html lang="es">
+                <head>
+                    <title>Consulta Pilotos</title>
+                    <meta charset="utf-8">
+                </head>
+            
+                <body>
+                    <h1>Error al pasar los parámetros a la función</h1>
+                </body>
+            </html>`
+        )
     }
 
-    response.status(200).sendFile('/static/index.html', { root : __dirname })
+    response.status(200).type('html').send(
+        `<!DOCTYPE html>
+        <html lang="es">
+            <head>
+                <title>Consulta Pilotos</title>
+                <meta charset="utf-8">
+            </head>
+        
+            <body>
+                <form method="GET">
+                    <label>
+                        Dorsal del piloto
+                        <input type="number" name="number" />
+                    </label>
+                    <button type="submit">Enviar</button>
+                </form>
+            </body>
+        </html>`
+    )
 });

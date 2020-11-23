@@ -9,31 +9,19 @@ Además, los más aficionados suelen buscar estadísticas antes de cada Gran Pre
 
 Nuestra aplicación tratará información de manera básica, pero intentando cumplir los objetivos mencionados aquí arriba sentando una base que en un futuro podría mejorar a un servicio más especializado; con métodos para el cálculo de probabilidades de eventos más precisos.
 
-## Integración continua
+## Serverless
 
-Para añadir integración continua en nuestro proyecto nos hemos registrado en Travis, un sistema que nos permitirá ejecutar los test de nuestro código de manera automática cada vez que actualicemos el repositorio.
+En este apartado de nuestro proyecto vamos a desplegar dos funciones relacionadas con nuestro proyecto. Una de ellas nos permitirá seleccionar entre el archivo histórico de los resultados de las sesiones de clasificación del GP de Australia; mientras que la otra nos permitirá mediante el número de coche del piloto obtener su información. El código fuente de la primera función se encuentra en el siguiente [enlace](./api/clasificacion.go), mientras la segunda está [aquí](./functions/index.js).
 
-### ¿Cómo hemos configurado Travis?
+Para el despliegue de las siguientes funciones hemos utilizado las plataformas Vercel y Firebase respectivamente, en las cuales crearemos una cuenta (con GitHub en el primer caso y con nuestra cuenta de Google en el segundo se puede hacer este proceso de manera automática) y crearemos el proyecto en el cual se alojará nuestra función.
 
-Antes de nada, si es la primera vez que usamos este servicio; debemos crear una cuenta en la página de [Travis](https://travis-ci.com/), donde nos podemos registrar con nuestra cuenta de GitHub para más comodidad; y posteriormente activar la GitHub App de Travis, para tener la capacidad de ejecutar el proceso en nuestros repositorios.
+Para desplegar una función desde nuestro repositorio usando alguno de los mencionados servicios, usaremos el CLI que tenga cada plataforma, que dispondrá de un comando con el que podremos inicializar dichos servicios en nuestro proyecto. Durante el proceso, el CLI nos guiará para configurarlo correctamente y crear todos los archivos necesarios dentro de nuestro repositorio. En el caso de Vercel, se puede enlazar con nuestro repositorio de GitHub para que, en cada actualización del repositorio, se realice un nuevo despliegue a producción; mientras que con Firebase tendremos que realizar este proceso de manera manual (que con ayuda del CLI se realiza con un simple comando).
 
-El siguiente paso será crear un archivo .yml (que será el ejecutado por Travis) en la raíz de nuestro proyecto, llamado [.travis.yml](./.travis.yml). En nuestro caso es muy simple, ya que como vemos tenemos 2 líneas que ejecutarán todo el proceso necesario:
+En las dos funciones hemos utilizado la misma forma de tratar una petición HTTP: a través de la URI, se accede al recurso (nuestra función) y se establecen los parámetros de búsqueda que queramos (este proceso se facilitará ya que en cada función se dispone de un formulario para introducir esta información). Esta información de entrada se procesa (ya que los parámetros al obtenerlo aparecerán como un único string) y se llama a las distintas casuísticas de nuestra función.
 
-- `language: minimal`: Este parámetro se establece con este valor y no como `go`, ya que no vamos a necesitar ningún lenguaje de programación en concreto en la máquina virtual que ejecutará el proceso de prueba del código. Esto se debe a que dichas pruebas se ejecutarán en un contenedor que tendrá todo el entorno configurado para ello en el archivo [Dockerfile](./Dockerfile). Añadir que, además, esta versión tiene una ejecución más rápida que las asociadas a un lenguaje o la genérica, ya que es más liviana que las demás (con la ventaja de que una de las pocas herramientas que incluye la imagen es Docker).
+Por ejemplo, en la función realizada para Vercel (escrita en Go), hemos establecido inicialmente dos casos, que son cuando existe una entrada de parámetros y cuando no. En el primer caso, tratamos la cadena de entrada para decidir los resultados de qué temporada debemos mostrar llamando a los métodos dispuestos para ello, comprobando además si estos son correctos o si hay algún error en la entrada de los parámetros. En el segundo caso, mostramos directamente la página donde estará el formulario que servirá para filtrar la información.
 
-- `script: make travis`: Como vemos, llama a la regla travis de nuestro [makefile](./makefile), que tendrá la correspondiente orden para ejecutar el contenedor de tests almacenado en el repositorio de Docker Hub.
-
-### ¿Cómo hemos configurado Shippable?
-
-Los primeros pasos para iniciar este servicio en nuestro repositorio son iguales a los seguidos en Travis, es decir, registrarnos en su [página web](https://shippable.com) y activar sobre que repositorios queremos que se ejecute Shippable.
-
-En cuanto a la ejecución del proceso sobre este repositorio, se ha creado un archivo llamado [shippable.yml](./shippable.yml) (se podría usar .travis.yml, pero Shippable no reconoce `minimal` como una opción de lenguaje). Las órdenes dadas son las siguientes:
-
-- `language: go`: Definimos el párametro del lenguaje como go, ya que en este caso no se ejecutará el contenedor y sí será necesario instalarlo.
-
-- `go: - 1.4 ... - 1.15`: Definimos para que versiones queremos ejecutar las pruebas. Hemos elegido las versiones del lenguaje 1.4 y 1.15 porque son la primera y la última en las que funciona nuestro código (además la versión 1.15 es en la cual se ha desarrollado). Se establecen además versiones intermedias de 2 en 2 ya que, según la [documentación de Go](https://golang.org/doc/devel/release.html#policy), una versión major se mantiene durante la salida de dos versiones del lenguaje nuevas.
-
-- `build: ci: make test`: Ejecutamos la regla test de nuestro makefile, la cual se encargará de ejecutar las pruebas sobre nuestro proyecto.
+A la hora de dar una respuesta a la petición, siempre debemos establecer que tipo de respuesta estamos dando. En casi todas las situaciones la respuesta será de tipo text/html, ya que mostraremos una página; pero en la función de Vercel establecemos un parámetro para poder obtener la información como application/json.
 
 ## Código fuente y test del código
 
