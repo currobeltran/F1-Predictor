@@ -56,6 +56,7 @@ func Init() {
 func Handler(w http.ResponseWriter, r *http.Request) {
 	Init()
 	defer r.Body.Close()
+	var err string
 
 	if r.Method == "POST" {
 		body, _ := ioutil.ReadAll(r.Body)
@@ -64,29 +65,90 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		match, _ := regexp.MatchString("year", stringBody[0])
 
 		if !match {
-			w.Header().Add("Content-Type", "text/plain")
-			fmt.Fprint(w, "Error al realizar la petición")
+			err = "Error al realizar la petición"
 		} else {
 			temporada := strings.Split(stringBody[0], "=")
 			ntemp, _ := strconv.Atoi(temporada[1])
 
 			result := melbourne.GetResultadoByTemporada(ntemp)
 			if result.GetTemporada() == 0 {
-				w.Header().Add("Content-Type", "text/plain")
-				fmt.Fprint(w, "No existe la temporada solicitada")
+				err = "No existe la temporada solicitada"
 			} else {
 				pole := result.GetPoleman().GetNombre()
 				class := f1predictor.ObtenerClasificacion(melbourne, ntemp)
 
-				data := Response{Pole: pole, Clasificacion: class}
+				if len(stringBody) <= 1 {
+					w.Header().Add("Content-Type", "text/html")
+					fmt.Fprintf(w, `
+					<!DOCTYPE html>
 
-				msg, _ := json.Marshal(data)
-				w.Header().Add("Content-Type", "application/json")
-				fmt.Fprintf(w, string(msg))
+					<html lang="es">
+						<head>
+							<meta charset="utf-8">
+							<title>Clasificación</title>
+						</head>
+					
+						<body>
+							<h1>Clasificaciones históricas del GP de Australia: Año `+temporada[1]+`</h1>
+							<ul>
+								<li>Poleman: `+pole+` </li>
+								<li>Clasificación: `+class+` </li>
+							</ul>
+						</body>
+					</html>
+					`)
+				} else {
+					data := Response{Pole: pole, Clasificacion: class}
+
+					msg, _ := json.Marshal(data)
+					w.Header().Add("Content-Type", "application/json")
+					fmt.Fprintf(w, string(msg))
+				}
 			}
 		}
 	} else {
-		//TODO Front end web
-	}
+		w.Header().Add("Content-Type", "text/html")
+		fmt.Fprintf(w, `
+		<!DOCTYPE html>
 
+		<html lang="es">
+			<head>
+				<meta charset="utf-8">
+				<title>Clasificación</title>
+			</head>
+			
+			<body>
+				<h1>Clasificaciones históricas del GP de Australia</h1>
+				<form method="POST">
+					<label>
+						Introduzca la temporada
+						<input type="number" name="year" />
+					</label>
+					<label>
+						¿Devolver como JSON?
+						<input type="checkbox" name="json" />
+					</label>
+					<button type="submit">Aceptar</button>
+				</form>
+			</body>
+		</html>
+		`)
+	}
+	if err != "" {
+		w.Header().Add("Content-Type", "text/html")
+		fmt.Fprintf(w, `
+		<!DOCTYPE html>
+
+		<html lang="es">
+			<head>
+				<meta charset="utf-8">
+				<title>Clasificación</title>
+			</head>
+		
+			<body>
+				<h1>`+err+`</h1>
+			</body>
+		</html>
+		`)
+	}
 }
