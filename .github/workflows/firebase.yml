@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+defaults:
+  run:
+    working-directory: functions
+
 jobs:
   build:
     
@@ -20,7 +24,7 @@ jobs:
         run: npm install
     
       - name: Build
-        run: npm run build-prod ./functions/package.json
+        run: npm run build-prod
     
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
