@@ -12,3 +12,5 @@ lenguaje: go
 test: src/f1predictor/circuito_test.go
 
 taskfile: makefile
+
+URL: https://f1-predictor.vercel.app/api/clasificacion?year=2020&json=on
