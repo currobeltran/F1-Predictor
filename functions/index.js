@@ -125,6 +125,7 @@ exports.piloto = functions.https.onRequest((request, response) => {
         )
     }
 
+    //Formulario para que el usuario pueda introducir el número del piloto
     response.status(200).type('html').send(
         `<!DOCTYPE html>
         <html lang="es">

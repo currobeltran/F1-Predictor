@@ -51,7 +51,11 @@ func Init() {
 	melbourne.SetResultados(resultados)
 }
 
-/*Handler : Controla la llegada de una petición HTTP y la creación de una respuesta*/
+/*Handler : Controla la llegada de una petición HTTP y la creación de una respuesta.
+
+Si la petición no tiene ningún parámetro GET, se muestra el formulario, si no se procesa
+para filtrar el resultado y mostrar la informacion deseada o un error en su defecto
+*/
 func Handler(w http.ResponseWriter, r *http.Request) {
 	Init()
 	defer r.Body.Close()
