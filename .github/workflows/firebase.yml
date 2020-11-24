@@ -22,7 +22,7 @@ jobs:
       - name: Build
         run: | 
             cd ./functions
-            npm run build-prod
+            npm run ../build-prod
             cd ..
     
       - name: Archive Production Artifact
