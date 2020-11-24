@@ -20,10 +20,7 @@ jobs:
         run: npm install
     
       - name: Build
-        run: | 
-            cd ./functions
-            npm run ../build-prod
-            cd ..
+        run: npm run build-prod ./functions/package.json
     
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
