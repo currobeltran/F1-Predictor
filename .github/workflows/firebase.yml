@@ -20,7 +20,7 @@ jobs:
         run: npm install
     
       - name: Build
-        run: cd ./functions 
+        run: cd ./functions,
              npm run build-prod
     
       - name: Archive Production Artifact
