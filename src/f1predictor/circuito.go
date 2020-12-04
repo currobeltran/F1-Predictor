@@ -15,20 +15,20 @@ import (
  */
 
 type Circuito struct {
-	nombre         string
-	pais           string
+	Nombre         string
+	Pais           string
 	recordCircuito TiempoVuelta
 	resultados     []ResultadoGP
 }
 
 type MetodosCircuito interface {
-	Constructor(nombre string, pais string)
+	Constructor(nombre string, Pais string)
 
 	GetNombre() string
 	SetNombre(nombre string)
 
 	GetPais() string
-	SetPais(pais string)
+	SetPais(Pais string)
 
 	GetRecordCircuito() TiempoVuelta
 	SetRecordCircuito(nuevoRecord TiempoVuelta)
@@ -44,9 +44,9 @@ type MetodosCircuito interface {
 	VerDatosCircuito(n bool, p bool, t bool) string
 }
 
-func (c *Circuito) Constructor(nombre string, pais string) {
-	c.nombre = nombre
-	c.pais = pais
+func (c *Circuito) Constructor(Nombre string, Pais string) {
+	c.Nombre = Nombre
+	c.Pais = Pais
 
 	var tmp TiempoVuelta
 	tmp.Constructor(0, 0, 0)
@@ -56,19 +56,19 @@ func (c *Circuito) Constructor(nombre string, pais string) {
 }
 
 func (c Circuito) GetNombre() string {
-	return c.nombre
+	return c.Nombre
 }
 
-func (c *Circuito) SetNombre(nombre string) {
-	c.nombre = nombre
+func (c *Circuito) SetNombre(Nombre string) {
+	c.Nombre = Nombre
 }
 
 func (c Circuito) GetPais() string {
-	return c.pais
+	return c.Pais
 }
 
-func (c *Circuito) SetPais(pais string) {
-	c.pais = pais
+func (c *Circuito) SetPais(Pais string) {
+	c.Pais = Pais
 }
 
 func (c Circuito) GetRecordCircuito() TiempoVuelta {
@@ -154,13 +154,13 @@ func (c Circuito) VerDatosCircuito(n bool, p bool, t bool) string {
 	var ret string
 
 	if n {
-		var nombre string = ("Nombre del circuito: " + c.nombre + "\n")
-		ret += nombre
+		var Nombre string = ("Nombre del circuito: " + c.Nombre + "\n")
+		ret += Nombre
 	}
 
 	if p {
-		var pais string = ("País: " + c.pais + "\n")
-		ret += pais
+		var Pais string = ("País: " + c.Pais + "\n")
+		ret += Pais
 	}
 
 	if t {

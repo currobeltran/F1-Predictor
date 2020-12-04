@@ -1,0 +1,22 @@
+{
+    "australia":{
+        "Nombre": "Albert Park Circuit",
+        "Pais": "Australia"
+    },
+    "bahrein":{
+        "Nombre": "Sahkir Circuit",
+        "Pais": "Bahrein"
+    },
+    "china":{
+        "Nombre": "Shangai Circuit",
+        "Pais": "China"
+    },
+    "españa":{
+        "Nombre": "Circuit Barcelona-Catalunya",
+        "Pais": "España"
+    },
+    "monaco":{
+        "Nombre": "Circuit de Montecarlo",
+        "Pais": "Monaco"
+    }
+}
