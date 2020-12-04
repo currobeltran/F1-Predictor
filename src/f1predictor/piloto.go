@@ -13,81 +13,81 @@ import "strconv"
  */
 
 type Piloto struct {
-	nombre         string
-	victorias      int
-	poles          int
-	vueltasRapidas int
-	mundiales      int
+	Nombre         string
+	Victorias      int
+	Poles          int
+	VueltasRapidas int
+	Mundiales      int
 }
 
 type MetodosPiloto interface {
-	Constructor(nombre string, victorias int, poles int, vueltasRapidas int, mundiales int)
+	Constructor(Nombre string, Victorias int, Poles int, VueltasRapidas int, Mundiales int)
 
 	GetNombre() string
-	SetNombre(nombre string)
+	SetNombre(Nombre string)
 
 	GetVictorias() int
-	SetVictorias(victorias int)
+	SetVictorias(Victorias int)
 
 	GetPoles() int
-	SetPoles(poles int)
+	SetPoles(Poles int)
 
 	GetVueltasRapidas() int
-	SetVueltasRapidas(vueltasRapidas int)
+	SetVueltasRapidas(VueltasRapidas int)
 
 	GetMundiales() int
-	SetMundiales(mundiales int)
+	SetMundiales(Mundiales int)
 
 	VerDatosPiloto(n bool, v bool, pol bool, vr bool, m bool) string
 }
 
-func (p *Piloto) Constructor(nombre string, victorias int,
-	poles int, vueltasRapidas int, mundiales int) {
-	p.nombre = nombre
-	p.victorias = victorias
-	p.poles = poles
-	p.vueltasRapidas = vueltasRapidas
-	p.mundiales = mundiales
+func (p *Piloto) Constructor(Nombre string, Victorias int,
+	Poles int, VueltasRapidas int, Mundiales int) {
+	p.Nombre = Nombre
+	p.Victorias = Victorias
+	p.Poles = Poles
+	p.VueltasRapidas = VueltasRapidas
+	p.Mundiales = Mundiales
 }
 
 func (p Piloto) GetNombre() string {
-	return p.nombre
+	return p.Nombre
 }
 
-func (p *Piloto) SetNombre(nombre string) {
-	p.nombre = nombre
+func (p *Piloto) SetNombre(Nombre string) {
+	p.Nombre = Nombre
 }
 
 func (p Piloto) GetVictorias() int {
-	return p.victorias
+	return p.Victorias
 }
 
-func (p *Piloto) SetVictorias(victorias int) {
-	p.victorias = victorias
+func (p *Piloto) SetVictorias(Victorias int) {
+	p.Victorias = Victorias
 }
 
 func (p Piloto) GetPoles() int {
-	return p.poles
+	return p.Poles
 }
 
-func (p *Piloto) SetPoles(poles int) {
-	p.poles = poles
+func (p *Piloto) SetPoles(Poles int) {
+	p.Poles = Poles
 }
 
 func (p Piloto) GetVueltasRapidas() int {
-	return p.vueltasRapidas
+	return p.VueltasRapidas
 }
 
-func (p *Piloto) SetVueltasRapidas(vueltasRapidas int) {
-	p.vueltasRapidas = vueltasRapidas
+func (p *Piloto) SetVueltasRapidas(VueltasRapidas int) {
+	p.VueltasRapidas = VueltasRapidas
 }
 
 func (p Piloto) GetMundiales() int {
-	return p.mundiales
+	return p.Mundiales
 }
 
-func (p *Piloto) SetMundiales(mundiales int) {
-	p.mundiales = mundiales
+func (p *Piloto) SetMundiales(Mundiales int) {
+	p.Mundiales = Mundiales
 }
 
 /*
@@ -100,28 +100,28 @@ func (p Piloto) VerDatosPiloto(n bool, v bool, pol bool, vr bool, m bool) string
 	var ret string
 
 	if n {
-		var nombre string = ("Nombre del piloto: " + p.nombre + "\n")
-		ret += nombre
+		var Nombre string = ("Nombre del piloto: " + p.Nombre + "\n")
+		ret += Nombre
 	}
 
 	if v {
-		var victorias string = ("Victorias conseguidas: " + strconv.Itoa(p.victorias) + "\n")
-		ret += victorias
+		var Victorias string = ("Victorias conseguidas: " + strconv.Itoa(p.Victorias) + "\n")
+		ret += Victorias
 	}
 
 	if pol {
-		var poles string = ("Poles conseguidas: " + strconv.Itoa(p.poles) + "\n")
-		ret += poles
+		var Poles string = ("Poles conseguidas: " + strconv.Itoa(p.Poles) + "\n")
+		ret += Poles
 	}
 
 	if vr {
-		var vueltasRapidas string = ("Vueltas rápidas conseguidas: " + strconv.Itoa(p.vueltasRapidas) + "\n")
-		ret += vueltasRapidas
+		var VueltasRapidas string = ("Vueltas rápidas conseguidas: " + strconv.Itoa(p.VueltasRapidas) + "\n")
+		ret += VueltasRapidas
 	}
 
 	if m {
-		var mundiales string = ("Mundiales conseguidos: " + strconv.Itoa(p.mundiales) + "\n")
-		ret += mundiales
+		var Mundiales string = ("Mundiales conseguidos: " + strconv.Itoa(p.Mundiales) + "\n")
+		ret += Mundiales
 	}
 
 	return ret

@@ -1,0 +1,142 @@
+{
+    "hamilton":{
+        "Nombre": "Lewis Hamilton",
+        "Victorias": 96,
+        "Poles": 98,
+        "VueltasRapidas": 55,
+        "Mundiales": 7
+    },
+    "bottas":{
+        "Nombre": "Valtteri Bottas",
+        "Victorias": 12,
+        "Poles": 10,
+        "VueltasRapidas": 15,
+        "Mundiales": 0
+    },
+    "verstappen":{
+        "Nombre": "Max Verstappen",
+        "Victorias": 5,
+        "Poles": 2,
+        "VueltasRapidas": 6,
+        "Mundiales": 0
+    },
+    "albon":{
+        "Nombre": "Alexander Albon",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    },
+    "leclerc":{
+        "Nombre": "Charles Leclerc",
+        "Victorias": 2,
+        "Poles": 5,
+        "VueltasRapidas": 3,
+        "Mundiales": 0
+    },
+    "vettel":{
+        "Nombre": "Sebastian Vettel",
+        "Victorias": 55,
+        "Poles": 32,
+        "VueltasRapidas": 40,
+        "Mundiales": 4
+    },
+    "sainz":{
+        "Nombre": "Carlos Sainz",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 1,
+        "Mundiales": 0
+    },
+    "norris":{
+        "Nombre": "Lando Norris",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 1,
+        "Mundiales": 0
+    },
+    "perez":{
+        "Nombre": "Sergio Pérez",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 3,
+        "Mundiales": 0
+    },
+    "stroll":{
+        "Nombre": "Lance Stroll",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    },
+    "gasly":{
+        "Nombre": "Pierre Gasly",
+        "Victorias": 1,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    },
+    "kyvat":{
+        "Nombre": "Daniil Kyvat",
+        "Victorias": 0,
+        "Poles": 1,
+        "VueltasRapidas": 2,
+        "Mundiales": 0
+    },
+    "raikkonen":{
+        "Nombre": "Kimi Raikkonen",
+        "Victorias": 21,
+        "Poles": 10,
+        "VueltasRapidas": 20,
+        "Mundiales": 1
+    },
+    "giovinazzi":{
+        "Nombre": "Antonio Giovinazzi",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    },
+    "ricciardo":{
+        "Nombre": "Daniel Ricciardo",
+        "Victorias": 7,
+        "Poles": 5,
+        "VueltasRapidas": 5,
+        "Mundiales": 0
+    },
+    "ocon":{
+        "Nombre": "Esteban Ocon",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": "0"
+    },
+    "magnussen":{
+        "Nombre": "Kevin Magnussen",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    },
+    "grosjean":{
+        "Nombre": "Romain Grosjean",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    },
+    "latifi":{
+        "Nombre": "Nicholas Latifi",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    },
+    "russell":{
+        "Nombre": "George Russell",
+        "Victorias": 0,
+        "Poles": 0,
+        "VueltasRapidas": 0,
+        "Mundiales": 0
+    }
+}
