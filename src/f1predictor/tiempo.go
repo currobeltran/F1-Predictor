@@ -18,45 +18,45 @@ type GetSetTiempoVuelta interface {
 }
 
 type TiempoVuelta struct {
-	minuto   int
-	segundo  int
-	milesima int
+	Minuto   int
+	Segundo  int
+	Milesima int
 }
 
 func (t *TiempoVuelta) Constructor(m int, s int, ms int) {
-	t.minuto = m
-	t.segundo = s
-	t.milesima = ms
+	t.Minuto = m
+	t.Segundo = s
+	t.Milesima = ms
 }
 
 func (t TiempoVuelta) GetMinuto() int {
-	return t.minuto
+	return t.Minuto
 }
 
 func (t *TiempoVuelta) SetMinuto(m int) {
-	t.minuto = m
+	t.Minuto = m
 }
 
 func (t TiempoVuelta) GetSegundo() int {
-	return t.segundo
+	return t.Segundo
 }
 
 func (t *TiempoVuelta) SetSegundo(s int) {
-	t.segundo = s
+	t.Segundo = s
 }
 
 func (t TiempoVuelta) GetMilesima() int {
-	return t.milesima
+	return t.Milesima
 }
 
 func (t *TiempoVuelta) SetMilesima(ms int) {
-	t.milesima = ms
+	t.Milesima = ms
 }
 
 func (t TiempoVuelta) ImprimirTiempo() string {
 	var ret string
 
-	ret = (strconv.Itoa(t.minuto) + ":" + strconv.Itoa(t.segundo) + "." + strconv.Itoa(t.milesima))
+	ret = (strconv.Itoa(t.Minuto) + ":" + strconv.Itoa(t.Segundo) + "." + strconv.Itoa(t.Milesima))
 
 	return ret
 }

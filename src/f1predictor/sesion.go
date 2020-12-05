@@ -2,74 +2,74 @@ package f1predictor
 
 import "strconv"
 
-/* Clase donde se relacionan los registros de un piloto en una determinada sesión. Los atributos
+/* Clase donde se relacionan los registros de un Piloto en una determinada sesión. Los atributos
  * son los siguientes:
  *
- *		- Tiempos que ha realizado el piloto en cada vuelta
- * 		- Piloto con el que se relacionan los tiempos
- *		- Mejor tiempo de la sesión realizado por el piloto
+ *		- Tiempos que ha realizado el Piloto en cada vuelta
+ * 		- Piloto con el que se relacionan los Tiempos
+ *		- Mejor tiempo de la sesión realizado por el Piloto
  */
 
 type SesionPiloto struct {
-	tiempos     []TiempoVuelta
-	piloto      Piloto
-	mejorTiempo TiempoVuelta
+	Tiempos     []TiempoVuelta
+	Piloto      Piloto
+	MejorTiempo TiempoVuelta
 }
 
 type MetodosSesionPiloto interface {
-	Constructor(tiempos []TiempoVuelta, piloto Piloto, mejorTiempo TiempoVuelta)
+	Constructor(Tiempos []TiempoVuelta, Piloto Piloto, MejorTiempo TiempoVuelta)
 
 	GetTiempos() []TiempoVuelta
-	SetTiempos(tiempos []TiempoVuelta)
+	SetTiempos(Tiempos []TiempoVuelta)
 
 	GetPiloto() Piloto
-	SetPiloto(piloto Piloto)
+	SetPiloto(Piloto Piloto)
 
 	GetMejorTiempo() TiempoVuelta
-	SetMejorTiempo(mejorTiempo TiempoVuelta)
+	SetMejorTiempo(MejorTiempo TiempoVuelta)
 
-	VerClasificacionSesion(pilotos [20]SesionPiloto) string
+	VerClasificacionSesion(Pilotos [20]SesionPiloto) string
 }
 
-func (sp *SesionPiloto) Constructor(tiempos []TiempoVuelta, piloto Piloto,
-	mejorTiempo TiempoVuelta) {
-	sp.mejorTiempo = mejorTiempo
-	sp.piloto = piloto
-	sp.tiempos = tiempos
+func (sp *SesionPiloto) Constructor(Tiempos []TiempoVuelta, Piloto Piloto,
+	MejorTiempo TiempoVuelta) {
+	sp.MejorTiempo = MejorTiempo
+	sp.Piloto = Piloto
+	sp.Tiempos = Tiempos
 }
 
 func (sp SesionPiloto) GetTiempos() []TiempoVuelta {
-	return sp.tiempos
+	return sp.Tiempos
 }
 
-func (sp *SesionPiloto) SetTiempos(tiempos []TiempoVuelta) {
-	sp.tiempos = tiempos
+func (sp *SesionPiloto) SetTiempos(Tiempos []TiempoVuelta) {
+	sp.Tiempos = Tiempos
 }
 
 func (sp SesionPiloto) GetPiloto() Piloto {
-	return sp.piloto
+	return sp.Piloto
 }
 
-func (sp *SesionPiloto) SetPiloto(piloto Piloto) {
-	sp.piloto = piloto
+func (sp *SesionPiloto) SetPiloto(Piloto Piloto) {
+	sp.Piloto = Piloto
 }
 
 func (sp SesionPiloto) GetMejorTiempo() TiempoVuelta {
-	return sp.mejorTiempo
+	return sp.MejorTiempo
 }
 
-func (sp *SesionPiloto) SetMejorTiempo(mejorTiempo TiempoVuelta) {
-	sp.mejorTiempo = mejorTiempo
+func (sp *SesionPiloto) SetMejorTiempo(MejorTiempo TiempoVuelta) {
+	sp.MejorTiempo = MejorTiempo
 }
 
 /* Método con el que se podrá visualizar de manera ordenada la clasificación de una
  * sesión del Gran Premio
  */
-func VerClasificacionSesion(pilotos [20]SesionPiloto) string {
+func VerClasificacionSesion(Pilotos [20]SesionPiloto) string {
 	var ret string
 
-	for i := 0; i < len(pilotos); i++ {
-		var pil SesionPiloto = pilotos[i]
+	for i := 0; i < len(Pilotos); i++ {
+		var pil SesionPiloto = Pilotos[i]
 
 		var mejor string = (strconv.Itoa(pil.GetMejorTiempo().GetMinuto()) + ":" +
 			strconv.Itoa(pil.GetMejorTiempo().GetSegundo()) + "." + strconv.Itoa(pil.GetMejorTiempo().GetMilesima()))
