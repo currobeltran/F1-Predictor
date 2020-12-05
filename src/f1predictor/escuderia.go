@@ -14,31 +14,31 @@ import "strconv"
  */
 
 type Escuderia struct {
-	nombre           string
-	pilotos          []Piloto
-	titulosMundiales int
-	victorias        int
-	poles            int
-	vueltasRapidas   int
+	Nombre           string
+	Pilotos          []Piloto
+	TitulosMundiales int
+	Victorias        int
+	Poles            int
+	VueltasRapidas   int
 }
 
 type MetodosEscuderia interface {
-	Constructor(nombre string, pilotos [2]Piloto, titulos int, victorias int, poles int, vr int)
+	Constructor(Nombre string, Pilotos [2]Piloto, titulos int, Victorias int, Poles int, vr int)
 
 	GetNombre() string
-	SetNombre(nombre string)
+	SetNombre(Nombre string)
 
 	GetPilotos() []Piloto
-	SetPilotos(pilotos []Piloto)
+	SetPilotos(Pilotos []Piloto)
 
 	GetTitulosMundiales() int
 	SetTitulosMundiales(titulos int)
 
 	GetVictorias() int
-	SetVictorias(victorias int)
+	SetVictorias(Victorias int)
 
 	GetPoles() int
-	SetPoles(poles int)
+	SetPoles(Poles int)
 
 	GetVueltasRapidas() int
 	SetVueltasRapidas(vr int)
@@ -46,64 +46,64 @@ type MetodosEscuderia interface {
 	VerDatosEscuderia(n bool, p bool, m bool, v bool, pol bool, vr bool) string
 }
 
-func (e *Escuderia) Constructor(nombre string, pilotos []Piloto, titulos int,
-	victorias int, poles int, vr int) {
+func (e *Escuderia) Constructor(Nombre string, Pilotos []Piloto, titulos int,
+	Victorias int, Poles int, vr int) {
 
-	e.nombre = nombre
-	e.pilotos = pilotos
-	e.titulosMundiales = titulos
-	e.victorias = victorias
-	e.poles = poles
-	e.vueltasRapidas = vr
+	e.Nombre = Nombre
+	e.Pilotos = Pilotos
+	e.TitulosMundiales = titulos
+	e.Victorias = Victorias
+	e.Poles = Poles
+	e.VueltasRapidas = vr
 
 }
 
 func (e Escuderia) GetNombre() string {
-	return e.nombre
+	return e.Nombre
 }
 
-func (e *Escuderia) SetNombre(nombre string) {
-	e.nombre = nombre
+func (e *Escuderia) SetNombre(Nombre string) {
+	e.Nombre = Nombre
 }
 
 func (e Escuderia) GetPilotos() []Piloto {
-	return e.pilotos
+	return e.Pilotos
 }
 
-func (e *Escuderia) SetPilotos(pilotos []Piloto) {
-	e.pilotos = pilotos
+func (e *Escuderia) SetPilotos(Pilotos []Piloto) {
+	e.Pilotos = Pilotos
 }
 
 func (e Escuderia) GetTitulosMundiales() int {
-	return e.titulosMundiales
+	return e.TitulosMundiales
 }
 
-func (e *Escuderia) SetTitulosMundiales(titulosMundiales int) {
-	e.titulosMundiales = titulosMundiales
+func (e *Escuderia) SetTitulosMundiales(TitulosMundiales int) {
+	e.TitulosMundiales = TitulosMundiales
 }
 
 func (e Escuderia) GetVictorias() int {
-	return e.victorias
+	return e.Victorias
 }
 
-func (e *Escuderia) SetVictorias(victorias int) {
-	e.victorias = victorias
+func (e *Escuderia) SetVictorias(Victorias int) {
+	e.Victorias = Victorias
 }
 
 func (e Escuderia) GetPoles() int {
-	return e.poles
+	return e.Poles
 }
 
-func (e *Escuderia) SetPoles(poles int) {
-	e.poles = poles
+func (e *Escuderia) SetPoles(Poles int) {
+	e.Poles = Poles
 }
 
 func (e Escuderia) GetVueltasRapidas() int {
-	return e.vueltasRapidas
+	return e.VueltasRapidas
 }
 
 func (e *Escuderia) SetVueltasRapidas(vr int) {
-	e.vueltasRapidas = vr
+	e.VueltasRapidas = vr
 }
 
 /* Método para visualizar ordenadamente la información sobre una escuderia. Se pueden seleccionar
@@ -115,35 +115,35 @@ func (e Escuderia) VerDatosEscuderia(n bool, p bool, m bool, v bool, pol bool, v
 	var ret string
 
 	if n {
-		var nombre string = ("Nombre de la escuderia: " + e.nombre + "\n")
-		ret += nombre
+		var Nombre string = ("Nombre de la escuderia: " + e.Nombre + "\n")
+		ret += Nombre
 	}
 
 	if p {
-		var pilotos string = ("Pilotos de la escuderia: " + e.pilotos[0].GetNombre() +
-			" y " + e.pilotos[1].GetNombre() + "\n")
+		var Pilotos string = ("Pilotos de la escuderia: " + e.Pilotos[0].GetNombre() +
+			" y " + e.Pilotos[1].GetNombre() + "\n")
 
-		ret += pilotos
+		ret += Pilotos
 	}
 
 	if m {
-		var mundiales string = ("Mundiales obtenidos: " + strconv.Itoa(e.titulosMundiales) + "\n")
+		var mundiales string = ("Mundiales obtenidos: " + strconv.Itoa(e.TitulosMundiales) + "\n")
 		ret += mundiales
 	}
 
 	if v {
-		var victorias string = ("Victorias conseguidas: " + strconv.Itoa(e.victorias) + "\n")
-		ret += victorias
+		var Victorias string = ("Victorias conseguidas: " + strconv.Itoa(e.Victorias) + "\n")
+		ret += Victorias
 	}
 
 	if pol {
-		var poles string = ("Pole positions conseguidas: " + strconv.Itoa(e.poles) + "\n")
-		ret += poles
+		var Poles string = ("Pole positions conseguidas: " + strconv.Itoa(e.Poles) + "\n")
+		ret += Poles
 	}
 
 	if vr {
-		var vueltasRapidas string = ("Vueltas rápidas conseguidas: " + strconv.Itoa(e.vueltasRapidas) + "\n")
-		ret += vueltasRapidas
+		var VueltasRapidas string = ("Vueltas rápidas conseguidas: " + strconv.Itoa(e.VueltasRapidas) + "\n")
+		ret += VueltasRapidas
 	}
 
 	return ret
