@@ -50,6 +50,10 @@ func main() {
 		gp.GET("/estadisticas", func(c *gin.Context) {
 			estadistica.Get(c)
 		})
+		gp.PUT("/estadisticas", func(c *gin.Context) {
+			estadistica.Put(c)
+		})
+
 		gp.GET("/sesion/:nombreSesion", func(c *gin.Context) {
 			sesion.Get(c)
 		})
