@@ -40,6 +40,9 @@ func main() {
 		pil.GET("", func(c *gin.Context) {
 			piloto.Get(c)
 		})
+		pil.PUT("", func(c *gin.Context) {
+			piloto.Put(c)
+		})
 	}
 
 	gp := r.Group("api/gp/:nombreCircuito/:temporada")
