@@ -20,6 +20,9 @@ func main() {
 		esc.GET("", func(c *gin.Context) {
 			escuderia.Get(c)
 		})
+		esc.PUT("", func(c *gin.Context) {
+			escuderia.Put(c)
+		})
 	}
 
 	circ := r.Group("/api/circuito/:nombre")
