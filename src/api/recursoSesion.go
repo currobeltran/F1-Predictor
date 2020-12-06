@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"net/url"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 //RecursoSesion : Struct que representará el recurso relacionado con una sesión de un GP
@@ -13,10 +14,10 @@ type RecursoSesion struct {
 }
 
 //Get : Metodo para obtener la información de una sesion de un Gran Premio concreto
-func (api RecursoSesion) Get(params url.Values) (int, interface{}) {
+func (api RecursoSesion) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/resultados.json")
 	if err != nil {
-		return 404, map[string]interface{}{"Error": err.Error()}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
@@ -26,30 +27,36 @@ func (api RecursoSesion) Get(params url.Values) (int, interface{}) {
 	}
 
 	var temporadaEscogida f1predictor.ResultadoGP
-	temporadaNum, _ := strconv.Atoi(params.Get("temporada"))
+	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))
 
-	for x := 0; x < len(resultados[params.Get("nombreCircuito")]); x++ {
-		if resultados[params.Get("nombreCircuito")][x].GetTemporada() == temporadaNum {
-			temporadaEscogida = resultados[params.Get("nombreCircuito")][x]
+	for x := 0; x < len(resultados[c.Param("nombreCircuito")]); x++ {
+		if resultados[c.Param("nombreCircuito")][x].GetTemporada() == temporadaNum {
+			temporadaEscogida = resultados[c.Param("nombreCircuito")][x]
 		}
 	}
 
 	if temporadaEscogida.GetTemporada() == 0 {
-		return 404, map[string]interface{}{"Error": "Not Found"}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
-	switch params.Get("nombreSesion") {
+	switch c.Param("nombreSesion") {
 	case "fp1":
-		return 200, temporadaEscogida.GetResultadoFP1()
+		c.JSON(200, temporadaEscogida.GetResultadoFP1())
+		break
 	case "fp2":
-		return 200, temporadaEscogida.GetResultadoFP2()
+		c.JSON(200, temporadaEscogida.GetResultadoFP2())
+		break
 	case "fp3":
-		return 200, temporadaEscogida.GetResultadoFP3()
+		c.JSON(200, temporadaEscogida.GetResultadoFP3())
+		break
 	case "clasificacion":
-		return 200, temporadaEscogida.GetResultadoClasificacion()
+		c.JSON(200, temporadaEscogida.GetResultadoClasificacion())
+		break
 	case "carrera":
-		return 200, temporadaEscogida.GetResultadoCarrera()
+		c.JSON(200, temporadaEscogida.GetResultadoCarrera())
+		break
+	default:
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 	}
 
-	return 400, map[string]interface{}{"Error": "Bad Request"}
 }

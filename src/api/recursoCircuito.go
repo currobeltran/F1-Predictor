@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"net/url"
 	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
 //RecursoCircuito : Estructura que representará un recurso que sea un circuito
@@ -13,10 +14,10 @@ type RecursoCircuito struct {
 }
 
 //Get : Método por el cual se definirá el procedimiento a seguir ante una petición GET
-func (api RecursoCircuito) Get(params url.Values) (int, interface{}) {
+func (api RecursoCircuito) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/circuitos.json")
 	if err != nil {
-		return 404, map[string]interface{}{"Error": err.Error()}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
 	var campeonato map[string]f1predictor.Circuito
@@ -26,20 +27,20 @@ func (api RecursoCircuito) Get(params url.Values) (int, interface{}) {
 		//TODO Logger
 	}
 
-	circuitoEscogido := campeonato[params.Get("nombre")]
+	circuitoEscogido := campeonato[c.Param("nombre")]
 
 	if circuitoEscogido.GetNombre() == "" {
-		return 404, map[string]interface{}{"Error": "Not Found"}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
-	return 200, circuitoEscogido
+	c.JSON(200, circuitoEscogido)
 }
 
 //Put : Método por el cual se podrá modificar un recurso Circuito de los ya existentes
-func (api RecursoCircuito) Put(params url.Values, body map[string]string) (int, interface{}) {
+func (api RecursoCircuito) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/circuitos.json")
 	if err != nil {
-		return 404, map[string]interface{}{"Error": err.Error()}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
 	var campeonato map[string]f1predictor.Circuito
@@ -49,23 +50,23 @@ func (api RecursoCircuito) Put(params url.Values, body map[string]string) (int, 
 		//TODO Logger
 	}
 
-	circuitoEscogido := campeonato[params.Get("nombre")]
+	circuitoEscogido := campeonato[c.Param("nombre")]
 
 	if circuitoEscogido.GetNombre() == "" {
-		return 404, map[string]interface{}{"Error": "Not Found"}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
-	if body["nombre"] == "" {
-		return 400, map[string]interface{}{"Error": "Bad Request"}
+	if c.PostForm("nombre") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 	}
-	circuitoEscogido.SetNombre(body["nombre"])
+	circuitoEscogido.SetNombre(c.PostForm("nombre"))
 
-	if body["pais"] == "" {
-		return 400, map[string]interface{}{"Error": "Bad Request"}
+	if c.PostForm("pais") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 	}
-	circuitoEscogido.SetPais(body["pais"])
+	circuitoEscogido.SetPais(c.PostForm("pais"))
 
-	campeonato[params.Get("nombre")] = circuitoEscogido
+	campeonato[c.Param("nombre")] = circuitoEscogido
 
 	fichero, err := json.Marshal(campeonato)
 
@@ -81,5 +82,5 @@ func (api RecursoCircuito) Put(params url.Values, body map[string]string) (int, 
 	f.Write(fichero)
 	f.Close()
 
-	return 200, circuitoEscogido
+	c.JSON(200, circuitoEscogido)
 }

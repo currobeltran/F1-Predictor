@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"net/url"
+
+	"github.com/gin-gonic/gin"
 )
 
 //RecursoEscuderia : Struct que representará un recurso relacionado con una escuderia
@@ -12,10 +13,10 @@ type RecursoEscuderia struct {
 }
 
 //Get : Método correspondiente al recurso Escudería para obtener la información de la misma
-func (api RecursoEscuderia) Get(params url.Values) (int, interface{}) {
+func (api RecursoEscuderia) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/escuderia.json")
 	if err != nil {
-		return 404, map[string]interface{}{"Error": err.Error()}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
 	var escuderias map[string]f1predictor.Escuderia
@@ -24,11 +25,11 @@ func (api RecursoEscuderia) Get(params url.Values) (int, interface{}) {
 		//TODO Logger
 	}
 
-	escuderiaEscogida := escuderias[params.Get("nombre")]
+	escuderiaEscogida := escuderias[c.Param("nombre")]
 
 	if escuderiaEscogida.GetNombre() == "" {
-		return 404, map[string]interface{}{"Error": "Not Found"}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
-	return 200, escuderiaEscogida
+	c.JSON(200, escuderiaEscogida)
 }

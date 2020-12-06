@@ -3,7 +3,7 @@ package main
 import (
 	recursos "m/src/api"
 
-	"github.com/guregodevo/pastis"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -12,13 +12,42 @@ func main() {
 	estadistica := new(recursos.RecursoEstadisticas)
 	piloto := new(recursos.RecursoPiloto)
 	sesion := new(recursos.RecursoSesion)
-	api := pastis.NewAPI()
 
-	api.AddResource("/api/circuito/:nombre", circuito)
-	api.AddResource("/api/escuderia/:nombre", escuderia)
-	api.AddResource("/api/gp/:nombreCircuito/:temporada/estadisticas", estadistica)
-	api.AddResource("/api/piloto/:nombre", piloto)
-	api.AddResource("/api/gp/:nombreCircuito/:temporada/sesion/:nombreSesion", sesion)
+	r := gin.Default()
 
-	api.Start(8080)
+	esc := r.Group("/api/escuderia/:nombre")
+	{
+		esc.GET("", func(c *gin.Context) {
+			escuderia.Get(c)
+		})
+	}
+
+	circ := r.Group("/api/circuito/:nombre")
+	{
+		circ.GET("", func(c *gin.Context) {
+			circuito.Get(c)
+		})
+		circ.PUT("", func(c *gin.Context) {
+			circuito.Put(c)
+		})
+	}
+
+	pil := r.Group("/api/piloto/:nombre")
+	{
+		pil.GET("", func(c *gin.Context) {
+			piloto.Get(c)
+		})
+	}
+
+	gp := r.Group("api/gp/:nombreCircuito/:temporada")
+	{
+		gp.GET("/estadisticas", func(c *gin.Context) {
+			estadistica.Get(c)
+		})
+		gp.GET("/sesion/:nombreSesion", func(c *gin.Context) {
+			sesion.Get(c)
+		})
+	}
+
+	r.Run()
 }

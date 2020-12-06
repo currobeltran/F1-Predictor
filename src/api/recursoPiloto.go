@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"net/url"
+
+	"github.com/gin-gonic/gin"
 )
 
 //RecursoPiloto : Struct que representa el recurso relacionado con un piloto
@@ -12,10 +13,10 @@ type RecursoPiloto struct {
 }
 
 //Get : Método para obtener los datos de un piloto
-func (api RecursoPiloto) Get(params url.Values) (int, interface{}) {
+func (api RecursoPiloto) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/pilotos.json")
 	if err != nil {
-		return 404, map[string]interface{}{"Error": err.Error()}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
 	var pilotos map[string]f1predictor.Piloto
@@ -24,11 +25,11 @@ func (api RecursoPiloto) Get(params url.Values) (int, interface{}) {
 		//TODO Logger
 	}
 
-	pilotoEscogido := pilotos[params.Get("nombre")]
+	pilotoEscogido := pilotos[c.Param("nombre")]
 
 	if pilotoEscogido.GetNombre() == "" {
-		return 404, map[string]interface{}{"Error": "Not Found"}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
-	return 200, pilotoEscogido
+	c.JSON(200, pilotoEscogido)
 }

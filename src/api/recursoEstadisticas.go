@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"net/url"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 //RecursoEstadisticas : Struct que representará un recurso relacionado con las estadísticas
@@ -14,10 +15,10 @@ type RecursoEstadisticas struct {
 }
 
 //Get : Método del recurso Estadísticas para obtener los datos de un gran premio determinado
-func (api RecursoEstadisticas) Get(params url.Values) (int, interface{}) {
+func (api RecursoEstadisticas) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/resultados.json")
 	if err != nil {
-		return 404, map[string]interface{}{"Error": err.Error()}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
@@ -27,17 +28,17 @@ func (api RecursoEstadisticas) Get(params url.Values) (int, interface{}) {
 	}
 
 	var temporadaEscogida f1predictor.ResultadoGP
-	temporadaNum, _ := strconv.Atoi(params.Get("temporada"))
+	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))
 
-	for x := 0; x < len(resultados[params.Get("nombreCircuito")]); x++ {
-		if resultados[params.Get("nombreCircuito")][x].GetTemporada() == temporadaNum {
-			temporadaEscogida = resultados[params.Get("nombreCircuito")][x]
+	for x := 0; x < len(resultados[c.Param("nombreCircuito")]); x++ {
+		if resultados[c.Param("nombreCircuito")][x].GetTemporada() == temporadaNum {
+			temporadaEscogida = resultados[c.Param("nombreCircuito")][x]
 		}
 	}
 
 	if temporadaEscogida.GetTemporada() == 0 {
-		return 404, map[string]interface{}{"Error": "Not Found"}
+		c.JSON(404, gin.H{"Error": "Not Found"})
 	}
 
-	return 200, temporadaEscogida.GetEstadisticas()
+	c.JSON(200, temporadaEscogida.GetEstadisticas())
 }
