@@ -84,3 +84,52 @@ func (api RecursoCircuito) Put(c *gin.Context) {
 
 	c.JSON(200, circuitoEscogido)
 }
+
+// Post : Método para añadir un nuevo recursoCircuito
+func (api RecursoCircuito) Post(c *gin.Context) {
+	var circuitoNuevo f1predictor.Circuito
+
+	if circuitoNuevo.GetNombre() == "" {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+	}
+
+	if c.PostForm("nombre") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+	}
+	circuitoNuevo.SetNombre(c.PostForm("nombre"))
+
+	if c.PostForm("pais") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+	}
+	circuitoNuevo.SetPais(c.PostForm("pais"))
+
+	data, err := ioutil.ReadFile("data/circuitos.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+	}
+
+	var campeonato map[string]f1predictor.Circuito
+
+	err = json.Unmarshal(data, &campeonato)
+	if err != nil {
+		//TODO Logger
+	}
+
+	campeonato[circuitoNuevo.GetNombre()] = circuitoNuevo
+
+	fichero, err := json.Marshal(campeonato)
+
+	if err != nil {
+		//TODO Logger
+	}
+
+	f, err := os.Create("data/circuitos.json")
+	if err != nil {
+		//TODO Logger
+	}
+
+	f.Write(fichero)
+	f.Close()
+
+	c.JSON(201, circuitoNuevo)
+}

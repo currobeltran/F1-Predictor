@@ -28,13 +28,16 @@ func main() {
 		})
 	}
 
-	circ := r.Group("/api/circuito/:nombre")
+	circ := r.Group("/api/circuito")
 	{
-		circ.GET("", func(c *gin.Context) {
+		circ.GET("/:nombre", func(c *gin.Context) {
 			circuito.Get(c)
 		})
-		circ.PUT("", func(c *gin.Context) {
+		circ.PUT("/:nombre", func(c *gin.Context) {
 			circuito.Put(c)
+		})
+		circ.POST("", func(c *gin.Context) {
+			circuito.Post(c)
 		})
 	}
 
