@@ -41,13 +41,16 @@ func main() {
 		})
 	}
 
-	pil := r.Group("/api/piloto/:nombre")
+	pil := r.Group("/api/piloto")
 	{
-		pil.GET("", func(c *gin.Context) {
+		pil.GET("/:nombre", func(c *gin.Context) {
 			piloto.Get(c)
 		})
-		pil.PUT("", func(c *gin.Context) {
+		pil.PUT("/:nombre", func(c *gin.Context) {
 			piloto.Put(c)
+		})
+		pil.POST("", func(c *gin.Context) {
+			piloto.Post(c)
 		})
 	}
 
