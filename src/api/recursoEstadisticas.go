@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"m/src/f1predictor"
 	"os"
@@ -152,7 +151,6 @@ func convertirTiempoString(s string) f1predictor.TiempoVuelta {
 	var ret f1predictor.TiempoVuelta
 
 	variables := strings.Split(s, ":")
-	fmt.Println(variables)
 
 	minuto := strings.Split(variables[0], ":")[0]
 	nmin, _ := strconv.Atoi(minuto)

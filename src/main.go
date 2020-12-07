@@ -57,6 +57,9 @@ func main() {
 		gp.GET("/sesion/:nombreSesion", func(c *gin.Context) {
 			sesion.Get(c)
 		})
+		gp.PUT("/sesion/:nombreSesion", func(c *gin.Context) {
+			sesion.Put(c)
+		})
 	}
 
 	r.Run()
