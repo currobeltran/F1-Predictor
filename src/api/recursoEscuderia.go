@@ -132,6 +132,98 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 	c.JSON(200, escuderiaEscogida)
 }
 
+//Post : Crea un nuevo elemento de recursoEscuderia
+func (api RecursoEscuderia) Post(c *gin.Context) {
+	/************ Creamos nueva escuderia **************/
+	var escuderiaNueva f1predictor.Escuderia
+
+	if c.PostForm("nombre") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request 1"})
+		return
+	}
+	escuderiaNueva.SetNombre(c.PostForm("nombre"))
+
+	var vectorPilotos []f1predictor.Piloto
+	pil1, ex := c.GetPostForm("piloto1")
+	if !ex {
+		c.JSON(400, gin.H{"Error": "Bad Request 2"})
+		return
+	}
+	piloto1 := modificarStringPiloto(pil1)
+	vectorPilotos = append(vectorPilotos, piloto1)
+
+	pil2, ex2 := c.GetPostForm("piloto2")
+	if !ex2 {
+		c.JSON(400, gin.H{"Error": "Bad Request 3"})
+		return
+	}
+	piloto2 := modificarStringPiloto(pil2)
+	vectorPilotos = append(vectorPilotos, piloto2)
+
+	escuderiaNueva.SetPilotos(vectorPilotos)
+
+	arg, exist := c.GetPostForm("titulos")
+	if !exist {
+		c.JSON(400, gin.H{"Error": "Bad Request 4"})
+		return
+	}
+	num, _ := strconv.Atoi(arg)
+	escuderiaNueva.SetTitulosMundiales(num)
+
+	arg2, exist2 := c.GetPostForm("victorias")
+	if !exist2 {
+		c.JSON(400, gin.H{"Error": "Bad Request 5"})
+		return
+	}
+	num2, _ := strconv.Atoi(arg2)
+	escuderiaNueva.SetTitulosMundiales(num2)
+
+	arg3, exist3 := c.GetPostForm("poles")
+	if !exist3 {
+		c.JSON(400, gin.H{"Error": "Bad Request 6"})
+		return
+	}
+	num3, _ := strconv.Atoi(arg3)
+	escuderiaNueva.SetTitulosMundiales(num3)
+
+	arg4, exist4 := c.GetPostForm("vueltasrapidas")
+	if !exist4 {
+		c.JSON(400, gin.H{"Error": "Bad Request 7"})
+		return
+	}
+	num4, _ := strconv.Atoi(arg4)
+	escuderiaNueva.SetTitulosMundiales(num4)
+
+	/************ Añadimos nueva escuderia a archivo **************/
+
+	data, err := ioutil.ReadFile("data/escuderia.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+	}
+	var escuderias map[string]f1predictor.Escuderia
+	err = json.Unmarshal(data, &escuderias)
+	if err != nil {
+		//TODO Logger
+	}
+
+	escuderias[escuderiaNueva.GetNombre()] = escuderiaNueva
+
+	fichero, err := json.Marshal(escuderias)
+
+	if err != nil {
+		//TODO Logger
+	}
+
+	f, err := os.Create("data/escuderia.json")
+	if err != nil {
+		//TODO Logger
+	}
+
+	f.Write(fichero)
+	f.Close()
+	c.JSON(201, escuderiaNueva)
+}
+
 func modificarStringPiloto(s string) f1predictor.Piloto {
 	var pil f1predictor.Piloto
 

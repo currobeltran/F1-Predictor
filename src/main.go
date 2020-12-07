@@ -15,13 +15,16 @@ func main() {
 
 	r := gin.Default()
 
-	esc := r.Group("/api/escuderia/:nombre")
+	esc := r.Group("/api/escuderia")
 	{
-		esc.GET("", func(c *gin.Context) {
+		esc.GET("/:nombre", func(c *gin.Context) {
 			escuderia.Get(c)
 		})
-		esc.PUT("", func(c *gin.Context) {
+		esc.PUT("/:nombre", func(c *gin.Context) {
 			escuderia.Put(c)
+		})
+		esc.POST("", func(c *gin.Context) {
+			escuderia.Post(c)
 		})
 	}
 
