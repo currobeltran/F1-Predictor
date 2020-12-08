@@ -113,3 +113,66 @@ func (api RecursoCircuito) Post(c *gin.Context) {
 
 	c.JSON(201, circuitoNuevo)
 }
+
+//Delete : Elimina un recursoCircuito y todos los recursos GP relacionados con el
+func (api RecursoCircuito) Delete(c *gin.Context) {
+	/************************* Elimina el circuito ***************************************/
+	data, err := ioutil.ReadFile("data/circuitos.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var campeonato map[string]f1predictor.Circuito
+
+	err = json.Unmarshal(data, &campeonato)
+	if err != nil {
+		//TODO Logger
+	}
+
+	if campeonato[c.Param("nombre")].GetNombre() == "" {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	delete(campeonato, c.Param("nombre"))
+	escribirEnFichero(campeonato, "data/circuitos.json")
+
+	/************************* Elimina los resultados ***************************************/
+	datares, err := ioutil.ReadFile("data/resultados.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var resultados map[string][]f1predictor.ResultadoGP
+
+	err = json.Unmarshal(datares, &resultados)
+	if err != nil {
+		//TODO Logger
+	}
+
+	delete(resultados, c.Param("nombre"))
+	escribirEnFichero(resultados, "data/resultados.json")
+
+	/************************* Comprobamos correcta eliminación *******************************/
+	comprobaciondata, err := ioutil.ReadFile("data/circuitos.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var comprobacion map[string]f1predictor.Circuito
+
+	err = json.Unmarshal(comprobaciondata, &comprobacion)
+	if err != nil {
+		//TODO Logger
+	}
+
+	if comprobacion[c.Param("nombre")].GetNombre() == "" {
+		c.JSON(200, gin.H{"ID Registro Eliminado": c.Param("nombre")})
+		return
+	}
+
+	c.JSON(400, gin.H{"Error": "Bad Request"})
+}

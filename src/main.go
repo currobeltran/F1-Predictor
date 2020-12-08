@@ -43,6 +43,9 @@ func main() {
 		circ.POST("", func(c *gin.Context) {
 			circuito.Post(c)
 		})
+		circ.DELETE("/:nombre", func(c *gin.Context) {
+			circuito.Delete(c)
+		})
 	}
 
 	pil := r.Group("/api/piloto")

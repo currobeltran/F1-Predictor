@@ -246,5 +246,4 @@ func (api RecursoEscuderia) Delete(c *gin.Context) {
 	}
 
 	c.JSON(400, gin.H{"Error": "Bad Request"})
-	return
 }
