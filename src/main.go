@@ -12,6 +12,7 @@ func main() {
 	estadistica := new(recursos.RecursoEstadisticas)
 	piloto := new(recursos.RecursoPiloto)
 	sesion := new(recursos.RecursoSesion)
+	granpremio := new(recursos.RecursoGranPremio)
 
 	r := gin.Default()
 
@@ -54,20 +55,24 @@ func main() {
 		})
 	}
 
-	gp := r.Group("api/gp/:nombreCircuito/:temporada")
+	gp := r.Group("api/gp")
 	{
-		gp.GET("/estadisticas", func(c *gin.Context) {
+		gp.GET("/:nombreCircuito/:temporada/estadisticas", func(c *gin.Context) {
 			estadistica.Get(c)
 		})
-		gp.PUT("/estadisticas", func(c *gin.Context) {
+		gp.PUT("/:nombreCircuito/:temporada/estadisticas", func(c *gin.Context) {
 			estadistica.Put(c)
 		})
 
-		gp.GET("/sesion/:nombreSesion", func(c *gin.Context) {
+		gp.GET("/:nombreCircuito/:temporada/sesion/:nombreSesion", func(c *gin.Context) {
 			sesion.Get(c)
 		})
-		gp.PUT("/sesion/:nombreSesion", func(c *gin.Context) {
+		gp.PUT("/:nombreCircuito/:temporada/sesion/:nombreSesion", func(c *gin.Context) {
 			sesion.Put(c)
+		})
+
+		gp.POST("", func(c *gin.Context) {
+			granpremio.Post(c)
 		})
 	}
 
