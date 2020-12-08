@@ -202,3 +202,49 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 
 	c.JSON(201, escuderiaNueva)
 }
+
+//Delete : Método para eliminar un recurso de Escuderia
+func (api RecursoEscuderia) Delete(c *gin.Context) {
+	data, err := ioutil.ReadFile("data/escuderia.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var escuderias map[string]f1predictor.Escuderia
+	err = json.Unmarshal(data, &escuderias)
+	if err != nil {
+		//TODO Logger
+	}
+
+	if escuderias[c.Param("nombre")].GetNombre() == "" {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	delete(escuderias, c.Param("nombre"))
+
+	escribirEnFichero(escuderias, "data/escuderia.json")
+
+	/*************** Recuperamos de nuevo el archivo para comprobar borrado *******************/
+
+	comprobaciondata, err := ioutil.ReadFile("data/escuderia.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var comprobacion map[string]f1predictor.Escuderia
+	err = json.Unmarshal(comprobaciondata, &comprobacion)
+	if err != nil {
+		//TODO Logger
+	}
+
+	if comprobacion[c.Param("nombre")].GetNombre() == "" {
+		c.JSON(200, gin.H{"ID Registro Eliminado": c.Param("nombre")})
+		return
+	}
+
+	c.JSON(400, gin.H{"Error": "Bad Request"})
+	return
+}

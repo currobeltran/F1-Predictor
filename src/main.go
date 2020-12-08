@@ -27,6 +27,9 @@ func main() {
 		esc.POST("", func(c *gin.Context) {
 			escuderia.Post(c)
 		})
+		esc.DELETE("/:nombre", func(c *gin.Context) {
+			escuderia.Delete(c)
+		})
 	}
 
 	circ := r.Group("/api/circuito")
