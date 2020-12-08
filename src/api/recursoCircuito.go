@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,6 +17,7 @@ func (api RecursoCircuito) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var campeonato map[string]f1predictor.Circuito
@@ -31,6 +31,7 @@ func (api RecursoCircuito) Get(c *gin.Context) {
 
 	if circuitoEscogido.GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	c.JSON(200, circuitoEscogido)
@@ -41,6 +42,7 @@ func (api RecursoCircuito) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var campeonato map[string]f1predictor.Circuito
@@ -54,33 +56,24 @@ func (api RecursoCircuito) Put(c *gin.Context) {
 
 	if circuitoEscogido.GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	if c.PostForm("nombre") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
 	}
 	circuitoEscogido.SetNombre(c.PostForm("nombre"))
 
 	if c.PostForm("pais") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
 	}
 	circuitoEscogido.SetPais(c.PostForm("pais"))
 
 	campeonato[c.Param("nombre")] = circuitoEscogido
 
-	fichero, err := json.Marshal(campeonato)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/circuitos.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
+	escribirEnFichero(campeonato, "data/circuitos.json")
 
 	c.JSON(200, circuitoEscogido)
 }
@@ -89,23 +82,22 @@ func (api RecursoCircuito) Put(c *gin.Context) {
 func (api RecursoCircuito) Post(c *gin.Context) {
 	var circuitoNuevo f1predictor.Circuito
 
-	if circuitoNuevo.GetNombre() == "" {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-	}
-
 	if c.PostForm("nombre") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
 	}
 	circuitoNuevo.SetNombre(c.PostForm("nombre"))
 
 	if c.PostForm("pais") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
 	}
 	circuitoNuevo.SetPais(c.PostForm("pais"))
 
 	data, err := ioutil.ReadFile("data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var campeonato map[string]f1predictor.Circuito
@@ -117,19 +109,7 @@ func (api RecursoCircuito) Post(c *gin.Context) {
 
 	campeonato[circuitoNuevo.GetNombre()] = circuitoNuevo
 
-	fichero, err := json.Marshal(campeonato)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/circuitos.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
+	escribirEnFichero(campeonato, "data/circuitos.json")
 
 	c.JSON(201, circuitoNuevo)
 }

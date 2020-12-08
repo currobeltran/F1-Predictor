@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"os"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,6 +19,7 @@ func (api RecursoEstadisticas) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
@@ -40,6 +39,7 @@ func (api RecursoEstadisticas) Get(c *gin.Context) {
 
 	if temporadaEscogida.GetTemporada() == 0 {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	c.JSON(200, temporadaEscogida.GetEstadisticas())
@@ -50,6 +50,7 @@ func (api RecursoEstadisticas) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
@@ -69,6 +70,7 @@ func (api RecursoEstadisticas) Put(c *gin.Context) {
 
 	if temporadaEscogida.GetTemporada() == 0 {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	est := temporadaEscogida.GetEstadisticas()
@@ -130,39 +132,7 @@ func (api RecursoEstadisticas) Put(c *gin.Context) {
 		}
 	}
 
-	fichero, err := json.Marshal(resultados)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/resultados.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
+	escribirEnFichero(resultados, "data/resultados.json")
 
 	c.JSON(200, temporadaEscogida.GetEstadisticas())
-}
-
-func convertirTiempoString(s string) f1predictor.TiempoVuelta {
-	var ret f1predictor.TiempoVuelta
-
-	variables := strings.Split(s, ":")
-
-	minuto := strings.Split(variables[0], ":")[0]
-	nmin, _ := strconv.Atoi(minuto)
-	ret.SetMinuto(nmin)
-
-	segundo := strings.Split(variables[1], ":")[0]
-	ns, _ := strconv.Atoi(segundo)
-	ret.SetSegundo(ns)
-
-	milesima := strings.Split(variables[2], ":")[0]
-	nmil, _ := strconv.Atoi(milesima)
-	ret.SetMilesima(nmil)
-
-	return ret
 }

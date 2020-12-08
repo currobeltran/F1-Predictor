@@ -2,12 +2,10 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"os"
+	"reflect"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,6 +19,7 @@ func (api RecursoSesion) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
@@ -40,6 +39,7 @@ func (api RecursoSesion) Get(c *gin.Context) {
 
 	if temporadaEscogida.GetTemporada() == 0 {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	switch c.Param("nombreSesion") {
@@ -69,6 +69,7 @@ func (api RecursoSesion) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
@@ -104,16 +105,40 @@ func (api RecursoSesion) Put(c *gin.Context) {
 		temporadaEscogida.SetResultadoFP1(sesionEscogida)
 		break
 	case "fp2":
-		temporadaEscogida.SetResultadoFP1(sesionEscogida)
+		temporadaEscogida.SetResultadoFP2(sesionEscogida)
 		break
 	case "fp3":
-		temporadaEscogida.SetResultadoFP1(sesionEscogida)
+		temporadaEscogida.SetResultadoFP3(sesionEscogida)
 		break
 	case "clasificacion":
-		temporadaEscogida.SetResultadoFP1(sesionEscogida)
+		if c.PostForm("poleman") == "" {
+			c.JSON(400, gin.H{"Error": "Bad Request"})
+			return
+		}
+		poleman := obtenerPiloto(c.PostForm("poleman"))
+		temporadaEscogida.SetPoleman(poleman)
+		temporadaEscogida.SetResultadoClasificacion(sesionEscogida)
 		break
 	case "carrera":
-		temporadaEscogida.SetResultadoFP1(sesionEscogida)
+		if c.PostForm("ganador") == "" {
+			c.JSON(400, gin.H{"Error": "Bad Request"})
+			return
+		}
+		ganador := obtenerPiloto(c.PostForm("ganador"))
+		temporadaEscogida.SetGanador(ganador)
+
+		if c.PostForm("podio") == "" {
+			c.JSON(400, gin.H{"Error": "Bad Request"})
+			return
+		}
+		podio := convertirPodioString(c.PostForm("podio"))
+		if !reflect.DeepEqual(ganador, podio[0]) {
+			c.JSON(400, gin.H{"Error": "Bad Request"})
+			return
+		}
+		temporadaEscogida.SetPodio(podio)
+
+		temporadaEscogida.SetResultadoCarrera(sesionEscogida)
 		break
 	}
 
@@ -123,70 +148,7 @@ func (api RecursoSesion) Put(c *gin.Context) {
 		}
 	}
 
-	fichero, err := json.Marshal(resultados)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/resultados.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
+	escribirEnFichero(resultados, "data/resultados.json")
 
 	c.JSON(200, sesionEscogida)
-}
-
-func convertirStringSesion(s string) [20]f1predictor.SesionPiloto {
-	var ret [20]f1predictor.SesionPiloto
-
-	clasif := strings.Split(s, "/")
-
-	for i := 0; i < len(clasif); i++ {
-		sesion := strings.Split(clasif[i], "#")
-		fmt.Println(sesion)
-
-		tiempos := sesion[0]
-		piloto := sesion[1]
-		mejortiempo := sesion[2]
-
-		/*******************Formateamos tiempo************************/
-		vectorTiempos := strings.Split(tiempos, "|")
-		var tiemp []f1predictor.TiempoVuelta
-		for j := 0; j < len(vectorTiempos); j++ {
-			auxt := convertirTiempoString(vectorTiempos[j])
-			tiemp = append(tiemp, auxt)
-		}
-		ret[i].SetTiempos(tiemp)
-
-		/*******************Formateamos piloto************************/
-		var aux f1predictor.Piloto
-		datosPiloto := strings.Split(piloto, "|")
-
-		nombre := datosPiloto[0]
-		aux.SetNombre(nombre)
-
-		nvic, _ := strconv.Atoi(datosPiloto[1])
-		aux.SetVictorias(nvic)
-
-		npol, _ := strconv.Atoi(datosPiloto[2])
-		aux.SetPoles(npol)
-
-		nvr, _ := strconv.Atoi(datosPiloto[3])
-		aux.SetVueltasRapidas(nvr)
-
-		nm, _ := strconv.Atoi(datosPiloto[4])
-		aux.SetMundiales(nm)
-
-		ret[i].SetPiloto(aux)
-
-		/*******************Formateamos mejor tiempo************************/
-		tiempoFormateado := convertirTiempoString(mejortiempo)
-		ret[i].SetMejorTiempo(tiempoFormateado)
-	}
-
-	return ret
 }

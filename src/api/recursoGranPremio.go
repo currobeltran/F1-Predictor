@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"os"
+	"reflect"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +16,11 @@ type RecursoGranPremio struct {
 
 //Post : Método para crear un nuevo recurso de Gran Premio
 func (api RecursoGranPremio) Post(c *gin.Context) {
+	if !existeCircuito(c.PostForm("nombre")) {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
 	var nuevoResultado f1predictor.ResultadoGP
 
 	var sesion [20]f1predictor.SesionPiloto
@@ -51,7 +55,7 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 	}
 
 	sesion = convertirStringSesion(c.PostForm("clasificacion"))
-	nuevoResultado.SetResultadoFP3(sesion)
+	nuevoResultado.SetResultadoClasificacion(sesion)
 
 	if c.PostForm("carrera") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
@@ -59,7 +63,7 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 	}
 
 	sesion = convertirStringSesion(c.PostForm("carrera"))
-	nuevoResultado.SetResultadoFP3(sesion)
+	nuevoResultado.SetResultadoCarrera(sesion)
 
 	var piloto f1predictor.Piloto
 
@@ -76,19 +80,21 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 		return
 	}
 
-	piloto = obtenerPiloto(c.PostForm("poleman"))
-	nuevoResultado.SetPoleman(piloto)
+	poleman := obtenerPiloto(c.PostForm("poleman"))
+	if poleman.GetNombre() == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+	nuevoResultado.SetPoleman(poleman)
 
-	var podio [3]f1predictor.Piloto
 	if c.PostForm("podio") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
-
-	stringPodio := strings.Split(c.PostForm("podio"), "#")
-	for i := 0; i < len(stringPodio); i++ {
-		aux := obtenerPiloto(stringPodio[i])
-		podio[i] = aux
+	podio := convertirPodioString(c.PostForm("podio"))
+	if !reflect.DeepEqual(piloto, podio[0]) {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
 	}
 	nuevoResultado.SetPodio(podio)
 
@@ -109,6 +115,7 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
@@ -119,71 +126,7 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 
 	resultados[c.PostForm("nombre")] = append(resultados[c.PostForm("nombre")], nuevoResultado)
 
-	fichero, err := json.Marshal(resultados)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/resultados.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
+	escribirEnFichero(resultados, "data/resultados.json")
 
 	c.JSON(201, nuevoResultado)
-}
-
-func convertirEstadisticasString(s string) f1predictor.EstadisticasGP {
-	var ret f1predictor.EstadisticasGP
-
-	atributos := strings.Split(s, "#")
-
-	nac, _ := strconv.Atoi(atributos[0])
-	ret.SetAccidentes(nac)
-
-	nsc, _ := strconv.Atoi(atributos[1])
-	ret.SetNumeroSafetyCar(nsc)
-
-	nad, _ := strconv.Atoi(atributos[2])
-	ret.SetAdelantamientos(nad)
-
-	nba, _ := strconv.Atoi(atributos[3])
-	ret.SetBanderasAmarillas(nba)
-
-	nbr, _ := strconv.Atoi(atributos[4])
-	ret.SetBanderasRojas(nbr)
-
-	nsan, _ := strconv.Atoi(atributos[5])
-	ret.SetSanciones(nsan)
-
-	tiempo := convertirTiempoString(atributos[6])
-	ret.SetMejorVuelta(tiempo)
-
-	return ret
-}
-
-func obtenerPiloto(id string) f1predictor.Piloto {
-	var ret f1predictor.Piloto
-
-	data, err := ioutil.ReadFile("data/pilotos.json")
-	if err != nil {
-		return ret
-	}
-
-	var pilotos map[string]f1predictor.Piloto
-	err = json.Unmarshal(data, &pilotos)
-	if err != nil {
-		//TODO Logger
-	}
-
-	pilotoEscogido := pilotos[id]
-
-	if pilotoEscogido.GetNombre() == "" {
-		return ret
-	}
-
-	return pilotoEscogido
 }

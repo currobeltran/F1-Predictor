@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"os"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,6 +18,7 @@ func (api RecursoEscuderia) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var escuderias map[string]f1predictor.Escuderia
@@ -32,6 +31,7 @@ func (api RecursoEscuderia) Get(c *gin.Context) {
 
 	if escuderiaEscogida.GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	c.JSON(200, escuderiaEscogida)
@@ -42,6 +42,7 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var escuderias map[string]f1predictor.Escuderia
@@ -58,7 +59,7 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 	}
 
 	if c.PostForm("nombre") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request 1"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	escuderiaEscogida.SetNombre(c.PostForm("nombre"))
@@ -66,25 +67,25 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 	var vectorPilotos []f1predictor.Piloto
 	pil1, ex := c.GetPostForm("piloto1")
 	if !ex {
-		c.JSON(400, gin.H{"Error": "Bad Request 2"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
-	piloto1 := modificarStringPiloto(pil1)
+	piloto1 := obtenerPiloto(pil1)
 	vectorPilotos = append(vectorPilotos, piloto1)
 
 	pil2, ex2 := c.GetPostForm("piloto2")
 	if !ex2 {
-		c.JSON(400, gin.H{"Error": "Bad Request 3"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
-	piloto2 := modificarStringPiloto(pil2)
+	piloto2 := obtenerPiloto(pil2)
 	vectorPilotos = append(vectorPilotos, piloto2)
 
 	escuderiaEscogida.SetPilotos(vectorPilotos)
 
 	arg, exist := c.GetPostForm("titulos")
 	if !exist {
-		c.JSON(400, gin.H{"Error": "Bad Request 4"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num, _ := strconv.Atoi(arg)
@@ -92,43 +93,32 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 
 	arg2, exist2 := c.GetPostForm("victorias")
 	if !exist2 {
-		c.JSON(400, gin.H{"Error": "Bad Request 5"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num2, _ := strconv.Atoi(arg2)
-	escuderiaEscogida.SetTitulosMundiales(num2)
+	escuderiaEscogida.SetVictorias(num2)
 
 	arg3, exist3 := c.GetPostForm("poles")
 	if !exist3 {
-		c.JSON(400, gin.H{"Error": "Bad Request 6"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num3, _ := strconv.Atoi(arg3)
-	escuderiaEscogida.SetTitulosMundiales(num3)
+	escuderiaEscogida.SetPoles(num3)
 
 	arg4, exist4 := c.GetPostForm("vueltasrapidas")
 	if !exist4 {
-		c.JSON(400, gin.H{"Error": "Bad Request 7"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num4, _ := strconv.Atoi(arg4)
-	escuderiaEscogida.SetTitulosMundiales(num4)
+	escuderiaEscogida.SetVueltasRapidas(num4)
 
 	escuderias[c.Param("nombre")] = escuderiaEscogida
 
-	fichero, err := json.Marshal(escuderias)
+	escribirEnFichero(escuderias, "data/escuderia.json")
 
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/escuderia.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
 	c.JSON(200, escuderiaEscogida)
 }
 
@@ -138,7 +128,7 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 	var escuderiaNueva f1predictor.Escuderia
 
 	if c.PostForm("nombre") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request 1"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	escuderiaNueva.SetNombre(c.PostForm("nombre"))
@@ -146,25 +136,25 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 	var vectorPilotos []f1predictor.Piloto
 	pil1, ex := c.GetPostForm("piloto1")
 	if !ex {
-		c.JSON(400, gin.H{"Error": "Bad Request 2"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
-	piloto1 := modificarStringPiloto(pil1)
+	piloto1 := obtenerPiloto(pil1)
 	vectorPilotos = append(vectorPilotos, piloto1)
 
 	pil2, ex2 := c.GetPostForm("piloto2")
 	if !ex2 {
-		c.JSON(400, gin.H{"Error": "Bad Request 3"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
-	piloto2 := modificarStringPiloto(pil2)
+	piloto2 := obtenerPiloto(pil2)
 	vectorPilotos = append(vectorPilotos, piloto2)
 
 	escuderiaNueva.SetPilotos(vectorPilotos)
 
 	arg, exist := c.GetPostForm("titulos")
 	if !exist {
-		c.JSON(400, gin.H{"Error": "Bad Request 4"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num, _ := strconv.Atoi(arg)
@@ -172,33 +162,34 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 
 	arg2, exist2 := c.GetPostForm("victorias")
 	if !exist2 {
-		c.JSON(400, gin.H{"Error": "Bad Request 5"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num2, _ := strconv.Atoi(arg2)
-	escuderiaNueva.SetTitulosMundiales(num2)
+	escuderiaNueva.SetVictorias(num2)
 
 	arg3, exist3 := c.GetPostForm("poles")
 	if !exist3 {
-		c.JSON(400, gin.H{"Error": "Bad Request 6"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num3, _ := strconv.Atoi(arg3)
-	escuderiaNueva.SetTitulosMundiales(num3)
+	escuderiaNueva.SetPoles(num3)
 
 	arg4, exist4 := c.GetPostForm("vueltasrapidas")
 	if !exist4 {
-		c.JSON(400, gin.H{"Error": "Bad Request 7"})
+		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 	num4, _ := strconv.Atoi(arg4)
-	escuderiaNueva.SetTitulosMundiales(num4)
+	escuderiaNueva.SetVueltasRapidas(num4)
 
 	/************ Añadimos nueva escuderia a archivo **************/
 
 	data, err := ioutil.ReadFile("data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 	var escuderias map[string]f1predictor.Escuderia
 	err = json.Unmarshal(data, &escuderias)
@@ -207,46 +198,7 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 	}
 
 	escuderias[escuderiaNueva.GetNombre()] = escuderiaNueva
+	escribirEnFichero(escuderias, "data/escuderia.json")
 
-	fichero, err := json.Marshal(escuderias)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/escuderia.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
 	c.JSON(201, escuderiaNueva)
-}
-
-func modificarStringPiloto(s string) f1predictor.Piloto {
-	var pil f1predictor.Piloto
-
-	variables := strings.Split(s, "#")
-
-	nombre := strings.Split(variables[0], ":")[1]
-	pil.SetNombre(nombre)
-
-	victorias := strings.Split(variables[1], ":")[1]
-	nvic, _ := strconv.Atoi(victorias)
-	pil.SetVictorias(nvic)
-
-	poles := strings.Split(variables[2], ":")[1]
-	npol, _ := strconv.Atoi(poles)
-	pil.SetPoles(npol)
-
-	vueltasrapidas := strings.Split(variables[3], ":")[1]
-	nvr, _ := strconv.Atoi(vueltasrapidas)
-	pil.SetVueltasRapidas(nvr)
-
-	mundiales := strings.Split(variables[4], ":")[1]
-	nm, _ := strconv.Atoi(mundiales)
-	pil.SetMundiales(nm)
-
-	return pil
 }

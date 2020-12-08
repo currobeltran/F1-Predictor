@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -19,6 +18,7 @@ func (api RecursoPiloto) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var pilotos map[string]f1predictor.Piloto
@@ -31,6 +31,7 @@ func (api RecursoPiloto) Get(c *gin.Context) {
 
 	if pilotoEscogido.GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	c.JSON(200, pilotoEscogido)
@@ -41,6 +42,7 @@ func (api RecursoPiloto) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var pilotos map[string]f1predictor.Piloto
@@ -53,6 +55,7 @@ func (api RecursoPiloto) Put(c *gin.Context) {
 
 	if pilotoEscogido.GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	if c.PostForm("nombre") == "" {
@@ -91,19 +94,7 @@ func (api RecursoPiloto) Put(c *gin.Context) {
 
 	pilotos[c.Param("nombre")] = pilotoEscogido
 
-	fichero, err := json.Marshal(pilotos)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/pilotos.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
+	escribirEnFichero(pilotos, "data/pilotos.json")
 
 	c.JSON(200, pilotoEscogido)
 }
@@ -149,6 +140,7 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 	data, err := ioutil.ReadFile("data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
 	}
 
 	var pilotos map[string]f1predictor.Piloto
@@ -159,19 +151,7 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 
 	pilotos[pilotoNuevo.GetNombre()] = pilotoNuevo
 
-	fichero, err := json.Marshal(pilotos)
-
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create("data/pilotos.json")
-	if err != nil {
-		//TODO Logger
-	}
-
-	f.Write(fichero)
-	f.Close()
+	escribirEnFichero(pilotos, "data/pilotos.json")
 
 	c.JSON(201, pilotoNuevo)
 }
