@@ -155,3 +155,46 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 
 	c.JSON(201, pilotoNuevo)
 }
+
+//Delete : Método para eliminar un piloto
+func (api RecursoPiloto) Delete(c *gin.Context) {
+	/*********************** Eliminamos piloto del archivo ************************/
+	data, err := ioutil.ReadFile("data/pilotos.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var pilotos map[string]f1predictor.Piloto
+	err = json.Unmarshal(data, &pilotos)
+	if err != nil {
+		//TODO Logger
+	}
+
+	if pilotos[c.Param("nombre")].GetNombre() == "" {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	delete(pilotos, c.Param("nombre"))
+	escribirEnFichero(pilotos, "data/pilotos.json")
+
+	/*********************** Realizamos comprobación ***************************/
+	comprobaciondata, err := ioutil.ReadFile("data/pilotos.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var comprobacion map[string]f1predictor.Piloto
+	err = json.Unmarshal(comprobaciondata, &comprobacion)
+	if err != nil {
+		//TODO Logger
+	}
+
+	if comprobacion[c.Param("nombre")].GetNombre() == "" {
+		c.JSON(200, gin.H{"Registro Eliminado": c.Param("nombre")})
+		return
+	}
+	c.JSON(400, gin.H{"Error": "Bad Request"})
+}

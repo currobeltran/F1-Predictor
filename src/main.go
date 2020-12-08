@@ -59,6 +59,9 @@ func main() {
 		pil.POST("", func(c *gin.Context) {
 			piloto.Post(c)
 		})
+		pil.DELETE("/:nombre", func(c *gin.Context) {
+			piloto.Delete(c)
+		})
 	}
 
 	gp := r.Group("api/gp")
