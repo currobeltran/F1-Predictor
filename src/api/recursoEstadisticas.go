@@ -16,7 +16,7 @@ type RecursoEstadisticas struct {
 
 //Get : Método del recurso Estadísticas para obtener los datos de un gran premio determinado
 func (api RecursoEstadisticas) Get(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/resultados.json")
+	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -47,7 +47,7 @@ func (api RecursoEstadisticas) Get(c *gin.Context) {
 
 //Put : Método del recurso Estadisticas para modificar la información estadística de un GP
 func (api RecursoEstadisticas) Put(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/resultados.json")
+	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -132,7 +132,7 @@ func (api RecursoEstadisticas) Put(c *gin.Context) {
 		}
 	}
 
-	escribirEnFichero(resultados, "data/resultados.json")
+	escribirEnFichero(resultados, "../api/data/resultados.json")
 
 	c.JSON(200, temporadaEscogida.GetEstadisticas())
 }

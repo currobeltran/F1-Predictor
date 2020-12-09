@@ -14,9 +14,9 @@ type RecursoCircuito struct {
 
 //Get : Método por el cual se definirá el procedimiento a seguir ante una petición GET
 func (api RecursoCircuito) Get(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/circuitos.json")
+	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
+		c.JSON(404, gin.H{"Error": "File not Found"})
 		return
 	}
 
@@ -39,7 +39,7 @@ func (api RecursoCircuito) Get(c *gin.Context) {
 
 //Put : Método por el cual se podrá modificar un recurso Circuito de los ya existentes
 func (api RecursoCircuito) Put(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/circuitos.json")
+	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -73,7 +73,7 @@ func (api RecursoCircuito) Put(c *gin.Context) {
 
 	campeonato[c.Param("nombre")] = circuitoEscogido
 
-	escribirEnFichero(campeonato, "data/circuitos.json")
+	escribirEnFichero(campeonato, "../api/data/circuitos.json")
 
 	c.JSON(200, circuitoEscogido)
 }
@@ -94,7 +94,7 @@ func (api RecursoCircuito) Post(c *gin.Context) {
 	}
 	circuitoNuevo.SetPais(c.PostForm("pais"))
 
-	data, err := ioutil.ReadFile("data/circuitos.json")
+	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -109,7 +109,7 @@ func (api RecursoCircuito) Post(c *gin.Context) {
 
 	campeonato[circuitoNuevo.GetNombre()] = circuitoNuevo
 
-	escribirEnFichero(campeonato, "data/circuitos.json")
+	escribirEnFichero(campeonato, "../api/data/circuitos.json")
 
 	c.JSON(201, circuitoNuevo)
 }
@@ -117,7 +117,7 @@ func (api RecursoCircuito) Post(c *gin.Context) {
 //Delete : Elimina un recursoCircuito y todos los recursos GP relacionados con el
 func (api RecursoCircuito) Delete(c *gin.Context) {
 	/************************* Elimina el circuito ***************************************/
-	data, err := ioutil.ReadFile("data/circuitos.json")
+	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -136,10 +136,10 @@ func (api RecursoCircuito) Delete(c *gin.Context) {
 	}
 
 	delete(campeonato, c.Param("nombre"))
-	escribirEnFichero(campeonato, "data/circuitos.json")
+	escribirEnFichero(campeonato, "../api/data/circuitos.json")
 
 	/************************* Elimina los resultados ***************************************/
-	datares, err := ioutil.ReadFile("data/resultados.json")
+	datares, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -153,10 +153,10 @@ func (api RecursoCircuito) Delete(c *gin.Context) {
 	}
 
 	delete(resultados, c.Param("nombre"))
-	escribirEnFichero(resultados, "data/resultados.json")
+	escribirEnFichero(resultados, "../api/data/resultados.json")
 
 	/************************* Comprobamos correcta eliminación *******************************/
-	comprobaciondata, err := ioutil.ReadFile("data/circuitos.json")
+	comprobaciondata, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return

@@ -13,7 +13,7 @@ import (
 func obtenerPiloto(id string) f1predictor.Piloto {
 	var ret f1predictor.Piloto
 
-	data, err := ioutil.ReadFile("data/pilotos.json")
+	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		return ret
 	}
@@ -34,7 +34,7 @@ func obtenerPiloto(id string) f1predictor.Piloto {
 }
 
 func existeCircuito(id string) bool {
-	data, err := ioutil.ReadFile("data/circuitos.json")
+	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
 		return false
 	}

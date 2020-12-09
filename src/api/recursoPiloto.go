@@ -15,7 +15,7 @@ type RecursoPiloto struct {
 
 //Get : Método para obtener los datos de un piloto
 func (api RecursoPiloto) Get(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/pilotos.json")
+	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -39,7 +39,7 @@ func (api RecursoPiloto) Get(c *gin.Context) {
 
 //Put : Método para modificar los datos de un recurso piloto
 func (api RecursoPiloto) Put(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/pilotos.json")
+	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -94,7 +94,7 @@ func (api RecursoPiloto) Put(c *gin.Context) {
 
 	pilotos[c.Param("nombre")] = pilotoEscogido
 
-	escribirEnFichero(pilotos, "data/pilotos.json")
+	escribirEnFichero(pilotos, "../api/data/pilotos.json")
 
 	c.JSON(200, pilotoEscogido)
 }
@@ -137,7 +137,7 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 	nm, err := strconv.Atoi(c.PostForm("mundiales"))
 	pilotoNuevo.SetMundiales(nm)
 
-	data, err := ioutil.ReadFile("data/pilotos.json")
+	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -151,7 +151,7 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 
 	pilotos[pilotoNuevo.GetNombre()] = pilotoNuevo
 
-	escribirEnFichero(pilotos, "data/pilotos.json")
+	escribirEnFichero(pilotos, "../api/data/pilotos.json")
 
 	c.JSON(201, pilotoNuevo)
 }
@@ -159,7 +159,7 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 //Delete : Método para eliminar un piloto
 func (api RecursoPiloto) Delete(c *gin.Context) {
 	/*********************** Eliminamos piloto del archivo ************************/
-	data, err := ioutil.ReadFile("data/pilotos.json")
+	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -177,10 +177,10 @@ func (api RecursoPiloto) Delete(c *gin.Context) {
 	}
 
 	delete(pilotos, c.Param("nombre"))
-	escribirEnFichero(pilotos, "data/pilotos.json")
+	escribirEnFichero(pilotos, "../api/data/pilotos.json")
 
 	/*********************** Realizamos comprobación ***************************/
-	comprobaciondata, err := ioutil.ReadFile("data/pilotos.json")
+	comprobaciondata, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return

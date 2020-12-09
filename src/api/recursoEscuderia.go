@@ -15,7 +15,7 @@ type RecursoEscuderia struct {
 
 //Get : Método correspondiente al recurso Escudería para obtener la información de la misma
 func (api RecursoEscuderia) Get(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/escuderia.json")
+	data, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -39,7 +39,7 @@ func (api RecursoEscuderia) Get(c *gin.Context) {
 
 //Put : Método correspondiente al recurso Escuderia para modificar la información de un elemento
 func (api RecursoEscuderia) Put(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/escuderia.json")
+	data, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -117,7 +117,7 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 
 	escuderias[c.Param("nombre")] = escuderiaEscogida
 
-	escribirEnFichero(escuderias, "data/escuderia.json")
+	escribirEnFichero(escuderias, "../api/data/escuderia.json")
 
 	c.JSON(200, escuderiaEscogida)
 }
@@ -186,7 +186,7 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 
 	/************ Añadimos nueva escuderia a archivo **************/
 
-	data, err := ioutil.ReadFile("data/escuderia.json")
+	data, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -198,14 +198,14 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 	}
 
 	escuderias[escuderiaNueva.GetNombre()] = escuderiaNueva
-	escribirEnFichero(escuderias, "data/escuderia.json")
+	escribirEnFichero(escuderias, "../api/data/escuderia.json")
 
 	c.JSON(201, escuderiaNueva)
 }
 
 //Delete : Método para eliminar un recurso de Escuderia
 func (api RecursoEscuderia) Delete(c *gin.Context) {
-	data, err := ioutil.ReadFile("data/escuderia.json")
+	data, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -224,11 +224,11 @@ func (api RecursoEscuderia) Delete(c *gin.Context) {
 
 	delete(escuderias, c.Param("nombre"))
 
-	escribirEnFichero(escuderias, "data/escuderia.json")
+	escribirEnFichero(escuderias, "../api/data/escuderia.json")
 
 	/*************** Recuperamos de nuevo el archivo para comprobar borrado *******************/
 
-	comprobaciondata, err := ioutil.ReadFile("data/escuderia.json")
+	comprobaciondata, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return

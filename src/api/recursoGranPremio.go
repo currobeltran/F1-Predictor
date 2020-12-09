@@ -112,7 +112,7 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 	est := convertirEstadisticasString(c.PostForm("estadisticas"))
 	nuevoResultado.SetEstadisticas(est)
 
-	data, err := ioutil.ReadFile("data/resultados.json")
+	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
@@ -126,7 +126,7 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 
 	resultados[c.PostForm("nombre")] = append(resultados[c.PostForm("nombre")], nuevoResultado)
 
-	escribirEnFichero(resultados, "data/resultados.json")
+	escribirEnFichero(resultados, "../api/data/resultados.json")
 
 	c.JSON(201, nuevoResultado)
 }

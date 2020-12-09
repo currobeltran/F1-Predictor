@@ -6,7 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+//DiseñoRutas : Función para crear las rutas del microservicio
+//Se ponen en una función aparte para el correcto testeo
+func DiseñoRutas() *gin.Engine {
 	circuito := new(recursos.RecursoCircuito)
 	escuderia := new(recursos.RecursoEscuderia)
 	estadistica := new(recursos.RecursoEstadisticas)
@@ -84,6 +86,12 @@ func main() {
 			granpremio.Post(c)
 		})
 	}
+
+	return r
+}
+
+func main() {
+	r := DiseñoRutas()
 
 	r.Run()
 }
