@@ -174,5 +174,54 @@ func (api RecursoEstadisticas) GetMedia(c *gin.Context) {
 
 //GetPrediccion : Método para devolver la prediccion de una estadistica concreta
 func (api RecursoEstadisticas) GetPrediccion(c *gin.Context) {
+	data, err := ioutil.ReadFile("../api/data/resultados.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
 
+	var resultados map[string][]f1predictor.ResultadoGP
+	err = json.Unmarshal(data, &resultados)
+	if err != nil {
+		//TODO Logger
+	}
+
+	resultadosCircuito := resultados[c.Param("nombreCircuito")]
+
+	if resultadosCircuito == nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	circuito := new(f1predictor.Circuito)
+	circuito.SetResultados(resultadosCircuito)
+
+	switch c.Param("parametro") {
+	case "accidentes":
+		valor := circuito.PosibilidadAccidentes()
+		c.JSON(200, gin.H{"Posibles Accidentes": valor})
+		return
+	case "safetycar":
+		valor := circuito.PosibilidadSafetyCar()
+		c.JSON(200, gin.H{"Posibles Safety Car": valor})
+		return
+	case "adelantamientos":
+		valor := circuito.PosibilidadAdelantamiento()
+		c.JSON(200, gin.H{"Posibles Adelantamientos": valor})
+		return
+	case "banderaamarilla":
+		valor := circuito.PosibilidadBanderaAmarilla()
+		c.JSON(200, gin.H{"Posibles Banderas Amarillas": valor})
+		return
+	case "banderaroja":
+		valor := circuito.PosibilidadBanderaRoja()
+		c.JSON(200, gin.H{"Posibles Banderas Rojas": valor})
+		return
+	case "sancion":
+		valor := circuito.PosibilidadSancion()
+		c.JSON(200, gin.H{"Posibles Sanciones": valor})
+		return
+	}
+
+	c.JSON(400, gin.H{"Error": "Bad Request"})
 }
