@@ -136,3 +136,43 @@ func (api RecursoEstadisticas) Put(c *gin.Context) {
 
 	c.JSON(200, temporadaEscogida.GetEstadisticas())
 }
+
+//GetMedia : Método para devolver la media de una estadistica concreta
+func (api RecursoEstadisticas) GetMedia(c *gin.Context) {
+	data, err := ioutil.ReadFile("../api/data/resultados.json")
+	if err != nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	var resultados map[string][]f1predictor.ResultadoGP
+	err = json.Unmarshal(data, &resultados)
+	if err != nil {
+		//TODO Logger
+	}
+
+	resultadosCircuito := resultados[c.Param("nombreCircuito")]
+
+	if resultadosCircuito == nil {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	circuito := new(f1predictor.Circuito)
+	circuito.SetResultados(resultadosCircuito)
+
+	valor := float32(-1)
+	valor = circuito.Media(c.Param("parametro"))
+
+	if valor == float32(-1) {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	c.JSON(200, gin.H{"Media": valor})
+}
+
+//GetPrediccion : Método para devolver la prediccion de una estadistica concreta
+func (api RecursoEstadisticas) GetPrediccion(c *gin.Context) {
+
+}
