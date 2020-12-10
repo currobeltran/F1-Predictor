@@ -71,12 +71,7 @@ func DiseñoRutas() *gin.Engine {
 		gp.GET("/:nombreCircuito/:temporada/estadisticas", func(c *gin.Context) {
 			estadistica.Get(c)
 		})
-		gp.GET("/:nombreCircuito/:temporada/estadisticas/:parametro/media", func(c *gin.Context) {
-			estadistica.GetMedia(c)
-		})
-		gp.GET("/:nombreCircuito/:temporada/estadisticas/:parametro/prediccion", func(c *gin.Context) {
-			estadistica.GetPrediccion(c)
-		})
+
 		gp.PUT("/:nombreCircuito/:temporada/estadisticas", func(c *gin.Context) {
 			estadistica.Put(c)
 		})
@@ -90,6 +85,16 @@ func DiseñoRutas() *gin.Engine {
 
 		gp.POST("", func(c *gin.Context) {
 			granpremio.Post(c)
+		})
+	}
+
+	proc := r.Group("api/procesogp/:nombreCircuito")
+	{
+		proc.GET("media/:parametro", func(c *gin.Context) {
+			estadistica.GetMedia(c)
+		})
+		proc.GET("prediccion/:parametro", func(c *gin.Context) {
+			estadistica.GetPrediccion(c)
 		})
 	}
 
