@@ -119,10 +119,7 @@ func (api RecursoGranPremio) Post(c *gin.Context) {
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
-	err = json.Unmarshal(data, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &resultados)
 
 	resultados[c.PostForm("nombre")] = append(resultados[c.PostForm("nombre")], nuevoResultado)
 

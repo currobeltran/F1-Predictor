@@ -22,10 +22,7 @@ func (api RecursoPiloto) Get(c *gin.Context) {
 	}
 
 	var pilotos map[string]f1predictor.Piloto
-	err = json.Unmarshal(data, &pilotos)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &pilotos)
 
 	pilotoEscogido := pilotos[c.Param("nombre")]
 
@@ -46,10 +43,7 @@ func (api RecursoPiloto) Put(c *gin.Context) {
 	}
 
 	var pilotos map[string]f1predictor.Piloto
-	err = json.Unmarshal(data, &pilotos)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &pilotos)
 
 	pilotoEscogido := pilotos[c.Param("nombre")]
 
@@ -144,10 +138,7 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 	}
 
 	var pilotos map[string]f1predictor.Piloto
-	err = json.Unmarshal(data, &pilotos)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &pilotos)
 
 	pilotos[pilotoNuevo.GetNombre()] = pilotoNuevo
 
@@ -166,10 +157,7 @@ func (api RecursoPiloto) Delete(c *gin.Context) {
 	}
 
 	var pilotos map[string]f1predictor.Piloto
-	err = json.Unmarshal(data, &pilotos)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &pilotos)
 
 	if pilotos[c.Param("nombre")].GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -187,10 +175,7 @@ func (api RecursoPiloto) Delete(c *gin.Context) {
 	}
 
 	var comprobacion map[string]f1predictor.Piloto
-	err = json.Unmarshal(comprobaciondata, &comprobacion)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(comprobaciondata, &comprobacion)
 
 	if comprobacion[c.Param("nombre")].GetNombre() == "" {
 		c.JSON(200, gin.H{"Registro Eliminado": c.Param("nombre")})

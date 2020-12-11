@@ -23,10 +23,7 @@ func (api RecursoEstadisticas) Get(c *gin.Context) {
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
-	err = json.Unmarshal(data, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &resultados)
 
 	var temporadaEscogida f1predictor.ResultadoGP
 	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))
@@ -54,10 +51,7 @@ func (api RecursoEstadisticas) Put(c *gin.Context) {
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
-	err = json.Unmarshal(data, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &resultados)
 
 	var temporadaEscogida f1predictor.ResultadoGP
 	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))
@@ -146,10 +140,7 @@ func (api RecursoEstadisticas) GetMedia(c *gin.Context) {
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
-	err = json.Unmarshal(data, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &resultados)
 
 	resultadosCircuito := resultados[c.Param("nombreCircuito")]
 
@@ -181,10 +172,7 @@ func (api RecursoEstadisticas) GetPrediccion(c *gin.Context) {
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
-	err = json.Unmarshal(data, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &resultados)
 
 	resultadosCircuito := resultados[c.Param("nombreCircuito")]
 

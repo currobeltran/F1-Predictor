@@ -23,10 +23,7 @@ func (api RecursoSesion) Get(c *gin.Context) {
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
-	err = json.Unmarshal(data, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &resultados)
 
 	var temporadaEscogida f1predictor.ResultadoGP
 	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))
@@ -73,10 +70,7 @@ func (api RecursoSesion) Put(c *gin.Context) {
 	}
 
 	var resultados map[string][]f1predictor.ResultadoGP
-	err = json.Unmarshal(data, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &resultados)
 
 	var temporadaEscogida f1predictor.ResultadoGP
 	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))

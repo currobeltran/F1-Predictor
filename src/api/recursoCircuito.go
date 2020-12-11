@@ -22,10 +22,7 @@ func (api RecursoCircuito) Get(c *gin.Context) {
 
 	var campeonato map[string]f1predictor.Circuito
 
-	err = json.Unmarshal(data, &campeonato)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &campeonato)
 
 	circuitoEscogido := campeonato[c.Param("nombre")]
 
@@ -47,10 +44,7 @@ func (api RecursoCircuito) Put(c *gin.Context) {
 
 	var campeonato map[string]f1predictor.Circuito
 
-	err = json.Unmarshal(data, &campeonato)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &campeonato)
 
 	circuitoEscogido := campeonato[c.Param("nombre")]
 
@@ -102,10 +96,7 @@ func (api RecursoCircuito) Post(c *gin.Context) {
 
 	var campeonato map[string]f1predictor.Circuito
 
-	err = json.Unmarshal(data, &campeonato)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &campeonato)
 
 	campeonato[circuitoNuevo.GetNombre()] = circuitoNuevo
 
@@ -125,10 +116,7 @@ func (api RecursoCircuito) Delete(c *gin.Context) {
 
 	var campeonato map[string]f1predictor.Circuito
 
-	err = json.Unmarshal(data, &campeonato)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &campeonato)
 
 	if campeonato[c.Param("nombre")].GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -147,10 +135,7 @@ func (api RecursoCircuito) Delete(c *gin.Context) {
 
 	var resultados map[string][]f1predictor.ResultadoGP
 
-	err = json.Unmarshal(datares, &resultados)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(datares, &resultados)
 
 	delete(resultados, c.Param("nombre"))
 	escribirEnFichero(resultados, "../api/data/resultados.json")
@@ -164,10 +149,7 @@ func (api RecursoCircuito) Delete(c *gin.Context) {
 
 	var comprobacion map[string]f1predictor.Circuito
 
-	err = json.Unmarshal(comprobaciondata, &comprobacion)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(comprobaciondata, &comprobacion)
 
 	if comprobacion[c.Param("nombre")].GetNombre() == "" {
 		c.JSON(200, gin.H{"ID Registro Eliminado": c.Param("nombre")})

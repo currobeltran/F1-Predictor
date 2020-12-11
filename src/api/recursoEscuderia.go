@@ -22,10 +22,7 @@ func (api RecursoEscuderia) Get(c *gin.Context) {
 	}
 
 	var escuderias map[string]f1predictor.Escuderia
-	err = json.Unmarshal(data, &escuderias)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &escuderias)
 
 	escuderiaEscogida := escuderias[c.Param("nombre")]
 
@@ -46,10 +43,7 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 	}
 
 	var escuderias map[string]f1predictor.Escuderia
-	err = json.Unmarshal(data, &escuderias)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &escuderias)
 
 	escuderiaEscogida := escuderias[c.Param("nombre")]
 
@@ -192,10 +186,7 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 		return
 	}
 	var escuderias map[string]f1predictor.Escuderia
-	err = json.Unmarshal(data, &escuderias)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &escuderias)
 
 	escuderias[escuderiaNueva.GetNombre()] = escuderiaNueva
 	escribirEnFichero(escuderias, "../api/data/escuderia.json")
@@ -212,10 +203,7 @@ func (api RecursoEscuderia) Delete(c *gin.Context) {
 	}
 
 	var escuderias map[string]f1predictor.Escuderia
-	err = json.Unmarshal(data, &escuderias)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(data, &escuderias)
 
 	if escuderias[c.Param("nombre")].GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -235,10 +223,7 @@ func (api RecursoEscuderia) Delete(c *gin.Context) {
 	}
 
 	var comprobacion map[string]f1predictor.Escuderia
-	err = json.Unmarshal(comprobaciondata, &comprobacion)
-	if err != nil {
-		//TODO Logger
-	}
+	json.Unmarshal(comprobaciondata, &comprobacion)
 
 	if comprobacion[c.Param("nombre")].GetNombre() == "" {
 		c.JSON(200, gin.H{"ID Registro Eliminado": c.Param("nombre")})

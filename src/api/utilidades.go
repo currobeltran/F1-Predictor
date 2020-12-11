@@ -152,16 +152,9 @@ func convertirPodioString(s string) [3]f1predictor.Piloto {
 }
 
 func escribirEnFichero(obj interface{}, rutaArchivo string) {
-	fichero, err := json.Marshal(obj)
+	fichero, _ := json.Marshal(obj)
 
-	if err != nil {
-		//TODO Logger
-	}
-
-	f, err := os.Create(rutaArchivo)
-	if err != nil {
-		//TODO Logger
-	}
+	f, _ := os.Create(rutaArchivo)
 
 	f.Write(fichero)
 	f.Close()
