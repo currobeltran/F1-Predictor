@@ -9,6 +9,3 @@ test:
 
 travis:
 	docker run -t -v `pwd`:/test currobeltran/f1-predictor:latest
-
-clean: 
-	rm ./main
