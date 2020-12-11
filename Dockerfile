@@ -7,13 +7,15 @@ COPY makefile .
 
 #Se instala make ya que nos hará falta para ejecutar los tests automáticamente
 #Incluimos también gcc ya que será necesario a la hora de ejecutar nuestro código
+#Instalamos gin-gonic para ejecutar los test del API
 RUN apk update && apk upgrade \
 && apk add make \
-&& apk add build-base
+&& apk add build-base \
+&& apk add git \
+&& go get -u github.com/gin-gonic/gin
 
-#Establecemos un usuario para realizar la ejecucion sin privilegios
-RUN adduser --disabled-password currobeltran
-USER currobeltran
+#No podemos ejecutar el test sin ser superusuario, ya que necesita instalar dependencias
+#en el proceso de prueba
 
 #Comando que se ejecutará, en este caso para realizar los tests del proyecto
 CMD make test 

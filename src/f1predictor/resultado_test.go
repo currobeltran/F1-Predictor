@@ -266,7 +266,7 @@ func TestVerDatosGranPremio(t *testing.T) {
 	match2, _ = regexp.MatchString("Resultado Libres 3", datos)
 	match3, _ = regexp.MatchString("Resultado Carrera", datos)
 	match4, _ = regexp.MatchString("Ganador", datos)
-	match5, _ = regexp.MatchString("temporada", datos)
+	match5, _ = regexp.MatchString("Temporada", datos)
 
 	if !(match && match2 && match3 && match4 && match5) {
 		t.Errorf("No se ha obtenido correctamente la cadena deseada. Resultado obtenido:\n%s", datos)

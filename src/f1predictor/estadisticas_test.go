@@ -142,7 +142,7 @@ func TestVerEstadisticasGP(t *testing.T) {
 	var datos string = est.VerEstadisticasGP(true, false, false, true, true, false, true)
 	var match, match2, match3, match4 bool
 
-	match, _ = regexp.MatchString("accidentes", datos)
+	match, _ = regexp.MatchString("Accidentes", datos)
 	match2, _ = regexp.MatchString("banderas amarillas", datos)
 	match3, _ = regexp.MatchString("banderas rojas", datos)
 	match4, _ = regexp.MatchString("Tiempo", datos)
