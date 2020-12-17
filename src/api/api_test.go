@@ -122,37 +122,6 @@ func TestBuscaResultadoSesion(t *testing.T) {
 }
 
 /************************************** TEST PUTS *********************************************/
-func TestCambiaCircuito(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("PUT", "/api/circuito/australia",
-		strings.NewReader("nombre=Le Castellet&pais=Francia"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
-	}
-
-	matched, _ := regexp.MatchString("\"Nombre\":\"Le Castellet\"", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Nombre\":\"Le Castellet\"",
-			w.Body.String())
-	}
-
-	//Establecemos valor anterior
-	w2 := httptest.NewRecorder()
-
-	request2, _ := http.NewRequest("PUT", "/api/circuito/australia",
-		strings.NewReader("nombre=C&pais=D"))
-	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w2, request2)
-}
 
 func TestCambiaEscuderia(t *testing.T) {
 
@@ -284,30 +253,6 @@ func TestCambiaSesion(t *testing.T) {
 
 /****************************** TEST POSTS *********************************************/
 
-func TestCreaCircuito(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("POST", "/api/circuito",
-		strings.NewReader("nombre=Le Castellet&pais=Francia"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 201 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 201)
-	}
-
-	matched, _ := regexp.MatchString("\"Nombre\":\"Le Castellet\"", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Nombre\":\"Le Castellet\"",
-			w.Body.String())
-	}
-
-}
-
 func TestCreaEscuderia(t *testing.T) {
 
 	w := httptest.NewRecorder()
@@ -378,27 +323,6 @@ func TestCreaGranPremio(t *testing.T) {
 }
 
 /************************************* TEST DELETE ************************************/
-
-func TestEliminaCircuito(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("DELETE", "/api/circuito/Le Castellet", nil)
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
-	}
-
-	matched, _ := regexp.MatchString("Registro Eliminado", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese Registro Eliminado",
-			w.Body.String())
-	}
-}
 
 func TestEliminaPiloto(t *testing.T) {
 
