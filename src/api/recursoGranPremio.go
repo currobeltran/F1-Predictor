@@ -15,7 +15,7 @@ type RecursoGranPremio struct {
 }
 
 //Post : Método para crear un nuevo recurso de Gran Premio
-func (api RecursoGranPremio) Post(c *gin.Context) {
+func (rGP RecursoGranPremio) Post(c *gin.Context) {
 	if !existeCircuito(c.PostForm("nombre")) {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
