@@ -15,7 +15,7 @@ type RecursoEstadisticas struct {
 }
 
 //Get : Método del recurso Estadísticas para obtener los datos de un gran premio determinado
-func (api RecursoEstadisticas) Get(c *gin.Context) {
+func (rEsc RecursoEstadisticas) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -43,7 +43,7 @@ func (api RecursoEstadisticas) Get(c *gin.Context) {
 }
 
 //Put : Método del recurso Estadisticas para modificar la información estadística de un GP
-func (api RecursoEstadisticas) Put(c *gin.Context) {
+func (rEsc RecursoEstadisticas) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -132,7 +132,7 @@ func (api RecursoEstadisticas) Put(c *gin.Context) {
 }
 
 //GetMedia : Método para devolver la media de una estadistica concreta
-func (api RecursoEstadisticas) GetMedia(c *gin.Context) {
+func (rEsc RecursoEstadisticas) GetMedia(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -164,7 +164,7 @@ func (api RecursoEstadisticas) GetMedia(c *gin.Context) {
 }
 
 //GetPrediccion : Método para devolver la prediccion de una estadistica concreta
-func (api RecursoEstadisticas) GetPrediccion(c *gin.Context) {
+func (rEsc RecursoEstadisticas) GetPrediccion(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
