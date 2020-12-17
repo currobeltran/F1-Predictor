@@ -13,7 +13,7 @@ type RecursoCircuito struct {
 }
 
 //Get : Método por el cual se definirá el procedimiento a seguir ante una petición GET
-func (api RecursoCircuito) Get(c *gin.Context) {
+func (rCirc RecursoCircuito) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "File not Found"})
@@ -35,7 +35,7 @@ func (api RecursoCircuito) Get(c *gin.Context) {
 }
 
 //Put : Método por el cual se podrá modificar un recurso Circuito de los ya existentes
-func (api RecursoCircuito) Put(c *gin.Context) {
+func (rCirc RecursoCircuito) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -73,7 +73,7 @@ func (api RecursoCircuito) Put(c *gin.Context) {
 }
 
 // Post : Método para añadir un nuevo recursoCircuito
-func (api RecursoCircuito) Post(c *gin.Context) {
+func (rCirc RecursoCircuito) Post(c *gin.Context) {
 	var circuitoNuevo f1predictor.Circuito
 
 	if c.PostForm("nombre") == "" {
@@ -106,7 +106,7 @@ func (api RecursoCircuito) Post(c *gin.Context) {
 }
 
 //Delete : Elimina un recursoCircuito y todos los recursos GP relacionados con el
-func (api RecursoCircuito) Delete(c *gin.Context) {
+func (rCirc RecursoCircuito) Delete(c *gin.Context) {
 	/************************* Elimina el circuito ***************************************/
 	data, err := ioutil.ReadFile("../api/data/circuitos.json")
 	if err != nil {
