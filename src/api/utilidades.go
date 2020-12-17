@@ -174,9 +174,23 @@ func DiseñoRutas() *gin.Engine {
 
 	r := gin.Default()
 
+	var hamilton f1predictor.Piloto
+	hamilton.Constructor("Lewis Hamilton", 92, 98, 55, 7)
+
+	var bottas f1predictor.Piloto
+	bottas.Constructor("Valtteri Bottas", 10, 12, 14, 0)
+
+	var pilotos []f1predictor.Piloto
+	pilotos = append(pilotos, hamilton)
+	pilotos = append(pilotos, bottas)
+
 	var melbourne f1predictor.Circuito
 	melbourne.Constructor("Albert Park", "Australia")
 	circuito.AnadirPista(melbourne)
+
+	var mercedes f1predictor.Escuderia
+	mercedes.Constructor("Mercedes", pilotos, 8, 170, 200, 180)
+	escuderia.AnadirEscuderia(mercedes)
 
 	esc := r.Group("/api/escuderia")
 	{

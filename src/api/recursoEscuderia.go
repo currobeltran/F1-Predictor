@@ -11,20 +11,20 @@ import (
 
 //RecursoEscuderia : Struct que representará un recurso relacionado con una escuderia
 type RecursoEscuderia struct {
+	escuderias map[string]f1predictor.Escuderia
+}
+
+// AnadirEscuderia : Método que nos permitirá realizar la inyección de dependencias en RecursoEscuderia
+func (rEsc *RecursoEscuderia) AnadirEscuderia(e f1predictor.Escuderia) {
+	if rEsc.escuderias == nil {
+		rEsc.escuderias = map[string]f1predictor.Escuderia{}
+	}
+	rEsc.escuderias[e.Nombre] = e
 }
 
 //Get : Método correspondiente al recurso Escudería para obtener la información de la misma
 func (rEsc RecursoEscuderia) Get(c *gin.Context) {
-	data, err := ioutil.ReadFile("../api/data/escuderia.json")
-	if err != nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
-	}
-
-	var escuderias map[string]f1predictor.Escuderia
-	json.Unmarshal(data, &escuderias)
-
-	escuderiaEscogida := escuderias[c.Param("nombre")]
+	escuderiaEscogida := rEsc.escuderias[c.Param("nombre")]
 
 	if escuderiaEscogida.GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})

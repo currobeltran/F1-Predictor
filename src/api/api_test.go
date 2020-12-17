@@ -64,7 +64,7 @@ func TestBuscaPiloto(t *testing.T) {
 func TestBuscaEscuderia(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/escuderia/mercedes", nil)
+	request, _ := http.NewRequest("GET", "/api/escuderia/Mercedes", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -73,10 +73,10 @@ func TestBuscaEscuderia(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched, _ := regexp.MatchString("A", w.Body.String())
+	matched, _ := regexp.MatchString("Mercedes", w.Body.String())
 
 	if !matched {
-		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: A",
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: Mercedes",
 			w.Body.String())
 	}
 }
