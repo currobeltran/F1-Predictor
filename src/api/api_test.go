@@ -24,7 +24,7 @@ func TestMain(m *testing.M) {
 func TestBuscaCircuito(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/circuito/australia", nil)
+	request, _ := http.NewRequest("GET", "/api/circuito/Albert Park", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -33,10 +33,10 @@ func TestBuscaCircuito(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched, _ := regexp.MatchString("\"Nombre\":\"C\"", w.Body.String())
+	matched, _ := regexp.MatchString("\"Nombre\":\"Albert Park\"", w.Body.String())
 
 	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Nombre\":\"C\"",
+		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Nombre\":\"Albert Park\"",
 			w.Body.String())
 	}
 }

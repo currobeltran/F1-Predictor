@@ -174,6 +174,10 @@ func DiseñoRutas() *gin.Engine {
 
 	r := gin.Default()
 
+	var melbourne f1predictor.Circuito
+	melbourne.Constructor("Albert Park", "Australia")
+	circuito.AnadirPista(melbourne)
+
 	esc := r.Group("/api/escuderia")
 	{
 		esc.GET("/:nombre", func(c *gin.Context) {
