@@ -14,7 +14,7 @@ type RecursoEscuderia struct {
 }
 
 //Get : Método correspondiente al recurso Escudería para obtener la información de la misma
-func (api RecursoEscuderia) Get(c *gin.Context) {
+func (rEsc RecursoEscuderia) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -35,7 +35,7 @@ func (api RecursoEscuderia) Get(c *gin.Context) {
 }
 
 //Put : Método correspondiente al recurso Escuderia para modificar la información de un elemento
-func (api RecursoEscuderia) Put(c *gin.Context) {
+func (rEsc RecursoEscuderia) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -117,7 +117,7 @@ func (api RecursoEscuderia) Put(c *gin.Context) {
 }
 
 //Post : Crea un nuevo elemento de recursoEscuderia
-func (api RecursoEscuderia) Post(c *gin.Context) {
+func (rEsc RecursoEscuderia) Post(c *gin.Context) {
 	/************ Creamos nueva escuderia **************/
 	var escuderiaNueva f1predictor.Escuderia
 
@@ -195,7 +195,7 @@ func (api RecursoEscuderia) Post(c *gin.Context) {
 }
 
 //Delete : Método para eliminar un recurso de Escuderia
-func (api RecursoEscuderia) Delete(c *gin.Context) {
+func (rEsc RecursoEscuderia) Delete(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/escuderia.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
