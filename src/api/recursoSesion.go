@@ -15,7 +15,7 @@ type RecursoSesion struct {
 }
 
 //Get : Metodo para obtener la información de una sesion de un Gran Premio concreto
-func (api RecursoSesion) Get(c *gin.Context) {
+func (rSes RecursoSesion) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -62,7 +62,7 @@ func (api RecursoSesion) Get(c *gin.Context) {
 }
 
 //Put : Método para modificar la información de una sesión
-func (api RecursoSesion) Put(c *gin.Context) {
+func (rSes RecursoSesion) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
