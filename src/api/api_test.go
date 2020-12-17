@@ -123,38 +123,6 @@ func TestBuscaResultadoSesion(t *testing.T) {
 
 /************************************** TEST PUTS *********************************************/
 
-func TestCambiaEscuderia(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("PUT", "/api/escuderia/alfaromeo",
-		strings.NewReader("nombre=A&piloto1=hamilton&piloto2=Francisco Beltrán&titulos=2&victorias=1&poles=6&vueltasrapidas=9"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
-	}
-
-	matched, _ := regexp.MatchString("\"Nombre\":\"A\"", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Nombre\":\"A\"",
-			w.Body.String())
-	}
-
-	//Establecemos valor anterior
-	w2 := httptest.NewRecorder()
-
-	request2, _ := http.NewRequest("PUT", "/api/escuderia/alfaromeo",
-		strings.NewReader("nombre=Alfa Romeo Sauber F1 Team&piloto1=raikkonen&piloto2=giovinazzi&titulos=0&victorias=0&poles=0&vueltasrapidas=2"))
-	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w2, request2)
-}
-
 func TestCambiaPiloto(t *testing.T) {
 
 	w := httptest.NewRecorder()
@@ -253,29 +221,6 @@ func TestCambiaSesion(t *testing.T) {
 
 /****************************** TEST POSTS *********************************************/
 
-func TestCreaEscuderia(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("POST", "/api/escuderia",
-		strings.NewReader("nombre=Prueba&piloto1=hamilton&piloto2=Francisco Beltrán&titulos=2&victorias=1&poles=6&vueltasrapidas=9"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 201 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 201)
-	}
-
-	matched, _ := regexp.MatchString("\"Nombre\":\"Prueba\"", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Nombre\":\"Prueba\"",
-			w.Body.String())
-	}
-}
-
 func TestCreaPiloto(t *testing.T) {
 
 	w := httptest.NewRecorder()
@@ -329,27 +274,6 @@ func TestEliminaPiloto(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	request, _ := http.NewRequest("DELETE", "/api/piloto/Lastname", nil)
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
-	}
-
-	matched, _ := regexp.MatchString("Registro Eliminado", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese Registro Eliminado",
-			w.Body.String())
-	}
-}
-
-func TestEliminaEscuderia(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("DELETE", "/api/escuderia/Prueba", nil)
 
 	r.ServeHTTP(w, request)
 

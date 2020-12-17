@@ -197,15 +197,6 @@ func DiseñoRutas() *gin.Engine {
 		esc.GET("/:nombre", func(c *gin.Context) {
 			escuderia.Get(c)
 		})
-		esc.PUT("/:nombre", func(c *gin.Context) {
-			escuderia.Put(c)
-		})
-		esc.POST("", func(c *gin.Context) {
-			escuderia.Post(c)
-		})
-		esc.DELETE("/:nombre", func(c *gin.Context) {
-			escuderia.Delete(c)
-		})
 	}
 
 	circ := r.Group("/api/circuito")
