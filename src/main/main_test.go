@@ -4,14 +4,24 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"regexp"
 	"strings"
 	"testing"
+
+	"github.com/gin-gonic/gin"
 )
+
+var r *gin.Engine
+
+func TestMain(m *testing.M) {
+	r = DiseñoRutas()
+
+	os.Exit(m.Run())
+}
 
 /************************************** TEST GETS *********************************************/
 func TestBuscaCircuito(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/api/circuito/australia", nil)
@@ -32,7 +42,6 @@ func TestBuscaCircuito(t *testing.T) {
 }
 
 func TestBuscaPiloto(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/api/piloto/hamilton", nil)
@@ -53,7 +62,6 @@ func TestBuscaPiloto(t *testing.T) {
 }
 
 func TestBuscaEscuderia(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/api/escuderia/mercedes", nil)
@@ -74,7 +82,6 @@ func TestBuscaEscuderia(t *testing.T) {
 }
 
 func TestBuscaEstadisticas(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/api/gp/australia/2019/estadisticas", nil)
@@ -95,7 +102,6 @@ func TestBuscaEstadisticas(t *testing.T) {
 }
 
 func TestBuscaResultadoSesion(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/api/gp/australia/2019/sesion/fp1", nil)
@@ -117,7 +123,6 @@ func TestBuscaResultadoSesion(t *testing.T) {
 
 /************************************** TEST PUTS *********************************************/
 func TestCambiaCircuito(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -150,7 +155,6 @@ func TestCambiaCircuito(t *testing.T) {
 }
 
 func TestCambiaEscuderia(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -183,7 +187,6 @@ func TestCambiaEscuderia(t *testing.T) {
 }
 
 func TestCambiaPiloto(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -216,7 +219,6 @@ func TestCambiaPiloto(t *testing.T) {
 }
 
 func TestCambiaEstadisticas(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -249,7 +251,6 @@ func TestCambiaEstadisticas(t *testing.T) {
 }
 
 func TestCambiaSesion(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -284,7 +285,6 @@ func TestCambiaSesion(t *testing.T) {
 /****************************** TEST POSTS *********************************************/
 
 func TestCreaCircuito(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -309,7 +309,6 @@ func TestCreaCircuito(t *testing.T) {
 }
 
 func TestCreaEscuderia(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -333,7 +332,6 @@ func TestCreaEscuderia(t *testing.T) {
 }
 
 func TestCreaPiloto(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -357,7 +355,6 @@ func TestCreaPiloto(t *testing.T) {
 }
 
 func TestCreaGranPremio(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -383,7 +380,6 @@ func TestCreaGranPremio(t *testing.T) {
 /************************************* TEST DELETE ************************************/
 
 func TestEliminaCircuito(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -405,7 +401,6 @@ func TestEliminaCircuito(t *testing.T) {
 }
 
 func TestEliminaPiloto(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -427,7 +422,6 @@ func TestEliminaPiloto(t *testing.T) {
 }
 
 func TestEliminaEscuderia(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 
@@ -451,7 +445,6 @@ func TestEliminaEscuderia(t *testing.T) {
 /****************************** OTROS TESTS *************************************/
 
 func TestObtieneMedia(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/api/procesogp/australia/media/accidentes", nil)
@@ -471,7 +464,6 @@ func TestObtieneMedia(t *testing.T) {
 }
 
 func TestObtienePrediccion(t *testing.T) {
-	r := DiseñoRutas()
 
 	w := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/api/procesogp/australia/prediccion/accidentes", nil)
