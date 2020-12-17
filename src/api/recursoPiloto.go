@@ -14,7 +14,7 @@ type RecursoPiloto struct {
 }
 
 //Get : Método para obtener los datos de un piloto
-func (api RecursoPiloto) Get(c *gin.Context) {
+func (rPil RecursoPiloto) Get(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -35,7 +35,7 @@ func (api RecursoPiloto) Get(c *gin.Context) {
 }
 
 //Put : Método para modificar los datos de un recurso piloto
-func (api RecursoPiloto) Put(c *gin.Context) {
+func (rPil RecursoPiloto) Put(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -94,7 +94,7 @@ func (api RecursoPiloto) Put(c *gin.Context) {
 }
 
 //Post : Método para añadir un nuevo recursoPiloto
-func (api RecursoPiloto) Post(c *gin.Context) {
+func (rPil RecursoPiloto) Post(c *gin.Context) {
 	var pilotoNuevo f1predictor.Piloto
 
 	if c.PostForm("nombre") == "" {
@@ -148,7 +148,7 @@ func (api RecursoPiloto) Post(c *gin.Context) {
 }
 
 //Delete : Método para eliminar un piloto
-func (api RecursoPiloto) Delete(c *gin.Context) {
+func (rPil RecursoPiloto) Delete(c *gin.Context) {
 	/*********************** Eliminamos piloto del archivo ************************/
 	data, err := ioutil.ReadFile("../api/data/pilotos.json")
 	if err != nil {
