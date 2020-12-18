@@ -190,9 +190,16 @@ func DiseñoRutas() *gin.Engine {
 	var mercedes f1predictor.Escuderia
 	mercedes.Constructor("Mercedes", pilotos, 8, 170, 200, 180)
 
+	var tiempo f1predictor.TiempoVuelta
+	tiempo.Constructor(1, 23, 456)
+
+	var est f1predictor.EstadisticasGP
+	est.Constructor(10, 9, 8, 7, 6, 5, tiempo)
+
 	circuito.AnadirPista(melbourne)
 	escuderia.AnadirEscuderia(mercedes)
 	piloto.AnadirPiloto(hamilton)
+	estadistica.AnadirEstadisticas(est, "Albert Park 2019")
 
 	esc := r.Group("/api/escuderia")
 	{

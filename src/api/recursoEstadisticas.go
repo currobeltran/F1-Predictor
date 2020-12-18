@@ -12,34 +12,29 @@ import (
 //RecursoEstadisticas : Struct que representará un recurso relacionado con las estadísticas
 //de un GP
 type RecursoEstadisticas struct {
+	estadisticas map[string]f1predictor.EstadisticasGP
+}
+
+//AnadirEstadisticas : Método que nos ayudará a realizar la inyección de dependencias en este recurso
+func (rEst *RecursoEstadisticas) AnadirEstadisticas(e f1predictor.EstadisticasGP, n string) {
+	if rEst.estadisticas == nil {
+		rEst.estadisticas = map[string]f1predictor.EstadisticasGP{}
+	}
+	rEst.estadisticas[n] = e
 }
 
 //Get : Método del recurso Estadísticas para obtener los datos de un gran premio determinado
-func (rEsc RecursoEstadisticas) Get(c *gin.Context) {
-	data, err := ioutil.ReadFile("../api/data/resultados.json")
-	if err != nil {
+func (rEst RecursoEstadisticas) Get(c *gin.Context) {
+	str := c.Param("nombreCircuito") + " " + c.Param("temporada")
+
+	estadisticas, exist := rEst.estadisticas[str]
+
+	if !exist {
 		c.JSON(404, gin.H{"Error": "Not Found"})
 		return
 	}
 
-	var resultados map[string][]f1predictor.ResultadoGP
-	json.Unmarshal(data, &resultados)
-
-	var temporadaEscogida f1predictor.ResultadoGP
-	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))
-
-	for x := 0; x < len(resultados[c.Param("nombreCircuito")]); x++ {
-		if resultados[c.Param("nombreCircuito")][x].GetTemporada() == temporadaNum {
-			temporadaEscogida = resultados[c.Param("nombreCircuito")][x]
-		}
-	}
-
-	if temporadaEscogida.GetTemporada() == 0 {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
-	}
-
-	c.JSON(200, temporadaEscogida.GetEstadisticas())
+	c.JSON(200, estadisticas)
 }
 
 //Put : Método del recurso Estadisticas para modificar la información estadística de un GP

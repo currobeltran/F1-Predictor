@@ -84,7 +84,7 @@ func TestBuscaEscuderia(t *testing.T) {
 func TestBuscaEstadisticas(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/gp/australia/2019/estadisticas", nil)
+	request, _ := http.NewRequest("GET", "/api/gp/Albert Park/2019/estadisticas", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -93,10 +93,10 @@ func TestBuscaEstadisticas(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched, _ := regexp.MatchString("\"Accidentes\":2", w.Body.String())
+	matched, _ := regexp.MatchString("\"Accidentes\":10", w.Body.String())
 
 	if !matched {
-		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Accidentes\":2",
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Accidentes\":10",
 			w.Body.String())
 	}
 }
