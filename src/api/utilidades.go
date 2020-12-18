@@ -170,7 +170,6 @@ func DiseñoRutas() *gin.Engine {
 	estadistica := new(RecursoEstadisticas)
 	piloto := new(RecursoPiloto)
 	sesion := new(RecursoSesion)
-	granpremio := new(RecursoGranPremio)
 
 	r := gin.Default()
 
@@ -233,10 +232,6 @@ func DiseñoRutas() *gin.Engine {
 		})
 		gp.PUT("/:nombreCircuito/:temporada/sesion/:nombreSesion", func(c *gin.Context) {
 			sesion.Put(c)
-		})
-
-		gp.POST("", func(c *gin.Context) {
-			granpremio.Post(c)
 		})
 	}
 

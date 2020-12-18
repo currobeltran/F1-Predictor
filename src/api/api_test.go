@@ -155,31 +155,6 @@ func TestCambiaSesion(t *testing.T) {
 	r.ServeHTTP(w2, request2)
 }
 
-/****************************** TEST POSTS *********************************************/
-
-func TestCreaGranPremio(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("POST", "/api/gp",
-		strings.NewReader("nombre=Le Castellet&fp1=2:45:678|1:23:456#hamilton#1:23:456&fp2=2:45:678|1:23:456#hamilton#1:23:456&fp3=2:45:678|1:23:456#hamilton#1:23:456&clasificacion=2:45:678|1:23:456#hamilton#1:23:456&carrera=2:45:678|1:23:456#hamilton#1:23:456&ganador=hamilton&poleman=hamilton&podio=hamilton#ocon#perez&temporada=2012&estadisticas=2#1#2#4#0#10#2:22:000"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 201 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 201)
-	}
-
-	matched, _ := regexp.MatchString("\"Ganador\":{\"Nombre\":\"Lewis Hamilton\"", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Ganador\":{\"Nombre\":\"Lewis Hamilton\"",
-			w.Body.String())
-	}
-}
-
 /****************************** OTROS TESTS *************************************/
 
 func TestObtieneMedia(t *testing.T) {
