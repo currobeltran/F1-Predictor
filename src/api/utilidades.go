@@ -213,15 +213,6 @@ func DiseñoRutas() *gin.Engine {
 		pil.GET("/:nombre", func(c *gin.Context) {
 			piloto.Get(c)
 		})
-		pil.PUT("/:nombre", func(c *gin.Context) {
-			piloto.Put(c)
-		})
-		pil.POST("", func(c *gin.Context) {
-			piloto.Post(c)
-		})
-		pil.DELETE("/:nombre", func(c *gin.Context) {
-			piloto.Delete(c)
-		})
 	}
 
 	gp := r.Group("api/gp")
