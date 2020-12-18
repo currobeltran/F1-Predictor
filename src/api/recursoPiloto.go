@@ -11,20 +11,29 @@ import (
 
 //RecursoPiloto : Struct que representa el recurso relacionado con un piloto
 type RecursoPiloto struct {
+	pilotos map[string]f1predictor.Piloto
+}
+
+//AnadirPiloto : Método para llevar a cabo la inyección de dependencias en RecursoPiloto
+func (rPil *RecursoPiloto) AnadirPiloto(p f1predictor.Piloto) {
+	if rPil.pilotos == nil {
+		rPil.pilotos = map[string]f1predictor.Piloto{}
+	}
+	rPil.pilotos[p.Nombre] = p
 }
 
 //Get : Método para obtener los datos de un piloto
 func (rPil RecursoPiloto) Get(c *gin.Context) {
-	data, err := ioutil.ReadFile("../api/data/pilotos.json")
-	if err != nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
-	}
+	// data, err := ioutil.ReadFile("../api/data/pilotos.json")
+	// if err != nil {
+	// 	c.JSON(404, gin.H{"Error": "Not Found"})
+	// 	return
+	// }
 
-	var pilotos map[string]f1predictor.Piloto
-	json.Unmarshal(data, &pilotos)
+	// var pilotos map[string]f1predictor.Piloto
+	// json.Unmarshal(data, &pilotos)
 
-	pilotoEscogido := pilotos[c.Param("nombre")]
+	pilotoEscogido := rPil.pilotos[c.Param("nombre")]
 
 	if pilotoEscogido.GetNombre() == "" {
 		c.JSON(404, gin.H{"Error": "Not Found"})

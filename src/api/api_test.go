@@ -44,7 +44,7 @@ func TestBuscaCircuito(t *testing.T) {
 func TestBuscaPiloto(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/piloto/hamilton", nil)
+	request, _ := http.NewRequest("GET", "/api/piloto/Lewis Hamilton", nil)
 
 	r.ServeHTTP(w, request)
 

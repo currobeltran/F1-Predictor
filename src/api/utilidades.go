@@ -186,11 +186,13 @@ func DiseñoRutas() *gin.Engine {
 
 	var melbourne f1predictor.Circuito
 	melbourne.Constructor("Albert Park", "Australia")
-	circuito.AnadirPista(melbourne)
 
 	var mercedes f1predictor.Escuderia
 	mercedes.Constructor("Mercedes", pilotos, 8, 170, 200, 180)
+
+	circuito.AnadirPista(melbourne)
 	escuderia.AnadirEscuderia(mercedes)
+	piloto.AnadirPiloto(hamilton)
 
 	esc := r.Group("/api/escuderia")
 	{
