@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"m/src/f1predictor"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,97 +36,8 @@ func (rEst RecursoEstadisticas) Get(c *gin.Context) {
 	c.JSON(200, estadisticas)
 }
 
-//Put : Método del recurso Estadisticas para modificar la información estadística de un GP
-func (rEsc RecursoEstadisticas) Put(c *gin.Context) {
-	data, err := ioutil.ReadFile("../api/data/resultados.json")
-	if err != nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
-	}
-
-	var resultados map[string][]f1predictor.ResultadoGP
-	json.Unmarshal(data, &resultados)
-
-	var temporadaEscogida f1predictor.ResultadoGP
-	temporadaNum, _ := strconv.Atoi(c.Param("temporada"))
-
-	for x := 0; x < len(resultados[c.Param("nombreCircuito")]); x++ {
-		if resultados[c.Param("nombreCircuito")][x].GetTemporada() == temporadaNum {
-			temporadaEscogida = resultados[c.Param("nombreCircuito")][x]
-		}
-	}
-
-	if temporadaEscogida.GetTemporada() == 0 {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
-	}
-
-	est := temporadaEscogida.GetEstadisticas()
-
-	if c.PostForm("accidentes") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-	nac, err := strconv.Atoi(c.PostForm("accidentes"))
-	est.SetAccidentes(nac)
-
-	if c.PostForm("numerosafety") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-	nsc, err := strconv.Atoi(c.PostForm("numerosafety"))
-	est.SetNumeroSafetyCar(nsc)
-
-	if c.PostForm("adelantamientos") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-	nad, err := strconv.Atoi(c.PostForm("adelantamientos"))
-	est.SetAdelantamientos(nad)
-
-	if c.PostForm("banderasamarillas") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-	nba, err := strconv.Atoi(c.PostForm("banderasamarillas"))
-	est.SetBanderasAmarillas(nba)
-
-	if c.PostForm("banderasrojas") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-	nbr, err := strconv.Atoi(c.PostForm("banderasrojas"))
-	est.SetBanderasRojas(nbr)
-
-	if c.PostForm("sanciones") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-	nsan, err := strconv.Atoi(c.PostForm("sanciones"))
-	est.SetSanciones(nsan)
-
-	if c.PostForm("mejortiempo") == "" {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-	tvuelta := convertirTiempoString(c.PostForm("mejortiempo"))
-	est.SetMejorVuelta(tvuelta)
-
-	temporadaEscogida.SetEstadisticas(est)
-
-	for x := 0; x < len(resultados[c.Param("nombreCircuito")]); x++ {
-		if resultados[c.Param("nombreCircuito")][x].GetTemporada() == temporadaNum {
-			resultados[c.Param("nombreCircuito")][x] = temporadaEscogida
-		}
-	}
-
-	escribirEnFichero(resultados, "../api/data/resultados.json")
-
-	c.JSON(200, temporadaEscogida.GetEstadisticas())
-}
-
 //GetMedia : Método para devolver la media de una estadistica concreta
-func (rEsc RecursoEstadisticas) GetMedia(c *gin.Context) {
+func (rEst RecursoEstadisticas) GetMedia(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})
@@ -159,7 +69,7 @@ func (rEsc RecursoEstadisticas) GetMedia(c *gin.Context) {
 }
 
 //GetPrediccion : Método para devolver la prediccion de una estadistica concreta
-func (rEsc RecursoEstadisticas) GetPrediccion(c *gin.Context) {
+func (rEst RecursoEstadisticas) GetPrediccion(c *gin.Context) {
 	data, err := ioutil.ReadFile("../api/data/resultados.json")
 	if err != nil {
 		c.JSON(404, gin.H{"Error": "Not Found"})

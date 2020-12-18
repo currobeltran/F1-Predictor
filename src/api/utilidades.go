@@ -228,10 +228,6 @@ func DiseñoRutas() *gin.Engine {
 			estadistica.Get(c)
 		})
 
-		gp.PUT("/:nombreCircuito/:temporada/estadisticas", func(c *gin.Context) {
-			estadistica.Put(c)
-		})
-
 		gp.GET("/:nombreCircuito/:temporada/sesion/:nombreSesion", func(c *gin.Context) {
 			sesion.Get(c)
 		})

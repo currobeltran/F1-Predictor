@@ -123,38 +123,6 @@ func TestBuscaResultadoSesion(t *testing.T) {
 
 /************************************** TEST PUTS *********************************************/
 
-func TestCambiaEstadisticas(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("PUT", "/api/gp/australia/2019/estadisticas",
-		strings.NewReader("accidentes=2&numerosafety=0&adelantamientos=2&banderasamarillas=0&banderasrojas=1&sanciones=5&mejortiempo=1:23:456"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
-	}
-
-	matched, _ := regexp.MatchString("\"Adelantamientos\":2", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Adelantamientos\":200",
-			w.Body.String())
-	}
-
-	//Establecemos valor anterior
-	w2 := httptest.NewRecorder()
-
-	request2, _ := http.NewRequest("PUT", "/api/gp/australia/2019/estadisticas",
-		strings.NewReader("accidentes=2&numerosafety=0&adelantamientos=200&banderasamarillas=0&banderasrojas=1&sanciones=5&mejortiempo=1:23:456"))
-	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w2, request2)
-}
-
 func TestCambiaSesion(t *testing.T) {
 
 	w := httptest.NewRecorder()
