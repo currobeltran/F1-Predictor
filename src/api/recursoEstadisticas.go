@@ -1,9 +1,8 @@
 package api
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"m/src/f1predictor"
+	"regexp"
 
 	"github.com/gin-gonic/gin"
 )
@@ -38,20 +37,15 @@ func (rEst RecursoEstadisticas) Get(c *gin.Context) {
 
 //GetMedia : Método para devolver la media de una estadistica concreta
 func (rEst RecursoEstadisticas) GetMedia(c *gin.Context) {
-	data, err := ioutil.ReadFile("../api/data/resultados.json")
-	if err != nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
-	}
+	var resultadosCircuito []f1predictor.ResultadoGP
+	var resul f1predictor.ResultadoGP
 
-	var resultados map[string][]f1predictor.ResultadoGP
-	json.Unmarshal(data, &resultados)
-
-	resultadosCircuito := resultados[c.Param("nombreCircuito")]
-
-	if resultadosCircuito == nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
+	for clave, val := range rEst.estadisticas {
+		match, _ := regexp.MatchString(c.Param("nombreCircuito"), clave)
+		if match {
+			resul.SetEstadisticas(val)
+			resultadosCircuito = append(resultadosCircuito, resul)
+		}
 	}
 
 	circuito := new(f1predictor.Circuito)
@@ -70,20 +64,15 @@ func (rEst RecursoEstadisticas) GetMedia(c *gin.Context) {
 
 //GetPrediccion : Método para devolver la prediccion de una estadistica concreta
 func (rEst RecursoEstadisticas) GetPrediccion(c *gin.Context) {
-	data, err := ioutil.ReadFile("../api/data/resultados.json")
-	if err != nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
-	}
+	var resultadosCircuito []f1predictor.ResultadoGP
+	var resul f1predictor.ResultadoGP
 
-	var resultados map[string][]f1predictor.ResultadoGP
-	json.Unmarshal(data, &resultados)
-
-	resultadosCircuito := resultados[c.Param("nombreCircuito")]
-
-	if resultadosCircuito == nil {
-		c.JSON(404, gin.H{"Error": "Not Found"})
-		return
+	for clave, val := range rEst.estadisticas {
+		match, _ := regexp.MatchString(c.Param("nombreCircuito"), clave)
+		if match {
+			resul.SetEstadisticas(val)
+			resultadosCircuito = append(resultadosCircuito, resul)
+		}
 	}
 
 	circuito := new(f1predictor.Circuito)

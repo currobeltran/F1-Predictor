@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -27,7 +26,6 @@ func TestBuscaCircuito(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	fmt.Println(w.Code)
 	if w.Code != 200 {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
@@ -47,7 +45,6 @@ func TestBuscaPiloto(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	fmt.Println(w.Code)
 	if w.Code != 200 {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
@@ -67,7 +64,6 @@ func TestBuscaEscuderia(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	fmt.Println(w.Code)
 	if w.Code != 200 {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
@@ -87,7 +83,6 @@ func TestBuscaEstadisticas(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	fmt.Println(w.Code)
 	if w.Code != 200 {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
@@ -107,7 +102,6 @@ func TestBuscaResultadoSesion(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	fmt.Println(w.Code)
 	if w.Code != 200 {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
@@ -125,7 +119,7 @@ func TestBuscaResultadoSesion(t *testing.T) {
 func TestObtieneMedia(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/procesogp/australia/media/accidentes", nil)
+	request, _ := http.NewRequest("GET", "/api/procesogp/Albert Park/media/accidentes", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -133,10 +127,10 @@ func TestObtieneMedia(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched, _ := regexp.MatchString("\"Media\":2", w.Body.String())
+	matched, _ := regexp.MatchString("\"Media\":10", w.Body.String())
 
 	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Media\":2",
+		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Media\":10",
 			w.Body.String())
 	}
 }
@@ -144,7 +138,7 @@ func TestObtieneMedia(t *testing.T) {
 func TestObtienePrediccion(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/procesogp/australia/prediccion/accidentes", nil)
+	request, _ := http.NewRequest("GET", "/api/procesogp/Albert Park/prediccion/accidentes", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -152,10 +146,10 @@ func TestObtienePrediccion(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched, _ := regexp.MatchString("\"Posibles Accidentes\":2", w.Body.String())
+	matched, _ := regexp.MatchString("\"Posibles Accidentes\":10", w.Body.String())
 
 	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Posibles Accidentes\":2",
+		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese \"Posibles Accidentes\":10",
 			w.Body.String())
 	}
 }
