@@ -195,10 +195,23 @@ func DiseñoRutas() *gin.Engine {
 	var est f1predictor.EstadisticasGP
 	est.Constructor(10, 9, 8, 7, 6, 5, tiempo)
 
+	var lista [20]f1predictor.SesionPiloto
+	var sespil f1predictor.SesionPiloto
+	var tiempos []f1predictor.TiempoVuelta
+	tiempos = append(tiempos, tiempo)
+	sespil.Constructor(tiempos, hamilton, tiempo)
+	lista[0] = sespil
+
+	podio := [3]f1predictor.Piloto{hamilton, bottas, bottas}
+
+	var res f1predictor.ResultadoGP
+	res.Constructor(lista, lista, lista, lista, lista, hamilton, hamilton, podio, 2019, est)
+
 	circuito.AnadirPista(melbourne)
 	escuderia.AnadirEscuderia(mercedes)
 	piloto.AnadirPiloto(hamilton)
 	estadistica.AnadirEstadisticas(est, "Albert Park 2019")
+	sesion.AnadirResultado(res, "Albert Park 2019")
 
 	esc := r.Group("/api/escuderia")
 	{

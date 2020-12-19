@@ -104,7 +104,7 @@ func TestBuscaEstadisticas(t *testing.T) {
 func TestBuscaResultadoSesion(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/gp/australia/2019/sesion/fp1", nil)
+	request, _ := http.NewRequest("GET", "/api/gp/Albert Park/2019/sesion/fp1", nil)
 
 	r.ServeHTTP(w, request)
 
