@@ -243,9 +243,6 @@ func DiseñoRutas() *gin.Engine {
 		gp.GET("/:nombreCircuito/:temporada/sesion/:nombreSesion", func(c *gin.Context) {
 			sesion.Get(c)
 		})
-		gp.PUT("/:nombreCircuito/:temporada/sesion/:nombreSesion", func(c *gin.Context) {
-			sesion.Put(c)
-		})
 	}
 
 	proc := r.Group("api/procesogp/:nombreCircuito")

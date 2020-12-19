@@ -6,7 +6,6 @@ import (
 	"net/http/httptest"
 	"os"
 	"regexp"
-	"strings"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -119,40 +118,6 @@ func TestBuscaResultadoSesion(t *testing.T) {
 		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Tiempos\":",
 			w.Body.String())
 	}
-}
-
-/************************************** TEST PUTS *********************************************/
-
-func TestCambiaSesion(t *testing.T) {
-
-	w := httptest.NewRecorder()
-
-	request, _ := http.NewRequest("PUT", "/api/gp/australia/2019/sesion/fp1",
-		strings.NewReader("sesion=2:45:678|1:23:456#verstappen#1:23:456"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w, request)
-
-	fmt.Println(w.Code)
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
-	}
-
-	matched, _ := regexp.MatchString("Max Verstappen", w.Body.String())
-
-	if !matched {
-		t.Errorf("Cuerpo de la petición incorrecto, obtenido %s, esperado que contuviese: Max Verstappen",
-			w.Body.String())
-	}
-
-	//Establecemos valor anterior
-	w2 := httptest.NewRecorder()
-
-	request2, _ := http.NewRequest("PUT", "/api/gp/australia/2019/sesion/fp1",
-		strings.NewReader("sesion=2:45:678|1:23:456#hamilton#1:23:456"))
-	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	r.ServeHTTP(w2, request2)
 }
 
 /****************************** OTROS TESTS *************************************/
