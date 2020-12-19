@@ -1,7 +1,9 @@
 package api
 
 import (
+	"fmt"
 	"m/src/f1predictor"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +17,20 @@ func DiseñoRutas() *gin.Engine {
 	piloto := new(RecursoPiloto)
 	sesion := new(RecursoSesion)
 
-	r := gin.Default()
+	r := gin.New()
+
+	//Creamos un middleware que realice una función de logger
+	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+		return fmt.Sprintf("Fecha: %s, Método: %s, Recurso: %s, Status: %d \n",
+			param.TimeStamp.Format(time.ANSIC),
+			param.Method,
+			param.Path,
+			param.StatusCode,
+		)
+	}))
+
+	//Establecemos el middleware de recuperación tras errores 5xx
+	r.Use(gin.Recovery())
 
 	var hamilton f1predictor.Piloto
 	hamilton.Constructor("Lewis Hamilton", 92, 98, 55, 7)
