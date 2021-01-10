@@ -1,1 +1,1 @@
-web: make run-heroku
+web: bin/f1predictor

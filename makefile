@@ -13,5 +13,5 @@ travis:
 clean:
 	rm f1predictor
 
-run-heroku: build
+run-heroku:
 	./f1predictor

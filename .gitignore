@@ -16,5 +16,5 @@
 
 .vercel
 
-# Build de la API
-f1predictor
+# Ocultar binario
+bin/
