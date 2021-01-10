@@ -11,11 +11,6 @@ Nuestra aplicación tratará información de manera básica, pero intentando cum
 
 ## Platform as a Service (PaaS)
 
-Para esta última parte del proyecto, se ha planteado usar un Platform as a Service para realizar el despliegue del microservicio construido. Para ello, se ha utilizado Heroku, una plataforma freemium que nos permitirá poner en marcha nuestra aplicación de manera básica sin ningún coste. Se ha decidido escoger esta opción debido principalmente a que soporta aplicaciones escritas en Go que usan además el microframework gin-gonic; y nos permite inclusive realizar el despliegue de manera automática cada vez que actualicemos el repositorio remoto de GitHub. Con características similares también se encuentran Platform.sh o CloudFoundry; pero tienen algunos inconvenientes como que solo dan una prueba gratuita en la cual debemos introducir una tarjeta de crédito para disponer de la misma (Platform.sh) o que no se puede desplegar automáticamente desde GitHub (CloudFoundry, no se encuentra esta característica en la documentación oficial). Otras opciones, como Openshift, no permiten desplegar utilizando este lenguaje de programación.
-
-En primer lugar, para configurar la aplicación en Heroku, tendremos que crear una nueva aplicación desde el CLI con la opción --region eu y el nombre que queremos darle a la app. Posteriormente desde el panel de control disponible en la web podremos conectar nuestra cuenta de Heroku con la que tenemos en GitHub para, de esta manera, conectar la aplicación recién creada con el repositorio que dispone de los fuentes del microservicio. De esta manera, podremos realizar el despliegue automático cada vez que realicemos un push de este repositorio (y se hayan pasado los test de integración continua).
-
-El siguiente paso que tendremos que hacer para poder desplegar nuestra aplicación es crear el archivo Procfile. Este archivo nos permitirá definir los comandos que se van a ejecutar a la hora de desplegar la aplicación. Vemos como existe una única línea ya que solo necesitaremos ejecutar el microservicio, cuya orden tendrá la etiqueta web y llamará a la regla run-heroku de nuestro Makefile, que a su vez se encargará de realizar la construcción del microservicio y ejecutarlo.
 
 ## Código fuente y test del código
 
