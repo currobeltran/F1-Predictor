@@ -15,6 +15,3 @@
 # vendor/
 
 .vercel
-
-# Ocultar binario
-bin/
