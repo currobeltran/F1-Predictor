@@ -1,5 +1,5 @@
 build:
-	
+	go build -o f1predictor -v ./src/main
 
 install:
 	
@@ -9,3 +9,9 @@ test:
 
 travis:
 	docker run -t -v `pwd`:/test currobeltran/f1-predictor:latest
+
+clean:
+	rm f1predictor
+
+run-heroku: build
+	./f1predictor
