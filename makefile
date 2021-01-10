@@ -1,9 +1,7 @@
 build:
-	go build -o f1predictor -v ./src/main
 
 install:
 	
-
 test:
 	go test ./src/main ./src/f1predictor 
 
@@ -12,6 +10,3 @@ travis:
 
 clean:
 	rm f1predictor
-
-run-heroku:
-	./f1predictor
