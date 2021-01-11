@@ -1,1 +1,1 @@
-web: bin/f1predictor
+web: bin/f1-predictor
