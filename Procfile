@@ -1,1 +1,1 @@
-web: go build ./src/main && ./main
+web: bin/f1predictor

@@ -1,5 +1,5 @@
 build:
-	go build -o bin/f1predictor -v src/main/
+	go build -o bin/f1predictor -v ./src/main/
 
 install:
 	
