@@ -4,7 +4,7 @@ build:
 install:
 	
 test:
-	go test ./src/main ./src/f1predictor 
+	go test ./src/api ./src/f1predictor 
 
 travis:
 	docker run -t -v `pwd`:/test currobeltran/f1-predictor:latest
