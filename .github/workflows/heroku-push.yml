@@ -1,6 +1,9 @@
 name: Heroku
 
 on:
+    workflow_run:
+        workflows: "Travis CI"
+
     push:
         branches:
             master
