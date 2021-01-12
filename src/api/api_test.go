@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -110,6 +111,57 @@ func TestBuscaResultadoSesion(t *testing.T) {
 
 	if !matched {
 		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Tiempos\":",
+			w.Body.String())
+	}
+}
+
+/****************************** TESTS PUTS *************************************/
+func TestModificaCircuito(t *testing.T) {
+	w := httptest.NewRecorder()
+
+	request, _ := http.NewRequest("PUT", "/api/circuito/Albert Park",
+		strings.NewReader("Nombre=A&Pais=B"))
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	r.ServeHTTP(w, request)
+
+	if w.Code != 200 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	}
+
+	matched, _ := regexp.MatchString("\"Nombre\":\"A\"", w.Body.String())
+
+	if !matched {
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":A",
+			w.Body.String())
+	}
+
+	request2, _ := http.NewRequest("PUT", "/api/circuito/Albert Park",
+		strings.NewReader("Nombre=Albert Park&Pais=Australia"))
+	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	r.ServeHTTP(w, request2)
+}
+
+/****************************** TESTS POST *************************************/
+
+func TestCreaCircuito(t *testing.T) {
+	w := httptest.NewRecorder()
+
+	request, _ := http.NewRequest("POST", "/api/circuito",
+		strings.NewReader("Nombre=Mónaco&Pais=Mónaco"))
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	r.ServeHTTP(w, request)
+
+	if w.Code != 200 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	}
+
+	matched, _ := regexp.MatchString("\"Nombre\":\"Mónaco\"", w.Body.String())
+
+	if !matched {
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Mónaco",
 			w.Body.String())
 	}
 }

@@ -84,6 +84,14 @@ func DiseñoRutas() *gin.Engine {
 		circ.GET("/:nombre", func(c *gin.Context) {
 			circuito.Get(c)
 		})
+
+		circ.PUT("/:nombre", func(c *gin.Context) {
+			circuito.Put(c)
+		})
+
+		circ.POST("", func(c *gin.Context) {
+			circuito.Post(c)
+		})
 	}
 
 	pil := r.Group("/api/piloto")
