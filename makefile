@@ -3,6 +3,9 @@ build:
 
 install:
 	
+start:
+	./bin/src
+
 test:
 	go test ./src/api ./src/f1predictor 
 
