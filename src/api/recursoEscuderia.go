@@ -91,3 +91,38 @@ func (Camp Campeonato) PutEscuderia(c *gin.Context) {
 
 	c.JSON(200, escuderiaEscogida)
 }
+
+//PostEscuderia : Método con el que se podrá crear un nuevo recurso Escuderia
+func (Camp Campeonato) PostEscuderia(c *gin.Context) {
+	if c.PostForm("Nombre") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	if (c.PostForm("Piloto1") == "") || (c.PostForm("Piloto2") == "") {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	existeEscuderia := Camp.escuderias[c.PostForm("Nombre")]
+
+	if existeEscuderia.GetNombre() != "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	var nuevaEsc f1predictor.Escuderia
+
+	poles, _ := strconv.Atoi(c.PostForm("Poles"))
+	victorias, _ := strconv.Atoi(c.PostForm("Titulos"))
+	titulos, _ := strconv.Atoi(c.PostForm("Victorias"))
+	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rápidas"))
+
+	var pilotos []f1predictor.Piloto
+	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto1")])
+	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto2")])
+
+	nuevaEsc.Constructor(c.PostForm("Nombre"), pilotos, titulos, victorias, poles, vr)
+
+	c.JSON(200, nuevaEsc)
+}

@@ -181,6 +181,27 @@ func TestModificaEscuderia(t *testing.T) {
 	}
 }
 
+func TestCreaEscuderia(t *testing.T) {
+	w := httptest.NewRecorder()
+
+	request, _ := http.NewRequest("POST", "/api/escuderia",
+		strings.NewReader("Nombre=Ferrari&Piloto1=Lewis Hamilton&Piloto2=Sebastian Vettel"))
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	r.ServeHTTP(w, request)
+
+	if w.Code != 200 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	}
+
+	matched, _ := regexp.MatchString("\"Nombre\":\"Ferrari\"", w.Body.String())
+
+	if !matched {
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Ferrari",
+			w.Body.String())
+	}
+}
+
 /****************************** TESTS POST *************************************/
 
 func TestCreaCircuito(t *testing.T) {

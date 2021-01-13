@@ -84,6 +84,9 @@ func DiseñoRutas() *gin.Engine {
 		esc.PUT("/:nombre", func(c *gin.Context) {
 			campeonato.PutEscuderia(c)
 		})
+		esc.POST("", func(c *gin.Context) {
+			campeonato.PostEscuderia(c)
+		})
 	}
 
 	circ := r.Group("/api/circuito")
