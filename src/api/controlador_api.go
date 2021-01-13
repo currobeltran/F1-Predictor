@@ -38,6 +38,9 @@ func DiseñoRutas() *gin.Engine {
 	var bottas f1predictor.Piloto
 	bottas.Constructor("Valtteri Bottas", 10, 12, 14, 0)
 
+	var vettel f1predictor.Piloto
+	bottas.Constructor("Sebastian Vettel", 55, 30, 20, 4)
+
 	var pilotos []f1predictor.Piloto
 	pilotos = append(pilotos, hamilton)
 	pilotos = append(pilotos, bottas)
@@ -69,6 +72,8 @@ func DiseñoRutas() *gin.Engine {
 	circuito.AnadirPista(melbourne)
 	escuderia.AnadirEscuderia(mercedes)
 	piloto.AnadirPiloto(hamilton)
+	piloto.AnadirPiloto(bottas)
+	piloto.AnadirPiloto(vettel)
 	estadistica.AnadirEstadisticas(est, "Albert Park 2019")
 	sesion.AnadirResultado(res, "Albert Park 2019")
 
@@ -76,6 +81,9 @@ func DiseñoRutas() *gin.Engine {
 	{
 		esc.GET("/:nombre", func(c *gin.Context) {
 			escuderia.Get(c)
+		})
+		esc.PUT("/:nombre", func(c *gin.Context) {
+			escuderia.Put(c)
 		})
 	}
 
