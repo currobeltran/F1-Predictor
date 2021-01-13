@@ -68,7 +68,7 @@ func (Camp Campeonato) PutEscuderia(c *gin.Context) {
 		return
 	}
 
-	if c.PostForm("Pilotos") == "" {
+	if (c.PostForm("Piloto1") == "") || (c.PostForm("Piloto2") == "") {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}

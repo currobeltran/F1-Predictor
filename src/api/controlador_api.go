@@ -38,7 +38,7 @@ func DiseñoRutas() *gin.Engine {
 	bottas.Constructor("Valtteri Bottas", 10, 12, 14, 0)
 
 	var vettel f1predictor.Piloto
-	bottas.Constructor("Sebastian Vettel", 55, 30, 20, 4)
+	vettel.Constructor("Sebastian Vettel", 55, 30, 20, 4)
 
 	var pilotos []f1predictor.Piloto
 	pilotos = append(pilotos, hamilton)
