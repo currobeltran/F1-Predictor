@@ -79,8 +79,8 @@ func (Camp Campeonato) PutEscuderia(c *gin.Context) {
 	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rápidas"))
 
 	var pilotos []f1predictor.Piloto
-	// pilotos = append(pilotos, RecursoPiloto.obteneCampoto(c.PostForm("Piloto1")))
-	// pilotos = append(pilotos, RecursoPiloto.obteneCampoto(c.PostForm("Piloto2")))
+	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto1")])
+	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto2")])
 
 	escuderiaEscogida.SetNombre(c.PostForm("Nombre"))
 	escuderiaEscogida.SetPilotos(pilotos)
