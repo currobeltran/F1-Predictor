@@ -181,6 +181,44 @@ func TestModificaEscuderia(t *testing.T) {
 	}
 }
 
+func TestModificaPiloto(t *testing.T) {
+	w := httptest.NewRecorder()
+
+	request, _ := http.NewRequest("PUT", "/api/piloto/Lewis Hamilton",
+		strings.NewReader("Nombre=Lewis&Poles=10&Victorias=10&Mundiales=10&Vueltas Rapidas=10"))
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	r.ServeHTTP(w, request)
+
+	if w.Code != 200 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	}
+
+	matched, _ := regexp.MatchString("\"Nombre\":\"Lewis\"", w.Body.String())
+
+	if !matched {
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Lewis",
+			w.Body.String())
+	}
+
+	request2, _ := http.NewRequest("PUT", "/api/piloto/Lewis Hamilton",
+		strings.NewReader("Nombre=Lewis Hamilton&Poles=98&Victorias=92&Mundiales=7&Vueltas Rapidas=55"))
+	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	r.ServeHTTP(w, request2)
+
+	if w.Code != 200 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	}
+
+	matched2, _ := regexp.MatchString("\"Nombre\":\"Lewis Hamilton\"", w.Body.String())
+
+	if !matched2 {
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Lewis Hamilton",
+			w.Body.String())
+	}
+}
+
 func TestCreaEscuderia(t *testing.T) {
 	w := httptest.NewRecorder()
 
@@ -221,6 +259,27 @@ func TestCreaCircuito(t *testing.T) {
 
 	if !matched {
 		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Mónaco",
+			w.Body.String())
+	}
+}
+
+func TestCreaPiloto(t *testing.T) {
+	w := httptest.NewRecorder()
+
+	request, _ := http.NewRequest("POST", "/api/piloto",
+		strings.NewReader("Nombre=Fernando Alonso&Poles=20&Victorias=32&Mundiales=2&Vueltas Rapidas=19"))
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	r.ServeHTTP(w, request)
+
+	if w.Code != 200 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	}
+
+	matched, _ := regexp.MatchString("\"Nombre\":\"Fernando Alonso\"", w.Body.String())
+
+	if !matched {
+		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Fernando Alonso",
 			w.Body.String())
 	}
 }

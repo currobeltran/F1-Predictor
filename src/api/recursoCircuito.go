@@ -48,6 +48,8 @@ func (rCirc RecursoCircuito) Put(c *gin.Context) {
 	circuitoEscogido.SetNombre(c.PostForm("Nombre"))
 	circuitoEscogido.SetPais(c.PostForm("Pais"))
 
+	rCirc.circuitos[c.Param("nombre")] = circuitoEscogido
+
 	c.JSON(200, circuitoEscogido)
 }
 

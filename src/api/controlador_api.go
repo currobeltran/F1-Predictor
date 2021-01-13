@@ -109,6 +109,12 @@ func DiseñoRutas() *gin.Engine {
 		pil.GET("/:nombre", func(c *gin.Context) {
 			campeonato.GetPiloto(c)
 		})
+		pil.PUT("/:nombre", func(c *gin.Context) {
+			campeonato.PutPiloto(c)
+		})
+		pil.POST("", func(c *gin.Context) {
+			campeonato.PostPiloto(c)
+		})
 	}
 
 	gp := r.Group("api/gp")

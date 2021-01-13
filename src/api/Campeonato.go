@@ -55,7 +55,7 @@ func (Camp Campeonato) GetPiloto(c *gin.Context) {
 }
 
 //PutEscuderia : Método para cambiar las características de una escudería
-func (Camp Campeonato) PutEscuderia(c *gin.Context) {
+func (Camp *Campeonato) PutEscuderia(c *gin.Context) {
 	escuderiaEscogida := Camp.escuderias[c.Param("nombre")]
 
 	if escuderiaEscogida.GetNombre() == "" {
@@ -74,8 +74,8 @@ func (Camp Campeonato) PutEscuderia(c *gin.Context) {
 	}
 
 	poles, _ := strconv.Atoi(c.PostForm("Poles"))
-	victorias, _ := strconv.Atoi(c.PostForm("Titulos"))
-	titulos, _ := strconv.Atoi(c.PostForm("Victorias"))
+	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
+	titulos, _ := strconv.Atoi(c.PostForm("Titulos"))
 	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rápidas"))
 
 	var pilotos []f1predictor.Piloto
@@ -89,11 +89,43 @@ func (Camp Campeonato) PutEscuderia(c *gin.Context) {
 	escuderiaEscogida.SetVictorias(victorias)
 	escuderiaEscogida.SetVueltasRapidas(vr)
 
+	Camp.escuderias[c.Param("nombre")] = escuderiaEscogida
+
 	c.JSON(200, escuderiaEscogida)
 }
 
+//PutPiloto : Método para modificar la información de un piloto
+func (Camp *Campeonato) PutPiloto(c *gin.Context) {
+	pilotoEscogido := Camp.pilotos[c.Param("nombre")]
+
+	if pilotoEscogido.GetNombre() == "" {
+		c.JSON(404, gin.H{"Error": "Not Found"})
+		return
+	}
+
+	if c.PostForm("Nombre") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	poles, _ := strconv.Atoi(c.PostForm("Poles"))
+	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
+	mundiales, _ := strconv.Atoi(c.PostForm("Mundiales"))
+	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rapidas"))
+
+	pilotoEscogido.SetNombre(c.PostForm("Nombre"))
+	pilotoEscogido.SetMundiales(mundiales)
+	pilotoEscogido.SetPoles(poles)
+	pilotoEscogido.SetVictorias(victorias)
+	pilotoEscogido.SetVueltasRapidas(vr)
+
+	Camp.pilotos[c.Param("nombre")] = pilotoEscogido
+
+	c.JSON(200, pilotoEscogido)
+}
+
 //PostEscuderia : Método con el que se podrá crear un nuevo recurso Escuderia
-func (Camp Campeonato) PostEscuderia(c *gin.Context) {
+func (Camp *Campeonato) PostEscuderia(c *gin.Context) {
 	if c.PostForm("Nombre") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
@@ -114,15 +146,44 @@ func (Camp Campeonato) PostEscuderia(c *gin.Context) {
 	var nuevaEsc f1predictor.Escuderia
 
 	poles, _ := strconv.Atoi(c.PostForm("Poles"))
-	victorias, _ := strconv.Atoi(c.PostForm("Titulos"))
-	titulos, _ := strconv.Atoi(c.PostForm("Victorias"))
-	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rápidas"))
+	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
+	titulos, _ := strconv.Atoi(c.PostForm("Titulos"))
+	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rapidas"))
 
 	var pilotos []f1predictor.Piloto
 	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto1")])
 	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto2")])
 
 	nuevaEsc.Constructor(c.PostForm("Nombre"), pilotos, titulos, victorias, poles, vr)
+	Camp.escuderias[c.PostForm("Nombre")] = nuevaEsc
 
 	c.JSON(200, nuevaEsc)
+}
+
+//PostPiloto : Métood para crear un nuevo piloto
+func (Camp *Campeonato) PostPiloto(c *gin.Context) {
+	if c.PostForm("Nombre") == "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	existePiloto := Camp.pilotos[c.PostForm("Nombre")]
+
+	if existePiloto.GetNombre() != "" {
+		c.JSON(400, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	var nuevoPil f1predictor.Piloto
+
+	poles, _ := strconv.Atoi(c.PostForm("Poles"))
+	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
+	mundiales, _ := strconv.Atoi(c.PostForm("Mundiales"))
+	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rapidas"))
+
+	nuevoPil.Constructor(c.PostForm("Nombre"), victorias, poles, vr, mundiales)
+
+	Camp.pilotos[c.PostForm("Nombre")] = nuevoPil
+
+	c.JSON(200, nuevoPil)
 }
