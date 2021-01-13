@@ -12,9 +12,8 @@ import (
 //Se ponen en una función aparte para el correcto testeo
 func DiseñoRutas() *gin.Engine {
 	circuito := new(RecursoCircuito)
-	escuderia := new(RecursoEscuderia)
+	campeonato := new(Campeonato)
 	estadistica := new(RecursoEstadisticas)
-	piloto := new(RecursoPiloto)
 	sesion := new(RecursoSesion)
 
 	r := gin.New()
@@ -70,20 +69,20 @@ func DiseñoRutas() *gin.Engine {
 	res.Constructor(lista, lista, lista, lista, lista, hamilton, hamilton, podio, 2019, est)
 
 	circuito.AnadirPista(melbourne)
-	escuderia.AnadirEscuderia(mercedes)
-	piloto.AnadirPiloto(hamilton)
-	piloto.AnadirPiloto(bottas)
-	piloto.AnadirPiloto(vettel)
+	campeonato.AnadirEscuderia(mercedes)
+	campeonato.AnadirPiloto(hamilton)
+	campeonato.AnadirPiloto(bottas)
+	campeonato.AnadirPiloto(vettel)
 	estadistica.AnadirEstadisticas(est, "Albert Park 2019")
 	sesion.AnadirResultado(res, "Albert Park 2019")
 
 	esc := r.Group("/api/escuderia")
 	{
 		esc.GET("/:nombre", func(c *gin.Context) {
-			escuderia.Get(c)
+			campeonato.GetEscuderia(c)
 		})
 		esc.PUT("/:nombre", func(c *gin.Context) {
-			escuderia.Put(c)
+			campeonato.PutEscuderia(c)
 		})
 	}
 
@@ -105,7 +104,7 @@ func DiseñoRutas() *gin.Engine {
 	pil := r.Group("/api/piloto")
 	{
 		pil.GET("/:nombre", func(c *gin.Context) {
-			piloto.Get(c)
+			campeonato.GetPiloto(c)
 		})
 	}
 
