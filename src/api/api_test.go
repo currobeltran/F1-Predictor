@@ -23,7 +23,7 @@ func TestMain(m *testing.M) {
 func TestBuscaCircuito(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/circuito/Albert Park", nil)
+	request, _ := http.NewRequest("GET", "/circuito/Albert Park", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -42,7 +42,7 @@ func TestBuscaCircuito(t *testing.T) {
 func TestBuscaPiloto(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/piloto/Lewis Hamilton", nil)
+	request, _ := http.NewRequest("GET", "/piloto/Lewis Hamilton", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -61,7 +61,7 @@ func TestBuscaPiloto(t *testing.T) {
 func TestBuscaEscuderia(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/escuderia/Mercedes", nil)
+	request, _ := http.NewRequest("GET", "/escuderia/Mercedes", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -80,7 +80,7 @@ func TestBuscaEscuderia(t *testing.T) {
 func TestBuscaEstadisticas(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/gp/Albert Park/2019/estadisticas", nil)
+	request, _ := http.NewRequest("GET", "/gp/Albert Park/2019/estadisticas", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -99,7 +99,7 @@ func TestBuscaEstadisticas(t *testing.T) {
 func TestBuscaResultadoSesion(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/gp/Albert Park/2019/sesion/fp1", nil)
+	request, _ := http.NewRequest("GET", "/gp/Albert Park/2019/sesion/fp1", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -119,7 +119,7 @@ func TestBuscaResultadoSesion(t *testing.T) {
 func TestModificaCircuito(t *testing.T) {
 	w := httptest.NewRecorder()
 
-	request, _ := http.NewRequest("PUT", "/api/circuito/Albert Park",
+	request, _ := http.NewRequest("PUT", "/circuito/Albert Park",
 		strings.NewReader("Nombre=A&Pais=B"))
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -136,7 +136,7 @@ func TestModificaCircuito(t *testing.T) {
 			w.Body.String())
 	}
 
-	request2, _ := http.NewRequest("PUT", "/api/circuito/Albert Park",
+	request2, _ := http.NewRequest("PUT", "/circuito/Albert Park",
 		strings.NewReader("Nombre=Albert Park&Pais=Australia"))
 	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -146,7 +146,7 @@ func TestModificaCircuito(t *testing.T) {
 func TestModificaEscuderia(t *testing.T) {
 	w := httptest.NewRecorder()
 
-	request, _ := http.NewRequest("PUT", "/api/escuderia/Mercedes",
+	request, _ := http.NewRequest("PUT", "/escuderia/Mercedes",
 		strings.NewReader("Nombre=A&Piloto1=Lewis Hamilton&Piloto2=Sebastian Vettel"))
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -163,7 +163,7 @@ func TestModificaEscuderia(t *testing.T) {
 			w.Body.String())
 	}
 
-	request2, _ := http.NewRequest("PUT", "/api/escuderia/Mercedes",
+	request2, _ := http.NewRequest("PUT", "/escuderia/Mercedes",
 		strings.NewReader("Nombre=Mercedes&Piloto1=Lewis Hamilton&Piloto2=Valtteri Bottas&Titulos=8&Victorias=170&Poles=200&Vueltas Rapidas=180"))
 	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -184,7 +184,7 @@ func TestModificaEscuderia(t *testing.T) {
 func TestModificaPiloto(t *testing.T) {
 	w := httptest.NewRecorder()
 
-	request, _ := http.NewRequest("PUT", "/api/piloto/Lewis Hamilton",
+	request, _ := http.NewRequest("PUT", "/piloto/Lewis Hamilton",
 		strings.NewReader("Nombre=Lewis&Poles=10&Victorias=10&Mundiales=10&Vueltas Rapidas=10"))
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -201,7 +201,7 @@ func TestModificaPiloto(t *testing.T) {
 			w.Body.String())
 	}
 
-	request2, _ := http.NewRequest("PUT", "/api/piloto/Lewis Hamilton",
+	request2, _ := http.NewRequest("PUT", "/piloto/Lewis Hamilton",
 		strings.NewReader("Nombre=Lewis Hamilton&Poles=98&Victorias=92&Mundiales=7&Vueltas Rapidas=55"))
 	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -222,7 +222,7 @@ func TestModificaPiloto(t *testing.T) {
 func TestCreaEscuderia(t *testing.T) {
 	w := httptest.NewRecorder()
 
-	request, _ := http.NewRequest("POST", "/api/escuderia",
+	request, _ := http.NewRequest("POST", "/escuderia",
 		strings.NewReader("Nombre=Ferrari&Piloto1=Lewis Hamilton&Piloto2=Sebastian Vettel"))
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -245,7 +245,7 @@ func TestCreaEscuderia(t *testing.T) {
 func TestCreaCircuito(t *testing.T) {
 	w := httptest.NewRecorder()
 
-	request, _ := http.NewRequest("POST", "/api/circuito",
+	request, _ := http.NewRequest("POST", "/circuito",
 		strings.NewReader("Nombre=Mónaco&Pais=Mónaco"))
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -266,7 +266,7 @@ func TestCreaCircuito(t *testing.T) {
 func TestCreaPiloto(t *testing.T) {
 	w := httptest.NewRecorder()
 
-	request, _ := http.NewRequest("POST", "/api/piloto",
+	request, _ := http.NewRequest("POST", "/piloto",
 		strings.NewReader("Nombre=Fernando Alonso&Poles=20&Victorias=32&Mundiales=2&Vueltas Rapidas=19"))
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -289,7 +289,7 @@ func TestCreaPiloto(t *testing.T) {
 func TestObtieneMedia(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/procesogp/Albert Park/media/accidentes", nil)
+	request, _ := http.NewRequest("GET", "/procesogp/Albert Park/media/accidentes", nil)
 
 	r.ServeHTTP(w, request)
 
@@ -308,7 +308,7 @@ func TestObtieneMedia(t *testing.T) {
 func TestObtienePrediccion(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/api/procesogp/Albert Park/prediccion/accidentes", nil)
+	request, _ := http.NewRequest("GET", "/procesogp/Albert Park/prediccion/accidentes", nil)
 
 	r.ServeHTTP(w, request)
 
