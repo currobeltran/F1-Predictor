@@ -138,5 +138,9 @@ func DiseñoRutas() *gin.Engine {
 		})
 	}
 
+	r.GET("/status", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "OK"})
+	})
+
 	return r
 }
