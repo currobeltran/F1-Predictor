@@ -32,7 +32,7 @@ func (rCirc RecursoCircuito) Get(c *gin.Context) {
 }
 
 //Put : Método por el cual se modificará un circuito ya existente
-func (rCirc RecursoCircuito) Put(c *gin.Context) {
+func (rCirc *RecursoCircuito) Put(c *gin.Context) {
 	circuitoEscogido := rCirc.circuitos[c.Param("nombre")]
 
 	if circuitoEscogido.GetNombre() == "" {
@@ -54,7 +54,7 @@ func (rCirc RecursoCircuito) Put(c *gin.Context) {
 }
 
 //Post : Método por el cual se podrá crear un nuevo circuito
-func (rCirc RecursoCircuito) Post(c *gin.Context) {
+func (rCirc *RecursoCircuito) Post(c *gin.Context) {
 	if (c.PostForm("Nombre") == "") || (c.PostForm("Pais") == "") {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
@@ -71,5 +71,6 @@ func (rCirc RecursoCircuito) Post(c *gin.Context) {
 	auxCirc.Constructor(c.PostForm("Nombre"), c.PostForm("Pais"))
 	rCirc.circuitos[c.PostForm("Nombre")] = auxCirc
 
-	c.JSON(200, auxCirc)
+	URI := "/api/circuito/" + c.PostForm("Nombre")
+	c.JSON(200, gin.H{"Location": URI, "datos": auxCirc})
 }

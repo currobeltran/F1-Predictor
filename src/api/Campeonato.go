@@ -157,10 +157,11 @@ func (Camp *Campeonato) PostEscuderia(c *gin.Context) {
 	nuevaEsc.Constructor(c.PostForm("Nombre"), pilotos, titulos, victorias, poles, vr)
 	Camp.escuderias[c.PostForm("Nombre")] = nuevaEsc
 
-	c.JSON(200, nuevaEsc)
+	URI := "/api/escuderia/" + c.PostForm("Nombre")
+	c.JSON(200, gin.H{"Location": URI, "datos": nuevaEsc})
 }
 
-//PostPiloto : Métood para crear un nuevo piloto
+//PostPiloto : Método para crear un nuevo piloto
 func (Camp *Campeonato) PostPiloto(c *gin.Context) {
 	if c.PostForm("Nombre") == "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
@@ -185,5 +186,6 @@ func (Camp *Campeonato) PostPiloto(c *gin.Context) {
 
 	Camp.pilotos[c.PostForm("Nombre")] = nuevoPil
 
-	c.JSON(200, nuevoPil)
+	URI := "/api/piloto/" + c.PostForm("Nombre")
+	c.JSON(200, gin.H{"Location": URI, "datos": nuevoPil})
 }
