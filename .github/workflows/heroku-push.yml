@@ -2,7 +2,7 @@ name: Heroku
 
 on:
     workflow_run:
-        workflows: "Travis CI"
+        workflows: "Travis CI - Branch"
         types:
             - completed
 
