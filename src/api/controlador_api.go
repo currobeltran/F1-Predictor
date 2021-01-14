@@ -76,7 +76,7 @@ func DiseñoRutas() *gin.Engine {
 	estadistica.AnadirEstadisticas(est, "Albert Park 2019")
 	sesion.AnadirResultado(res, "Albert Park 2019")
 
-	esc := r.Group("/api/escuderia")
+	esc := r.Group("/escuderia")
 	{
 		esc.GET("/:nombre", func(c *gin.Context) {
 			campeonato.GetEscuderia(c)
@@ -89,7 +89,7 @@ func DiseñoRutas() *gin.Engine {
 		})
 	}
 
-	circ := r.Group("/api/circuito")
+	circ := r.Group("/circuito")
 	{
 		circ.GET("/:nombre", func(c *gin.Context) {
 			circuito.Get(c)
@@ -104,7 +104,7 @@ func DiseñoRutas() *gin.Engine {
 		})
 	}
 
-	pil := r.Group("/api/piloto")
+	pil := r.Group("/piloto")
 	{
 		pil.GET("/:nombre", func(c *gin.Context) {
 			campeonato.GetPiloto(c)
@@ -117,7 +117,7 @@ func DiseñoRutas() *gin.Engine {
 		})
 	}
 
-	gp := r.Group("api/gp")
+	gp := r.Group("gp")
 	{
 		gp.GET("/:nombreCircuito/:temporada/estadisticas", func(c *gin.Context) {
 			estadistica.Get(c)
@@ -128,7 +128,7 @@ func DiseñoRutas() *gin.Engine {
 		})
 	}
 
-	proc := r.Group("api/procesogp/:nombreCircuito")
+	proc := r.Group("procesogp/:nombreCircuito")
 	{
 		proc.GET("media/:parametro", func(c *gin.Context) {
 			estadistica.GetMedia(c)
