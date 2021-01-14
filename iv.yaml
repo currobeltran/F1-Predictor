@@ -16,3 +16,10 @@ taskfile: makefile
 URL: https://f1-predictor.vercel.app/api/clasificacion?year=2020&json=on
 
 make: make
+
+recurso:
+  nombre: circuito
+  metodo: POST
+  payload:
+    - Nombre: Interlagos
+    - Pais: Brasil
