@@ -14,4 +14,4 @@ En este apartado incluiremos las historias de usuario de nuestro proyecto, espec
 
 - [x] [H6](https://github.com/currobeltran/F1-Predictor/issues/65): Como desarrollador, quiero configurar uno o varios servicios serverless con el objetivo de desplegar una o varias funciones del proyecto
 
-- [ ] [H7](https://github.com/currobeltran/F1-Predictor/issues/71): Como usuario, quiero que existan distintas rutas en el microservicio con el objetivo de acceder a los distintos recursos del mismo
+- [x] [H7](https://github.com/currobeltran/F1-Predictor/issues/71): Como usuario, quiero que existan distintas rutas en el microservicio con el objetivo de acceder a los distintos recursos del mismo
