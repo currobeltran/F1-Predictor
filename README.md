@@ -17,7 +17,7 @@ En primer lugar, para configurar la aplicación en Heroku, tendremos que crear u
 
 Sobre el archivo de configuración que se utiliza para desplegar el microservicio, utilizaremos un archivo Procfile, el cual usa Heroku para arrancar (según las órdenes que le demos) el servicio. Vemos como hay una única línea en la que se define como iniciar el servicio web con la orden make start, que llamará a la correspondiente regla de nuestro makefile que simplemente iniciará el proceso. Si por ejemplo existiesen otros servicios, habría más etiquetas que definirían el arranque de los mismos. De esta manera también se aclara cual es la infraestructura virtual que sigue esta aplicación.
 
-Comentar también que se ha desarrollado una nueva [historia de usuario (HU8)](./docs/hu), donde se especifica que se deben incluir algunos métodos PUT y POST para modificar la información que contiene el microservicio, para que dichos datos no sean constantes respecto a la ejecución de la aplicación. Debido a esto, también se realizan modificaciones en la estructura de objetos del paquete api para conseguir un modelo de inyección de dependencias y una única fuente de verdad. En el caso del archivo [Campeonato](./src/api/Campeonato.go) se ve como dos recursos que anteriormente estaban representados en objetos separados (recursoPiloto y recursoEscuderia) forman ahora una misma entidad para que la información que necesite un recurso de tipo Escuderia sobre los pilotos se obtenga directamente del vector de pilotos que representaba anteriormente recursoPiloto.
+Comentar también que se ha desarrollado una nueva [historia de usuario (HU8)](./docs/hu.md), donde se especifica que se deben incluir algunos métodos PUT y POST para modificar la información que contiene el microservicio, para que dichos datos no sean constantes respecto a la ejecución de la aplicación. Debido a esto, también se realizan modificaciones en la estructura de objetos del paquete api para conseguir un modelo de inyección de dependencias y una única fuente de verdad. En el caso del archivo [Campeonato](./src/api/Campeonato.go) se ve como dos recursos que anteriormente estaban representados en objetos separados (recursoPiloto y recursoEscuderia) forman ahora una misma entidad para que la información que necesite un recurso de tipo Escuderia sobre los pilotos se obtenga directamente del vector de pilotos que representaba anteriormente recursoPiloto.
 
 ## Código fuente y test del código
 
@@ -41,6 +41,8 @@ En cuanto a otra información de interés, tenemos los siguientes puntos:
 - [¿Cómo he configurado git?](./docs/configuracion.md)
 - [¿Qué historias de usuario se están siguiendo?](./docs/hu.md)
 - [Información sobre contenedor de pruebas](./docs/docker.md)
+- [Información sobre serverless](./docs/Serverless.md)
+- [Información sobre microservicios](./docs/microservicios.md)
 
 ## Autor
 
