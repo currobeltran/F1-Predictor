@@ -33,6 +33,8 @@ jobs:
           else
             docker build . --file Dockerfile
           fi
+      - name: Test personalizado
+        run: make travis
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
