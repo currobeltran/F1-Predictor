@@ -17,6 +17,8 @@ URL: https://f1-predictor.vercel.app/api/clasificacion?year=2020&json=on
 
 make: make
 
+PaaS: https://f1-predictor-iv.herokuapp.com
+
 recurso:
   nombre: circuito
   metodo: POST
