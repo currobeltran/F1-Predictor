@@ -2,7 +2,7 @@ name: Heroku
 
 on:
     workflow_run:
-        workflows: "Docker"
+        workflows: "Tests"
         types:
             - completed
 
