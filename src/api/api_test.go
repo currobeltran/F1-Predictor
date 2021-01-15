@@ -228,8 +228,8 @@ func TestCreaEscuderia(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	if w.Code != 201 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 201)
 	}
 
 	matched, _ := regexp.MatchString("\"Nombre\":\"Ferrari\"", w.Body.String())
@@ -251,8 +251,8 @@ func TestCreaCircuito(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	if w.Code != 201 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 201)
 	}
 
 	matched, _ := regexp.MatchString("\"Nombre\":\"Mónaco\"", w.Body.String())
@@ -272,8 +272,8 @@ func TestCreaPiloto(t *testing.T) {
 
 	r.ServeHTTP(w, request)
 
-	if w.Code != 200 {
-		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
+	if w.Code != 201 {
+		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 201)
 	}
 
 	matched, _ := regexp.MatchString("\"Nombre\":\"Fernando Alonso\"", w.Body.String())
