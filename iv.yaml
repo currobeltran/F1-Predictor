@@ -25,3 +25,5 @@ recurso:
   payload:
     - Nombre: Interlagos
     - Pais: Brasil
+  IDs:
+    - Interlagos
