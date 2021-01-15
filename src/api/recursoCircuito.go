@@ -84,5 +84,6 @@ func (rCirc *RecursoCircuito) Post(c *gin.Context) {
 	rCirc.circuitos[peticion.Nombre] = auxCirc
 
 	URI := "/circuito/" + peticion.Nombre
-	c.JSON(201, gin.H{"Location": URI, "datos": auxCirc})
+	c.Header("Location", URI)
+	c.JSON(201, gin.H{"datos": auxCirc})
 }

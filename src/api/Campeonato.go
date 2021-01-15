@@ -162,7 +162,8 @@ func (Camp *Campeonato) PostEscuderia(c *gin.Context) {
 	Camp.escuderias[peticion.Nombre] = nuevaEsc
 
 	URI := "/escuderia/" + peticion.Nombre
-	c.JSON(201, gin.H{"Location": URI, "datos": nuevaEsc})
+	c.Header("Location", URI)
+	c.JSON(201, gin.H{"datos": nuevaEsc})
 }
 
 //PostPiloto : Método para crear un nuevo piloto
@@ -189,5 +190,6 @@ func (Camp *Campeonato) PostPiloto(c *gin.Context) {
 	Camp.pilotos[peticion.Nombre] = nuevoPil
 
 	URI := "/piloto/" + peticion.Nombre
-	c.JSON(201, gin.H{"Location": URI, "datos": nuevoPil})
+	c.Header("Location", URI)
+	c.JSON(201, gin.H{"datos": nuevoPil})
 }
