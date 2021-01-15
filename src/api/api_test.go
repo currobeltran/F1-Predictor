@@ -120,8 +120,8 @@ func TestModificaCircuito(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	request, _ := http.NewRequest("PUT", "/circuito/Albert Park",
-		strings.NewReader("Nombre=A&Pais=B"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"A\",\"Pais\":\"B\"}"))
+	request.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request)
 
@@ -246,8 +246,8 @@ func TestCreaCircuito(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	request, _ := http.NewRequest("POST", "/circuito",
-		strings.NewReader("Nombre=Mónaco&Pais=Mónaco"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"Mónaco\",\"Pais\":\"Mónaco\"}"))
+	request.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request)
 

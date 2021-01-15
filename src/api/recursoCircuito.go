@@ -11,6 +11,12 @@ type RecursoCircuito struct {
 	circuitos map[string]f1predictor.Circuito
 }
 
+//RequestCircuito : Tipo de dato creado para realizar peticiones PUT y POST sobre un recursoCircuito
+type RequestCircuito struct {
+	Nombre string `json:"Nombre" binding:"required"`
+	Pais   string `json:"Pais" binding:"required"`
+}
+
 //AnadirPista : Método que nos permitirá llevar a cabo la inyección de dependencias
 func (rCirc *RecursoCircuito) AnadirPista(c f1predictor.Circuito) {
 	if rCirc.circuitos == nil {
@@ -40,13 +46,16 @@ func (rCirc *RecursoCircuito) Put(c *gin.Context) {
 		return
 	}
 
-	if (c.PostForm("Nombre") == "") || (c.PostForm("Pais") == "") {
+	var peticion RequestCircuito
+	err := c.ShouldBindJSON(&peticion)
+
+	if err != nil {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 
-	circuitoEscogido.SetNombre(c.PostForm("Nombre"))
-	circuitoEscogido.SetPais(c.PostForm("Pais"))
+	circuitoEscogido.SetNombre(peticion.Nombre)
+	circuitoEscogido.SetPais(peticion.Pais)
 
 	rCirc.circuitos[c.Param("nombre")] = circuitoEscogido
 
@@ -55,7 +64,10 @@ func (rCirc *RecursoCircuito) Put(c *gin.Context) {
 
 //Post : Método por el cual se podrá crear un nuevo circuito
 func (rCirc *RecursoCircuito) Post(c *gin.Context) {
-	if (c.PostForm("Nombre") == "") || (c.PostForm("Pais") == "") {
+	var peticion RequestCircuito
+	err := c.ShouldBindJSON(&peticion)
+
+	if err != nil {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
@@ -68,9 +80,9 @@ func (rCirc *RecursoCircuito) Post(c *gin.Context) {
 	}
 
 	var auxCirc f1predictor.Circuito
-	auxCirc.Constructor(c.PostForm("Nombre"), c.PostForm("Pais"))
-	rCirc.circuitos[c.PostForm("Nombre")] = auxCirc
+	auxCirc.Constructor(peticion.Nombre, peticion.Pais)
+	rCirc.circuitos[peticion.Nombre] = auxCirc
 
-	URI := "/circuito/" + c.PostForm("Nombre")
+	URI := "/circuito/" + peticion.Nombre
 	c.JSON(201, gin.H{"Location": URI, "datos": auxCirc})
 }
