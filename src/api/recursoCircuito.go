@@ -72,7 +72,7 @@ func (rCirc *RecursoCircuito) Post(c *gin.Context) {
 		return
 	}
 
-	existeCircuito := rCirc.circuitos[c.PostForm("Nombre")]
+	existeCircuito := rCirc.circuitos[peticion.Nombre]
 
 	if existeCircuito.GetNombre() != "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
