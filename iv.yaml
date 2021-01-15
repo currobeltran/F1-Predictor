@@ -23,7 +23,7 @@ recurso:
   nombre: circuito
   metodo: POST
   payload:
-    - Nombre: Interlagos
-    - Pais: Brasil
+    - nombre: Interlagos
+    - pais: Brasil
   IDs:
     - Interlagos

@@ -71,6 +71,6 @@ func (rCirc *RecursoCircuito) Post(c *gin.Context) {
 	auxCirc.Constructor(c.PostForm("Nombre"), c.PostForm("Pais"))
 	rCirc.circuitos[c.PostForm("Nombre")] = auxCirc
 
-	URI := "/api/circuito/" + c.PostForm("Nombre")
-	c.JSON(200, gin.H{"Location": URI, "datos": auxCirc})
+	URI := "/circuito/" + c.PostForm("Nombre")
+	c.JSON(201, gin.H{"Location": URI, "datos": auxCirc})
 }
