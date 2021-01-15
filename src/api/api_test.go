@@ -147,8 +147,8 @@ func TestModificaEscuderia(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	request, _ := http.NewRequest("PUT", "/escuderia/Mercedes",
-		strings.NewReader("Nombre=A&Piloto1=Lewis Hamilton&Piloto2=Sebastian Vettel"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"A\",\"Piloto1\":\"Lewis Hamilton\",\"Piloto2\":\"Sebastian Vettel\",\"Titulos\":8,\"Victorias\":170,\"Poles\":200,\"Vueltas Rapidas\":180}"))
+	request.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request)
 
@@ -156,7 +156,7 @@ func TestModificaEscuderia(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched, _ := regexp.MatchString("\"Nombre\":\"A\"", w.Body.String())
+	matched, _ := regexp.MatchString("\"Victorias\":170", w.Body.String())
 
 	if !matched {
 		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":A",
@@ -164,8 +164,8 @@ func TestModificaEscuderia(t *testing.T) {
 	}
 
 	request2, _ := http.NewRequest("PUT", "/escuderia/Mercedes",
-		strings.NewReader("Nombre=Mercedes&Piloto1=Lewis Hamilton&Piloto2=Valtteri Bottas&Titulos=8&Victorias=170&Poles=200&Vueltas Rapidas=180"))
-	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"Mercedes\",\"Piloto1\":\"Lewis Hamilton\",\"Piloto2\":\"Valtteri Bottas\",\"Titulos\":8,\"Victorias\":170,\"Poles\":200,\"Vueltas Rapidas\":180}"))
+	request2.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request2)
 
@@ -223,8 +223,8 @@ func TestCreaEscuderia(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	request, _ := http.NewRequest("POST", "/escuderia",
-		strings.NewReader("Nombre=Ferrari&Piloto1=Lewis Hamilton&Piloto2=Sebastian Vettel"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"Ferrari\",\"Piloto1\":\"Lewis Hamilton\",\"Piloto2\":\"Sebastian Vettel\",\"Titulos\":8,\"Victorias\":170,\"Poles\":200,\"Vueltas Rapidas\":180}"))
+	request.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request)
 

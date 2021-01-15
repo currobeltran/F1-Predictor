@@ -14,6 +14,26 @@ type Campeonato struct {
 	pilotos    map[string]f1predictor.Piloto
 }
 
+//RequestPiloto : Tipo de dato creado para realizar peticiones PUT y POST sobre un piloto
+type RequestPiloto struct {
+	Nombre         string `json:"Nombre" binding:"required"`
+	Victorias      int    `json:"Victorias" binding:"required"`
+	Poles          int    `json:"Poles" binding:"required"`
+	VueltasRapidas int    `json:"Vueltas Rapidas" binding:"required"`
+	Mundiales      int    `json:"Mundiales" binding:"required"`
+}
+
+//RequestEscuderia : Tipo de dato creado para realizar peticiones PUT y POST sobre una escuderia
+type RequestEscuderia struct {
+	Nombre           string `json:"Nombre" binding:"required"`
+	Piloto1          string `json:"Piloto1" binding:"required"`
+	Piloto2          string `json:"Piloto2" binding:"required"`
+	TitulosMundiales int    `json:"Titulos" binding:"required"`
+	Victorias        int    `json:"Victorias" binding:"required"`
+	Poles            int    `json:"Poles" binding:"required"`
+	VueltasRapidas   int    `json:"Vueltas Rapidas" binding:"required"`
+}
+
 // AnadirEscuderia : Método que nos permitirá realizar la inyección de dependencias en RecursoEscuderia
 func (Camp *Campeonato) AnadirEscuderia(e f1predictor.Escuderia) {
 	if Camp.escuderias == nil {
@@ -63,33 +83,26 @@ func (Camp *Campeonato) PutEscuderia(c *gin.Context) {
 		return
 	}
 
-	if c.PostForm("Nombre") == "" {
+	var peticion RequestEscuderia
+	err := c.ShouldBindJSON(&peticion)
+
+	if err != nil {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
-
-	if (c.PostForm("Piloto1") == "") || (c.PostForm("Piloto2") == "") {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-
-	poles, _ := strconv.Atoi(c.PostForm("Poles"))
-	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
-	titulos, _ := strconv.Atoi(c.PostForm("Titulos"))
-	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rápidas"))
 
 	var pilotos []f1predictor.Piloto
-	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto1")])
-	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto2")])
+	pilotos = append(pilotos, Camp.pilotos[peticion.Piloto1])
+	pilotos = append(pilotos, Camp.pilotos[peticion.Piloto2])
 
-	escuderiaEscogida.SetNombre(c.PostForm("Nombre"))
+	escuderiaEscogida.SetNombre(peticion.Nombre)
 	escuderiaEscogida.SetPilotos(pilotos)
-	escuderiaEscogida.SetPoles(poles)
-	escuderiaEscogida.SetTitulosMundiales(titulos)
-	escuderiaEscogida.SetVictorias(victorias)
-	escuderiaEscogida.SetVueltasRapidas(vr)
+	escuderiaEscogida.SetPoles(peticion.Poles)
+	escuderiaEscogida.SetTitulosMundiales(peticion.TitulosMundiales)
+	escuderiaEscogida.SetVictorias(peticion.Victorias)
+	escuderiaEscogida.SetVueltasRapidas(peticion.VueltasRapidas)
 
-	Camp.escuderias[c.Param("nombre")] = escuderiaEscogida
+	Camp.escuderias[peticion.Nombre] = escuderiaEscogida
 
 	c.JSON(200, escuderiaEscogida)
 }
@@ -126,17 +139,15 @@ func (Camp *Campeonato) PutPiloto(c *gin.Context) {
 
 //PostEscuderia : Método con el que se podrá crear un nuevo recurso Escuderia
 func (Camp *Campeonato) PostEscuderia(c *gin.Context) {
-	if c.PostForm("Nombre") == "" {
+	var peticion RequestEscuderia
+	err := c.ShouldBindJSON(&peticion)
+
+	if err != nil {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 
-	if (c.PostForm("Piloto1") == "") || (c.PostForm("Piloto2") == "") {
-		c.JSON(400, gin.H{"Error": "Bad Request"})
-		return
-	}
-
-	existeEscuderia := Camp.escuderias[c.PostForm("Nombre")]
+	existeEscuderia := Camp.escuderias[peticion.Nombre]
 
 	if existeEscuderia.GetNombre() != "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
@@ -145,19 +156,15 @@ func (Camp *Campeonato) PostEscuderia(c *gin.Context) {
 
 	var nuevaEsc f1predictor.Escuderia
 
-	poles, _ := strconv.Atoi(c.PostForm("Poles"))
-	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
-	titulos, _ := strconv.Atoi(c.PostForm("Titulos"))
-	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rapidas"))
-
 	var pilotos []f1predictor.Piloto
-	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto1")])
-	pilotos = append(pilotos, Camp.pilotos[c.PostForm("Piloto2")])
+	pilotos = append(pilotos, Camp.pilotos[peticion.Piloto1])
+	pilotos = append(pilotos, Camp.pilotos[peticion.Piloto2])
 
-	nuevaEsc.Constructor(c.PostForm("Nombre"), pilotos, titulos, victorias, poles, vr)
-	Camp.escuderias[c.PostForm("Nombre")] = nuevaEsc
+	nuevaEsc.Constructor(peticion.Nombre, pilotos, peticion.TitulosMundiales, peticion.Victorias,
+		peticion.Poles, peticion.VueltasRapidas)
+	Camp.escuderias[peticion.Nombre] = nuevaEsc
 
-	URI := "/escuderia/" + c.PostForm("Nombre")
+	URI := "/escuderia/" + peticion.Nombre
 	c.JSON(201, gin.H{"Location": URI, "datos": nuevaEsc})
 }
 
