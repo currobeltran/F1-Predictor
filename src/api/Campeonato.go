@@ -176,7 +176,7 @@ func (Camp *Campeonato) PostPiloto(c *gin.Context) {
 		return
 	}
 
-	existePiloto := Camp.pilotos[c.PostForm("Nombre")]
+	existePiloto := Camp.pilotos[peticion.Nombre]
 
 	if existePiloto.GetNombre() != "" {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
