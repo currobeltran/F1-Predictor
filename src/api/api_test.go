@@ -185,8 +185,8 @@ func TestModificaPiloto(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	request, _ := http.NewRequest("PUT", "/piloto/Lewis Hamilton",
-		strings.NewReader("Nombre=Lewis&Poles=10&Victorias=10&Mundiales=10&Vueltas Rapidas=10"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"Lewis\",\"Mundiales\":7,\"Victorias\":92,\"Poles\":98,\"Vueltas Rapidas\":55}"))
+	request.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request)
 
@@ -194,7 +194,7 @@ func TestModificaPiloto(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched, _ := regexp.MatchString("\"Nombre\":\"Lewis\"", w.Body.String())
+	matched, _ := regexp.MatchString("\"Nombre\":\"Lewis\",", w.Body.String())
 
 	if !matched {
 		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Lewis",
@@ -202,8 +202,8 @@ func TestModificaPiloto(t *testing.T) {
 	}
 
 	request2, _ := http.NewRequest("PUT", "/piloto/Lewis Hamilton",
-		strings.NewReader("Nombre=Lewis Hamilton&Poles=98&Victorias=92&Mundiales=7&Vueltas Rapidas=55"))
-	request2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"Lewis Hamilton\",\"Mundiales\":7,\"Victorias\":92,\"Poles\":98,\"Vueltas Rapidas\":55}"))
+	request2.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request2)
 
@@ -211,7 +211,7 @@ func TestModificaPiloto(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 200)
 	}
 
-	matched2, _ := regexp.MatchString("\"Nombre\":\"Lewis Hamilton\"", w.Body.String())
+	matched2, _ := regexp.MatchString("\"Nombre\":\"Lewis Hamilton\",", w.Body.String())
 
 	if !matched2 {
 		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Lewis Hamilton",
@@ -267,8 +267,8 @@ func TestCreaPiloto(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	request, _ := http.NewRequest("POST", "/piloto",
-		strings.NewReader("Nombre=Fernando Alonso&Poles=20&Victorias=32&Mundiales=2&Vueltas Rapidas=19"))
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		strings.NewReader("{\"Nombre\":\"Fernando Alonso\",\"Mundiales\":7,\"Victorias\":92,\"Poles\":98,\"Vueltas Rapidas\":55}"))
+	request.Header.Add("Content-Type", "application/json")
 
 	r.ServeHTTP(w, request)
 
@@ -276,7 +276,7 @@ func TestCreaPiloto(t *testing.T) {
 		t.Errorf("Código de estado no esperado, obtenido %d esperado %d", w.Code, 201)
 	}
 
-	matched, _ := regexp.MatchString("\"Nombre\":\"Fernando Alonso\"", w.Body.String())
+	matched, _ := regexp.MatchString("\"Nombre\":\"Fernando Alonso\",", w.Body.String())
 
 	if !matched {
 		t.Errorf("Cuerpo de la petición no esperado, obtenido %s, esperado que contuviese: \"Nombre\":Fernando Alonso",

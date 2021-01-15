@@ -2,7 +2,6 @@ package api
 
 import (
 	"m/src/f1predictor"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -116,23 +115,21 @@ func (Camp *Campeonato) PutPiloto(c *gin.Context) {
 		return
 	}
 
-	if c.PostForm("Nombre") == "" {
+	var peticion RequestPiloto
+	err := c.ShouldBindJSON(&peticion)
+
+	if err != nil {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
 
-	poles, _ := strconv.Atoi(c.PostForm("Poles"))
-	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
-	mundiales, _ := strconv.Atoi(c.PostForm("Mundiales"))
-	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rapidas"))
+	pilotoEscogido.SetNombre(peticion.Nombre)
+	pilotoEscogido.SetMundiales(peticion.Mundiales)
+	pilotoEscogido.SetPoles(peticion.Poles)
+	pilotoEscogido.SetVictorias(peticion.Victorias)
+	pilotoEscogido.SetVueltasRapidas(peticion.VueltasRapidas)
 
-	pilotoEscogido.SetNombre(c.PostForm("Nombre"))
-	pilotoEscogido.SetMundiales(mundiales)
-	pilotoEscogido.SetPoles(poles)
-	pilotoEscogido.SetVictorias(victorias)
-	pilotoEscogido.SetVueltasRapidas(vr)
-
-	Camp.pilotos[c.Param("nombre")] = pilotoEscogido
+	Camp.pilotos[peticion.Nombre] = pilotoEscogido
 
 	c.JSON(200, pilotoEscogido)
 }
@@ -170,7 +167,10 @@ func (Camp *Campeonato) PostEscuderia(c *gin.Context) {
 
 //PostPiloto : Método para crear un nuevo piloto
 func (Camp *Campeonato) PostPiloto(c *gin.Context) {
-	if c.PostForm("Nombre") == "" {
+	var peticion RequestPiloto
+	err := c.ShouldBindJSON(&peticion)
+
+	if err != nil {
 		c.JSON(400, gin.H{"Error": "Bad Request"})
 		return
 	}
@@ -184,15 +184,10 @@ func (Camp *Campeonato) PostPiloto(c *gin.Context) {
 
 	var nuevoPil f1predictor.Piloto
 
-	poles, _ := strconv.Atoi(c.PostForm("Poles"))
-	victorias, _ := strconv.Atoi(c.PostForm("Victorias"))
-	mundiales, _ := strconv.Atoi(c.PostForm("Mundiales"))
-	vr, _ := strconv.Atoi(c.PostForm("Vueltas Rapidas"))
+	nuevoPil.Constructor(peticion.Nombre, peticion.Victorias, peticion.Poles, peticion.VueltasRapidas, peticion.Mundiales)
 
-	nuevoPil.Constructor(c.PostForm("Nombre"), victorias, poles, vr, mundiales)
+	Camp.pilotos[peticion.Nombre] = nuevoPil
 
-	Camp.pilotos[c.PostForm("Nombre")] = nuevoPil
-
-	URI := "/piloto/" + c.PostForm("Nombre")
+	URI := "/piloto/" + peticion.Nombre
 	c.JSON(201, gin.H{"Location": URI, "datos": nuevoPil})
 }
